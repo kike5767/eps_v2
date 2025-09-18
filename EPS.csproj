@@ -7,4 +7,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="backup\**\*.cs" />
+    <Compile Remove="BackupEPS\**\*.cs" />
+  </ItemGroup>
+
 </Project>

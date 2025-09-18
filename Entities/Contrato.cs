@@ -8,10 +8,13 @@ namespace EPS.Entities
         [Key]
         public int Id { get; set; }
         
+        [Range(1, int.MaxValue)]
         public int AfiliadoId { get; set; }
         
+        [Range(1, int.MaxValue)]
         public int PlanEPSId { get; set; }
         
+        [Required]
         [DataType(DataType.DateTime)]
         public DateTime FechaInicio { get; set; }
         
