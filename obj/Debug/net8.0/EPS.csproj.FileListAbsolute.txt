@@ -2,13 +2,4 @@ C:\EPS\obj\Debug\net8.0\EPS.GeneratedMSBuildEditorConfig.editorconfig
 C:\EPS\obj\Debug\net8.0\EPS.AssemblyInfoInputs.cache
 C:\EPS\obj\Debug\net8.0\EPS.AssemblyInfo.cs
 C:\EPS\obj\Debug\net8.0\EPS.csproj.CoreCompileInputs.cache
-C:\EPS\bin\Debug\net8.0\EPS.exe
-C:\EPS\bin\Debug\net8.0\EPS.deps.json
-C:\EPS\bin\Debug\net8.0\EPS.runtimeconfig.json
-C:\EPS\bin\Debug\net8.0\EPS.dll
-C:\EPS\bin\Debug\net8.0\EPS.pdb
-C:\EPS\obj\Debug\net8.0\EPS.dll
-C:\EPS\obj\Debug\net8.0\refint\EPS.dll
-C:\EPS\obj\Debug\net8.0\EPS.pdb
-C:\EPS\obj\Debug\net8.0\EPS.genruntimeconfig.cache
-C:\EPS\obj\Debug\net8.0\ref\EPS.dll
+C:\EPS\obj\Debug\net8.0\EPS.sourcelink.json

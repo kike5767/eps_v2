@@ -1,8 +1,12 @@
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPS", "EPS.csproj", "{98E7B2F9-767E-146C-37BC-5BD2858AC835}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F9166704-DFCE-468A-9A46-A1F06685843B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPS.Tests", "Tests\EPS.Tests\EPS.Tests.csproj", "{5C1442DC-B8CF-4CD8-A688-0648AAD43894}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -14,11 +18,18 @@ Global
 		{98E7B2F9-767E-146C-37BC-5BD2858AC835}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98E7B2F9-767E-146C-37BC-5BD2858AC835}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98E7B2F9-767E-146C-37BC-5BD2858AC835}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C1442DC-B8CF-4CD8-A688-0648AAD43894}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C1442DC-B8CF-4CD8-A688-0648AAD43894}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C1442DC-B8CF-4CD8-A688-0648AAD43894}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C1442DC-B8CF-4CD8-A688-0648AAD43894}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {871691A0-5F69-4D13-A32F-DC004128A359}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5C1442DC-B8CF-4CD8-A688-0648AAD43894} = {F9166704-DFCE-468A-9A46-A1F06685843B}
 	EndGlobalSection
 EndGlobal

@@ -1,0 +1,87 @@
+===== Archivo: SQLQuery1.sql ===== 
+INSERT INTO Departamento (Nombre) VALUES ('Antioquia'), ('Cundinamarca');
+INSERT INTO Municipio (Nombre, DepartamentoId, Codigo) VALUES ('Medellín', 1, '001'), ('Bogotá', 2, '002');
+INSERT INTO PlanEPS (Nombre, Cobertura) VALUES ('Plan Básico', 'Nacional'), ('Plan Premium', 'Nacional');
+INSERT INTO Afiliado (Nombre, Documento, Email, FechaNacimiento) VALUES ('Luis Morales', '123456789', 'luis@example.com', '1990-05-15');
+-- Incluye todas las tablas, relaciones PK/FK e índices
+IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = 'EPSDB')
+CREATE TABLE Departamento (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre VARCHAR(50) NOT NULL
+CREATE TABLE Municipio (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre VARCHAR(100) NOT NULL,
+    DepartamentoId INT NOT NULL,
+    Codigo VARCHAR(10) NOT NULL,
+    CONSTRAINT FK_Municipio_Departamento FOREIGN KEY (DepartamentoId) REFERENCES Departamento(Id)
+CREATE TABLE PlanEPS (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre VARCHAR(50) NOT NULL,
+    Cobertura VARCHAR(50) NOT NULL
+CREATE TABLE Afiliado (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre VARCHAR(50) NOT NULL,
+    Documento VARCHAR(20) NOT NULL,
+    Email VARCHAR(50) NOT NULL,
+CREATE TABLE Categoria (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre VARCHAR(50) NOT NULL
+CREATE TABLE Cita (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    AfiliadoId INT NOT NULL,
+    Fecha DATETIME2 NOT NULL,
+    Hora TIME NOT NULL,
+    CONSTRAINT FK_Cita_Afiliado FOREIGN KEY (AfiliadoId) REFERENCES Afiliado(Id)
+CREATE TABLE AfiliadoDetalle (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    AfiliadoId INT NOT NULL,
+    TipoDetalle VARCHAR(50) NOT NULL,
+    Valor VARCHAR(100) NOT NULL,
+    FechaRegistro DATETIME2 NOT NULL,
+    CONSTRAINT FK_AfiliadoDetalle_Afiliado FOREIGN KEY (AfiliadoId) REFERENCES Afiliado(Id)
+CREATE TABLE Contrato (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    AfiliadoId INT NOT NULL,
+    PlanEPSId INT NOT NULL,
+    FechaInicio DATETIME2 NOT NULL,
+    FechaFin DATETIME2 NULL,
+    CONSTRAINT FK_Contrato_Afiliado FOREIGN KEY (AfiliadoId) REFERENCES Afiliado(Id),
+    CONSTRAINT FK_Contrato_PlanEPS FOREIGN KEY (PlanEPSId) REFERENCES PlanEPS(Id)
+CREATE TABLE Pago (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    ContratoId INT NOT NULL,
+    Valor DECIMAL(18,2) NOT NULL CHECK (Valor >= 0),
+    Fecha DATETIME2 NOT NULL,
+    CONSTRAINT FK_Pago_Contrato FOREIGN KEY (ContratoId) REFERENCES Contrato(Id)
+CREATE TABLE Factura (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    PagoId INT NOT NULL UNIQUE,
+    Numero VARCHAR(50) NOT NULL,
+    Fecha DATETIME2 NOT NULL,
+    CONSTRAINT FK_Factura_Pago FOREIGN KEY (PagoId) REFERENCES Pago(Id)
+CREATE TABLE HistoriaMedica (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    AfiliadoId INT NOT NULL,
+    Diagnostico VARCHAR(100) NOT NULL,
+    Fecha DATETIME2 NOT NULL,
+    CONSTRAINT FK_HistoriaMedica_Afiliado FOREIGN KEY (AfiliadoId) REFERENCES Afiliado(Id)
+CREATE TABLE Indicador (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre VARCHAR(50) NOT NULL,
+    Valor DECIMAL(18,2) NOT NULL CHECK (Valor >= 0)
+CREATE TABLE Reporte (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Descripcion VARCHAR(100) NOT NULL,
+CREATE TABLE Usuario (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre VARCHAR(50) NOT NULL,
+    Email VARCHAR(50) NOT NULL,
+    Clave VARCHAR(50) NOT NULL
+CREATE TABLE Rol (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre VARCHAR(50) NOT NULL,
+    Descripcion VARCHAR(200) NOT NULL
+CREATE UNIQUE INDEX UX_Afiliado_Documento ON Afiliado(Documento);
+CREATE UNIQUE INDEX UX_Factura_Numero ON Factura(Numero);
+-- 4. Se creará la base de datos EPSDB con todas las tablas, relaciones PK/FK e índices.
+ 
