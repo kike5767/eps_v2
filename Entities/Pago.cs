@@ -18,7 +18,7 @@ namespace EPS.Entities
         
         [Required]
         [DataType(DataType.DateTime)]
-        public DateTime Fecha { get; set; }
+        public DateTime? Fecha { get; set; }
     }
 }
 

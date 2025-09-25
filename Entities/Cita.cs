@@ -13,10 +13,10 @@ namespace EPS.Entities
         
         [Required]
         [DataType(DataType.DateTime)]
-        public DateTime Fecha { get; set; }
+        public DateTime? Fecha { get; set; }
         
         [Required]
-        public TimeSpan Hora { get; set; }
+        public TimeSpan? Hora { get; set; }
     }
 }
 

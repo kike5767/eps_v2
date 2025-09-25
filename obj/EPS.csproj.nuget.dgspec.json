@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\EPS\\EPS.csproj": {}
+    "C:\\EPS_v2\\EPS.csproj": {}
   },
   "projects": {
-    "C:\\EPS\\EPS.csproj": {
+    "C:\\EPS_v2\\EPS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\EPS\\EPS.csproj",
+        "projectUniqueName": "C:\\EPS_v2\\EPS.csproj",
         "projectName": "EPS",
-        "projectPath": "C:\\EPS\\EPS.csproj",
+        "projectPath": "C:\\EPS_v2\\EPS.csproj",
         "packagesPath": "C:\\Users\\DAVID\\.nuget\\packages\\",
-        "outputPath": "C:\\EPS\\obj\\",
+        "outputPath": "C:\\EPS_v2\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -10,6 +10,7 @@
   <ItemGroup>
     <Compile Remove="backup\**\*.cs" />
     <Compile Remove="BackupEPS\**\*.cs" />
+    <Compile Remove="Tests\**\*.cs" />
   </ItemGroup>
 
 </Project>

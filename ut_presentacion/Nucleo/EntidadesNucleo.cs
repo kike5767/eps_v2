@@ -1,0 +1,1 @@
+﻿// EntidadesNucleo.cs - stub (optional)

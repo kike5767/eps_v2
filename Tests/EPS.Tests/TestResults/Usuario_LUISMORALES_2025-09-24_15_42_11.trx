@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="bf5156a5-edd6-486c-8999-84b1032ce5a9" name="Usuario@LUISMORALES 2025-09-24 15:42:11" runUser="LUISMORALES\Usuario" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2025-09-24T15:42:11.7096512-05:00" queuing="2025-09-24T15:42:11.7096520-05:00" start="2025-09-24T15:42:06.1048757-05:00" finish="2025-09-24T15:42:11.9886953-05:00" />
+  <TestSettings name="default" id="7f894f7b-61c7-4a89-991d-9c9e641d6105">
+    <Deployment runDeploymentRoot="Usuario_LUISMORALES_2025-09-24_15_42_11" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="1380f223-fd9f-473b-9fc5-10149ebf35b4" testId="10935423-a2af-f160-572d-7ca4e20aa9b1" testName="EPS.Tests.IndicadorTests.Nombre_IsRequired" computerName="LUISMORALES" duration="00:00:00.0005101" startTime="2025-09-24T15:42:11.6270143-05:00" endTime="2025-09-24T15:42:11.6270145-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1380f223-fd9f-473b-9fc5-10149ebf35b4" />
+    <UnitTestResult executionId="02655cc9-b11b-420e-a369-ab73bb3c391f" testId="f8653f4b-f070-c6df-e7a1-f8e492add2fc" testName="EPS.Tests.IndicadorTests.Nombre_MaxLength50" computerName="LUISMORALES" duration="00:00:00.0644842" startTime="2025-09-24T15:42:11.5444550-05:00" endTime="2025-09-24T15:42:11.5444551-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="02655cc9-b11b-420e-a369-ab73bb3c391f" />
+    <UnitTestResult executionId="75475012-7efd-48e8-97ad-22e2671ed8a4" testId="50d7f478-033f-4d5b-b5fb-6bcc82fe632e" testName="EPS.Tests.UsuarioTests.Clave_IsRequired" computerName="LUISMORALES" duration="00:00:00.0039791" startTime="2025-09-24T15:42:11.5454368-05:00" endTime="2025-09-24T15:42:11.5454371-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="75475012-7efd-48e8-97ad-22e2671ed8a4" />
+    <UnitTestResult executionId="949d8c3b-85bf-4c07-9e61-2b02eef6cdeb" testId="8098a641-41b2-5056-92a9-406dd770b6b7" testName="EPS.Tests.IndicadorTests.Valor_CannotBeNegative" computerName="LUISMORALES" duration="00:00:00.0292994" startTime="2025-09-24T15:42:11.6207081-05:00" endTime="2025-09-24T15:42:11.6207083-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="949d8c3b-85bf-4c07-9e61-2b02eef6cdeb" />
+    <UnitTestResult executionId="15c33452-35d6-4287-a7be-04aa357048f4" testId="f4a6fcf0-cd92-80bd-956a-966255ba1c6e" testName="EPS.Tests.UsuarioTests.Email_Format" computerName="LUISMORALES" duration="00:00:00.0004469" startTime="2025-09-24T15:42:11.5460415-05:00" endTime="2025-09-24T15:42:11.5460418-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="15c33452-35d6-4287-a7be-04aa357048f4" />
+    <UnitTestResult executionId="89fe9fac-c72c-4ee7-b3ab-193d63626f6d" testId="cbca944f-f5df-12c0-415a-e2f2fe90a763" testName="EPS.Tests.AfiliadoTests.Documento_MaxLength20" computerName="LUISMORALES" duration="00:00:00.0118721" startTime="2025-09-24T15:42:11.6204297-05:00" endTime="2025-09-24T15:42:11.6204303-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="89fe9fac-c72c-4ee7-b3ab-193d63626f6d" />
+    <UnitTestResult executionId="cb9108c1-cbef-4f2a-897c-dae14b878ab1" testId="da1d07f4-3be4-4137-6137-cac3eb9065e3" testName="EPS.Tests.CitaTests.Hora_IsRequired" computerName="LUISMORALES" duration="00:00:00.0014996" startTime="2025-09-24T15:42:11.6198821-05:00" endTime="2025-09-24T15:42:11.6198825-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cb9108c1-cbef-4f2a-897c-dae14b878ab1" />
+    <UnitTestResult executionId="184206c6-f6b9-4bef-945f-b20a340f452d" testId="3b91821b-b212-046d-8dc2-33da05c8a525" testName="EPS.Tests.PagoTests.Fecha_IsRequired" computerName="LUISMORALES" duration="00:00:00.0709548" startTime="2025-09-24T15:42:11.5462836-05:00" endTime="2025-09-24T15:42:11.5462838-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="184206c6-f6b9-4bef-945f-b20a340f452d" />
+    <UnitTestResult executionId="fdd691ef-79ec-4d89-9a20-2108ea1c2cbe" testId="f699c348-9716-ce6d-b844-9a7e1dac4ce7" testName="EPS.Tests.PagoTests.Valor_CannotBeNegative" computerName="LUISMORALES" duration="00:00:00.0184907" startTime="2025-09-24T15:42:11.6207843-05:00" endTime="2025-09-24T15:42:11.6207846-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fdd691ef-79ec-4d89-9a20-2108ea1c2cbe" />
+    <UnitTestResult executionId="03056843-5c43-4fc3-a243-b69f05bcc410" testId="cb756c62-e1d0-32a6-3c06-94d707f9ec1f" testName="EPS.Tests.CategoriaTests.Nombre_IsRequired" computerName="LUISMORALES" duration="00:00:00.0006338" startTime="2025-09-24T15:42:11.5427774-05:00" endTime="2025-09-24T15:42:11.5427778-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="03056843-5c43-4fc3-a243-b69f05bcc410" />
+    <UnitTestResult executionId="af8928a6-18fa-4945-a938-0604bf80708b" testId="49872a18-a8cf-d357-ff78-a6b60f42478a" testName="EPS.Tests.PagoTests.ContratoId_MustBeAtLeast1" computerName="LUISMORALES" duration="00:00:00.0041092" startTime="2025-09-24T15:42:11.6179191-05:00" endTime="2025-09-24T15:42:11.6179194-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="af8928a6-18fa-4945-a938-0604bf80708b" />
+    <UnitTestResult executionId="e23b1306-e6a6-4d7a-b837-f4eb0ccca2b3" testId="aa2ba863-6239-f826-ee3a-311700466e94" testName="EPS.Tests.CitaTests.AfiliadoId_MustBeAtLeast1" computerName="LUISMORALES" duration="00:00:00.0061837" startTime="2025-09-24T15:42:11.6195403-05:00" endTime="2025-09-24T15:42:11.6195407-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e23b1306-e6a6-4d7a-b837-f4eb0ccca2b3" />
+    <UnitTestResult executionId="9e670627-af13-4da3-93dc-9655b808ed06" testId="c5a9ef99-2c79-3fc9-e261-2562256c2f22" testName="EPS.Tests.UnitTest1.Test1" computerName="LUISMORALES" duration="00:00:00.0002707" startTime="2025-09-24T15:42:11.6190558-05:00" endTime="2025-09-24T15:42:11.6190561-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9e670627-af13-4da3-93dc-9655b808ed06" />
+    <UnitTestResult executionId="6c987e2e-137a-43b6-9c5f-4072b8d23575" testId="60cac72b-e320-f5d7-0f3c-94585c763f38" testName="EPS.Tests.AfiliadoTests.Nombre_IsRequired" computerName="LUISMORALES" duration="00:00:00.0005107" startTime="2025-09-24T15:42:11.6275121-05:00" endTime="2025-09-24T15:42:11.6275123-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6c987e2e-137a-43b6-9c5f-4072b8d23575" />
+    <UnitTestResult executionId="6f1822f6-7ee4-4c39-9285-871dffbcc5ef" testId="86710fa4-1283-d97c-d8f4-c472d2c0a3d9" testName="EPS.Tests.CitaTests.Fecha_IsRequired" computerName="LUISMORALES" duration="00:00:00.0006109" startTime="2025-09-24T15:42:11.6201983-05:00" endTime="2025-09-24T15:42:11.6201986-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6f1822f6-7ee4-4c39-9285-871dffbcc5ef" />
+    <UnitTestResult executionId="5eab6688-80cc-4cbe-8373-92553fb06483" testId="24d1a129-763f-a432-8487-f3a45af69b26" testName="EPS.Tests.CategoriaTests.Categoria_Valid_NoErrors" computerName="LUISMORALES" duration="00:00:00.0479815" startTime="2025-09-24T15:42:11.5257256-05:00" endTime="2025-09-24T15:42:11.5258186-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5eab6688-80cc-4cbe-8373-92553fb06483" />
+    <UnitTestResult executionId="91aaf930-b5d1-4454-95fe-9d18079dc661" testId="7ff878d0-ff2d-e361-74a1-326bc414430f" testName="EPS.Tests.UsuarioTests.Nombre_IsRequired" computerName="LUISMORALES" duration="00:00:00.0448553" startTime="2025-09-24T15:42:11.5446128-05:00" endTime="2025-09-24T15:42:11.5446130-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="91aaf930-b5d1-4454-95fe-9d18079dc661" />
+    <UnitTestResult executionId="e037cc87-95cd-4bf3-af86-0cd0dcdc28f9" testId="b663cbf3-a0bd-3577-0390-db6a3ca05596" testName="EPS.Tests.CategoriaTests.Nombre_MaxLength50" computerName="LUISMORALES" duration="00:00:00.0005191" startTime="2025-09-24T15:42:11.5442714-05:00" endTime="2025-09-24T15:42:11.5442717-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e037cc87-95cd-4bf3-af86-0cd0dcdc28f9" />
+    <UnitTestResult executionId="fc446731-49ed-4686-b5cc-2ff6d296382e" testId="86f01a35-236d-fdce-fe36-f3ab8bcaa023" testName="EPS.Tests.AfiliadoTests.Email_MustBeValid" computerName="LUISMORALES" duration="00:00:00.0189572" startTime="2025-09-24T15:42:11.6272253-05:00" endTime="2025-09-24T15:42:11.6272255-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fc446731-49ed-4686-b5cc-2ff6d296382e" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="EPS.Tests.AfiliadoTests.Documento_MaxLength20" storage="c:\eps_v2\tests\eps.tests\bin\debug\net8.0\eps.tests.dll" id="cbca944f-f5df-12c0-415a-e2f2fe90a763">
+      <Execution id="89fe9fac-c72c-4ee7-b3ab-193d63626f6d" />
+      <TestMethod codeBase="C:\EPS_v2\Tests\EPS.Tests\bin\Debug\net8.0\EPS.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="EPS.Tests.AfiliadoTests" name="Documento_MaxLength20" />
+    </UnitTest>
+    <UnitTest name="EPS.Tests.IndicadorTests.Valor_CannotBeNegative" storage="c:\eps_v2\tests\eps.tests\bin\debug\net8.0\eps.tests.dll" id="8098a641-41b2-5056-92a9-406dd770b6b7">
+      <Execution id="949d8c3b-85bf-4c07-9e61-2b02eef6cdeb" />
+      <TestMethod codeBase="C:\EPS_v2\Tests\EPS.Tests\bin\Debug\net8.0\EPS.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="EPS.Tests.IndicadorTests" name="Valor_CannotBeNegative" />
+    </UnitTest>
+    <UnitTest name="EPS.Tests.CategoriaTests.Nombre_IsRequired" storage="c:\eps_v2\tests\eps.tests\bin\debug\net8.0\eps.tests.dll" id="cb756c62-e1d0-32a6-3c06-94d707f9ec1f">
+      <Execution id="03056843-5c43-4fc3-a243-b69f05bcc410" />
+      <TestMethod codeBase="C:\EPS_v2\Tests\EPS.Tests\bin\Debug\net8.0\EPS.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="EPS.Tests.CategoriaTests" name="Nombre_IsRequired" />
+    </UnitTest>
+    <UnitTest name="EPS.Tests.CategoriaTests.Categoria_Valid_NoErrors" storage="c:\eps_v2\tests\eps.tests\bin\debug\net8.0\eps.tests.dll" id="24d1a129-763f-a432-8487-f3a45af69b26">
+      <Execution id="5eab6688-80cc-4cbe-8373-92553fb06483" />
+      <TestMethod codeBase="C:\EPS_v2\Tests\EPS.Tests\bin\Debug\net8.0\EPS.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="EPS.Tests.CategoriaTests" name="Categoria_Valid_NoErrors" />
+    </UnitTest>
+    <UnitTest name="EPS.Tests.PagoTests.Valor_CannotBeNegative" storage="c:\eps_v2\tests\eps.tests\bin\debug\net8.0\eps.tests.dll" id="f699c348-9716-ce6d-b844-9a7e1dac4ce7">
+      <Execution id="fdd691ef-79ec-4d89-9a20-2108ea1c2cbe" />
+      <TestMethod codeBase="C:\EPS_v2\Tests\EPS.Tests\bin\Debug\net8.0\EPS.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="EPS.Tests.PagoTests" name="Valor_CannotBeNegative" />
+    </UnitTest>
+    <UnitTest name="EPS.Tests.UnitTest1.Test1" storage="c:\eps_v2\tests\eps.tests\bin\debug\net8.0\eps.tests.dll" id="c5a9ef99-2c79-3fc9-e261-2562256c2f22">
+      <Execution id="9e670627-af13-4da3-93dc-9655b808ed06" />
+      <TestMethod codeBase="C:\EPS_v2\Tests\EPS.Tests\bin\Debug\net8.0\EPS.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="EPS.Tests.UnitTest1" name="Test1" />
+    </UnitTest>
+    <UnitTest name="EPS.Tests.AfiliadoTests.Email_MustBeValid" storage="c:\eps_v2\tests\eps.tests\bin\debug\net8.0\eps.tests.dll" id="86f01a35-236d-fdce-fe36-f3ab8bcaa023">
+      <Execution id="fc446731-49ed-4686-b5cc-2ff6d296382e" />
+      <TestMethod codeBase="C:\EPS_v2\Tests\EPS.Tests\bin\Debug\net8.0\EPS.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="EPS.Tests.AfiliadoTests" name="Email_MustBeValid" />
+    </UnitTest>
+    <UnitTest name="EPS.Tests.UsuarioTests.Clave_IsRequired" storage="c:\eps_v2\tests\eps.tests\bin\debug\net8.0\eps.tests.dll" id="50d7f478-033f-4d5b-b5fb-6bcc82fe632e">
+      <Execution id="75475012-7efd-48e8-97ad-22e2671ed8a4" />
+      <TestMethod codeBase="C:\EPS_v2\Tests\EPS.Tests\bin\Debug\net8.0\EPS.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="EPS.Tests.UsuarioTests" name="Clave_IsRequired" />
+    </UnitTest>
+    <UnitTest name="EPS.Tests.PagoTests.Fecha_IsRequired" storage="c:\eps_v2\tests\eps.tests\bin\debug\net8.0\eps.tests.dll" id="3b91821b-b212-046d-8dc2-33da05c8a525">
+      <Execution id="184206c6-f6b9-4bef-945f-b20a340f452d" />
+      <TestMethod codeBase="C:\EPS_v2\Tests\EPS.Tests\bin\Debug\net8.0\EPS.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="EPS.Tests.PagoTests" name="Fecha_IsRequired" />
+    </UnitTest>
+    <UnitTest name="EPS.Tests.CategoriaTests.Nombre_MaxLength50" storage="c:\eps_v2\tests\eps.tests\bin\debug\net8.0\eps.tests.dll" id="b663cbf3-a0bd-3577-0390-db6a3ca05596">
+      <Execution id="e037cc87-95cd-4bf3-af86-0cd0dcdc28f9" />
+      <TestMethod codeBase="C:\EPS_v2\Tests\EPS.Tests\bin\Debug\net8.0\EPS.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="EPS.Tests.CategoriaTests" name="Nombre_MaxLength50" />
+    </UnitTest>
+    <UnitTest name="EPS.Tests.CitaTests.Hora_IsRequired" storage="c:\eps_v2\tests\eps.tests\bin\debug\net8.0\eps.tests.dll" id="da1d07f4-3be4-4137-6137-cac3eb9065e3">
+      <Execution id="cb9108c1-cbef-4f2a-897c-dae14b878ab1" />
+      <TestMethod codeBase="C:\EPS_v2\Tests\EPS.Tests\bin\Debug\net8.0\EPS.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="EPS.Tests.CitaTests" name="Hora_IsRequired" />
+    </UnitTest>
+    <UnitTest name="EPS.Tests.UsuarioTests.Nombre_IsRequired" storage="c:\eps_v2\tests\eps.tests\bin\debug\net8.0\eps.tests.dll" id="7ff878d0-ff2d-e361-74a1-326bc414430f">
+      <Execution id="91aaf930-b5d1-4454-95fe-9d18079dc661" />
+      <TestMethod codeBase="C:\EPS_v2\Tests\EPS.Tests\bin\Debug\net8.0\EPS.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="EPS.Tests.UsuarioTests" name="Nombre_IsRequired" />
+    </UnitTest>
+    <UnitTest name="EPS.Tests.CitaTests.AfiliadoId_MustBeAtLeast1" storage="c:\eps_v2\tests\eps.tests\bin\debug\net8.0\eps.tests.dll" id="aa2ba863-6239-f826-ee3a-311700466e94">
+      <Execution id="e23b1306-e6a6-4d7a-b837-f4eb0ccca2b3" />
+      <TestMethod codeBase="C:\EPS_v2\Tests\EPS.Tests\bin\Debug\net8.0\EPS.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="EPS.Tests.CitaTests" name="AfiliadoId_MustBeAtLeast1" />
+    </UnitTest>
+    <UnitTest name="EPS.Tests.IndicadorTests.Nombre_MaxLength50" storage="c:\eps_v2\tests\eps.tests\bin\debug\net8.0\eps.tests.dll" id="f8653f4b-f070-c6df-e7a1-f8e492add2fc">
+      <Execution id="02655cc9-b11b-420e-a369-ab73bb3c391f" />
+      <TestMethod codeBase="C:\EPS_v2\Tests\EPS.Tests\bin\Debug\net8.0\EPS.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="EPS.Tests.IndicadorTests" name="Nombre_MaxLength50" />
+    </UnitTest>
+    <UnitTest name="EPS.Tests.CitaTests.Fecha_IsRequired" storage="c:\eps_v2\tests\eps.tests\bin\debug\net8.0\eps.tests.dll" id="86710fa4-1283-d97c-d8f4-c472d2c0a3d9">
+      <Execution id="6f1822f6-7ee4-4c39-9285-871dffbcc5ef" />
+      <TestMethod codeBase="C:\EPS_v2\Tests\EPS.Tests\bin\Debug\net8.0\EPS.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="EPS.Tests.CitaTests" name="Fecha_IsRequired" />
+    </UnitTest>
+    <UnitTest name="EPS.Tests.IndicadorTests.Nombre_IsRequired" storage="c:\eps_v2\tests\eps.tests\bin\debug\net8.0\eps.tests.dll" id="10935423-a2af-f160-572d-7ca4e20aa9b1">
+      <Execution id="1380f223-fd9f-473b-9fc5-10149ebf35b4" />
+      <TestMethod codeBase="C:\EPS_v2\Tests\EPS.Tests\bin\Debug\net8.0\EPS.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="EPS.Tests.IndicadorTests" name="Nombre_IsRequired" />
+    </UnitTest>
+    <UnitTest name="EPS.Tests.UsuarioTests.Email_Format" storage="c:\eps_v2\tests\eps.tests\bin\debug\net8.0\eps.tests.dll" id="f4a6fcf0-cd92-80bd-956a-966255ba1c6e">
+      <Execution id="15c33452-35d6-4287-a7be-04aa357048f4" />
+      <TestMethod codeBase="C:\EPS_v2\Tests\EPS.Tests\bin\Debug\net8.0\EPS.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="EPS.Tests.UsuarioTests" name="Email_Format" />
+    </UnitTest>
+    <UnitTest name="EPS.Tests.PagoTests.ContratoId_MustBeAtLeast1" storage="c:\eps_v2\tests\eps.tests\bin\debug\net8.0\eps.tests.dll" id="49872a18-a8cf-d357-ff78-a6b60f42478a">
+      <Execution id="af8928a6-18fa-4945-a938-0604bf80708b" />
+      <TestMethod codeBase="C:\EPS_v2\Tests\EPS.Tests\bin\Debug\net8.0\EPS.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="EPS.Tests.PagoTests" name="ContratoId_MustBeAtLeast1" />
+    </UnitTest>
+    <UnitTest name="EPS.Tests.AfiliadoTests.Nombre_IsRequired" storage="c:\eps_v2\tests\eps.tests\bin\debug\net8.0\eps.tests.dll" id="60cac72b-e320-f5d7-0f3c-94585c763f38">
+      <Execution id="6c987e2e-137a-43b6-9c5f-4072b8d23575" />
+      <TestMethod codeBase="C:\EPS_v2\Tests\EPS.Tests\bin\Debug\net8.0\EPS.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="EPS.Tests.AfiliadoTests" name="Nombre_IsRequired" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="10935423-a2af-f160-572d-7ca4e20aa9b1" executionId="1380f223-fd9f-473b-9fc5-10149ebf35b4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f8653f4b-f070-c6df-e7a1-f8e492add2fc" executionId="02655cc9-b11b-420e-a369-ab73bb3c391f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="50d7f478-033f-4d5b-b5fb-6bcc82fe632e" executionId="75475012-7efd-48e8-97ad-22e2671ed8a4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8098a641-41b2-5056-92a9-406dd770b6b7" executionId="949d8c3b-85bf-4c07-9e61-2b02eef6cdeb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f4a6fcf0-cd92-80bd-956a-966255ba1c6e" executionId="15c33452-35d6-4287-a7be-04aa357048f4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cbca944f-f5df-12c0-415a-e2f2fe90a763" executionId="89fe9fac-c72c-4ee7-b3ab-193d63626f6d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="da1d07f4-3be4-4137-6137-cac3eb9065e3" executionId="cb9108c1-cbef-4f2a-897c-dae14b878ab1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3b91821b-b212-046d-8dc2-33da05c8a525" executionId="184206c6-f6b9-4bef-945f-b20a340f452d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f699c348-9716-ce6d-b844-9a7e1dac4ce7" executionId="fdd691ef-79ec-4d89-9a20-2108ea1c2cbe" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cb756c62-e1d0-32a6-3c06-94d707f9ec1f" executionId="03056843-5c43-4fc3-a243-b69f05bcc410" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="49872a18-a8cf-d357-ff78-a6b60f42478a" executionId="af8928a6-18fa-4945-a938-0604bf80708b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="aa2ba863-6239-f826-ee3a-311700466e94" executionId="e23b1306-e6a6-4d7a-b837-f4eb0ccca2b3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c5a9ef99-2c79-3fc9-e261-2562256c2f22" executionId="9e670627-af13-4da3-93dc-9655b808ed06" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="60cac72b-e320-f5d7-0f3c-94585c763f38" executionId="6c987e2e-137a-43b6-9c5f-4072b8d23575" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="86710fa4-1283-d97c-d8f4-c472d2c0a3d9" executionId="6f1822f6-7ee4-4c39-9285-871dffbcc5ef" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="24d1a129-763f-a432-8487-f3a45af69b26" executionId="5eab6688-80cc-4cbe-8373-92553fb06483" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7ff878d0-ff2d-e361-74a1-326bc414430f" executionId="91aaf930-b5d1-4454-95fe-9d18079dc661" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b663cbf3-a0bd-3577-0390-db6a3ca05596" executionId="e037cc87-95cd-4bf3-af86-0cd0dcdc28f9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="86f01a35-236d-fdce-fe36-f3ab8bcaa023" executionId="fc446731-49ed-4686-b5cc-2ff6d296382e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Resultados sin formato de lista" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Todos los resultados cargados" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="19" executed="19" passed="19" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.01] xUnit.net VSTest Adapter v2.5.3.1+6b60a9e56a (64-bit .NET 8.0.15)&#xD;
+[xUnit.net 00:00:01.86]   Discovering: EPS.Tests&#xD;
+[xUnit.net 00:00:02.14]   Discovered:  EPS.Tests&#xD;
+[xUnit.net 00:00:02.15]   Starting:    EPS.Tests&#xD;
+[xUnit.net 00:00:02.60]   Finished:    EPS.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

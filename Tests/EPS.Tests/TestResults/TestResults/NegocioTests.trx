@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="2bd799e9-a510-419c-a9aa-46f597d5ed2d" name="Usuario@LUISMORALES 2025-09-25 18:22:06" runUser="LUISMORALES\Usuario" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2025-09-25T18:22:06.3941863-05:00" queuing="2025-09-25T18:22:06.3941867-05:00" start="2025-09-25T18:22:04.1270226-05:00" finish="2025-09-25T18:22:06.3954851-05:00" />
+  <TestSettings name="default" id="abfdd220-e35b-4c50-9abc-a4985402f610">
+    <Deployment runDeploymentRoot="Usuario_LUISMORALES_2025-09-25_18_22_06" />
+  </TestSettings>
+  <TestLists>
+    <TestList name="Resultados sin formato de lista" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Todos los resultados cargados" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="0" executed="0" passed="0" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.5.3.1+6b60a9e56a (64-bit .NET 8.0.15)&#xD;
+[xUnit.net 00:00:00.21]   Discovering: EPS.Tests&#xD;
+[xUnit.net 00:00:00.31]   Discovered:  EPS.Tests&#xD;
+[xUnit.net 00:00:00.32]   Starting:    EPS.Tests&#xD;
+[xUnit.net 00:00:00.36]   Finished:    EPS.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LUISMORALES" outcome="Warning" timestamp="2025-09-25T18:22:06.1794521-05:00">
+        <Text>Ninguna prueba coincide con el filtro de casos de prueba proporcionado "Category=Negocio" en C:\EPS_v2\Tests\EPS.Tests\bin\Debug\net8.0\EPS.Tests.dll</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>
