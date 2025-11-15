@@ -1,0 +1,66 @@
+@page
+@model asp_presentacion.Pages.LogsModel
+@{
+    ViewData["Title"] = "Logs y Auditoría";
+}
+
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-lg">
+                <div class="card-header text-white" style="background: linear-gradient(135deg, #7B2CBF 0%, #5A189A 100%);">
+                    <h3 class="mb-0">
+                        <i class="bi bi-file-earmark-text"></i> Logs y Auditoría del Sistema
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <a asp-page="/MenuPrincipal" class="btn btn-secondary">
+                            <i class="bi bi-arrow-left"></i> Volver al Menú Principal
+                        </a>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead style="background: #7B2CBF; color: white;">
+                                <tr>
+                                    <th>Fecha y Hora</th>
+                                    <th>Operación</th>
+                                    <th>Entidad</th>
+                                    <th>Resultado</th>
+                                    <th>Mensaje</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var log in Model.Logs)
+                                {
+                                    <tr>
+                                        <td>@log.Fecha</td>
+                                        <td><span class="badge bg-primary">@log.Operacion</span></td>
+                                        <td>@log.Entidad</td>
+                                        <td>
+                                            @if (log.Resultado == "OK")
+                                            {
+                                                <span class="badge bg-success">@log.Resultado</span>
+                                            }
+                                            else if (log.Resultado == "ERROR")
+                                            {
+                                                <span class="badge bg-danger">@log.Resultado</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-info">@log.Resultado</span>
+                                            }
+                                        </td>
+                                        <td>@log.Mensaje</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,319 @@
+@page
+@model asp_presentacion.Pages.MenuPrincipalModel
+@{
+    ViewData["Title"] = "Menú Principal - Sistema EPS";
+}
+
+<div class="container-fluid mt-4">
+    <!-- Header Principal -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card border-0 shadow-lg">
+                <div class="card-header text-white text-center py-4" style="background: linear-gradient(135deg, #7B2CBF 0%, #5A189A 100%);">
+                    <h1 class="mb-0">
+                        <i class="bi bi-menu-button-wide"></i> Menú Principal del Sistema
+                    </h1>
+                    <p class="mb-0 mt-2">Seleccione una opción para ejecutar procesos del sistema</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Menú Principal con Opciones Numeradas -->
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card shadow-lg">
+                <div class="card-header text-white" style="background: linear-gradient(135deg, #5A189A 0%, #7B2CBF 100%);">
+                    <h3 class="mb-0">
+                        <i class="bi bi-list-ol"></i> Opciones del Sistema
+                    </h3>
+                </div>
+                <div class="card-body p-4">
+                    @if (TempData["Success"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <i class="bi bi-check-circle"></i> @TempData["Success"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    }
+                    @if (TempData["Error"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="bi bi-exclamation-triangle"></i> @TempData["Error"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    }
+
+                    <!-- Formulario de Selección -->
+                    <form method="post" asp-page-handler="EjecutarOpcion" class="mb-4">
+                        <div class="row mb-3">
+                            <div class="col-md-8">
+                                <label for="opcion" class="form-label fw-bold">
+                                    <i class="bi bi-keyboard"></i> Ingrese el número de la opción:
+                                </label>
+                                <input type="number" class="form-control form-control-lg" id="opcion" name="opcion" 
+                                       min="1" max="99" required autofocus placeholder="Ejemplo: 1, 2, 3...">
+                            </div>
+                            <div class="col-md-4 d-flex align-items-end">
+                                <button type="submit" class="btn btn-primary btn-lg w-100">
+                                    <i class="bi bi-play-circle"></i> Ejecutar
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <hr class="my-4">
+
+                    <!-- Lista de Opciones -->
+                    <div class="row">
+                        <!-- Grupo 1: Gestión de Afiliados -->
+                        <div class="col-md-6 mb-3">
+                            <div class="card h-100 border-primary">
+                                <div class="card-header bg-primary text-white">
+                                    <h5 class="mb-0">
+                                        <i class="bi bi-people-fill"></i> Gestión de Afiliados
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span><strong>1.</strong> Listar Afiliados</span>
+                                            <a asp-page="/Afiliados" class="btn btn-sm btn-outline-primary">
+                                                <i class="bi bi-arrow-right"></i>
+                                            </a>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span><strong>2.</strong> Nuevo Afiliado</span>
+                                            <a asp-page="/Afiliados" asp-page-handler="Nuevo" class="btn btn-sm btn-outline-primary">
+                                                <i class="bi bi-arrow-right"></i>
+                                            </a>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span><strong>3.</strong> Buscar Afiliado</span>
+                                            <button type="button" class="btn btn-sm btn-outline-primary" onclick="ejecutarOpcion(3)">
+                                                <i class="bi bi-arrow-right"></i>
+                                            </button>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span><strong>4.</strong> Reportes de Afiliados</span>
+                                            <button type="button" class="btn btn-sm btn-outline-primary" onclick="ejecutarOpcion(4)">
+                                                <i class="bi bi-arrow-right"></i>
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Grupo 2: Backup y Respaldo -->
+                        <div class="col-md-6 mb-3">
+                            <div class="card h-100 border-success">
+                                <div class="card-header bg-success text-white">
+                                    <h5 class="mb-0">
+                                        <i class="bi bi-database-check"></i> Backup y Respaldo
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span><strong>5.</strong> Backup Completo</span>
+                                            <form method="post" asp-page-handler="BackupCompleto" class="d-inline">
+                                                <button type="submit" class="btn btn-sm btn-outline-success">
+                                                    <i class="bi bi-arrow-right"></i>
+                                                </button>
+                                            </form>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span><strong>6.</strong> Backup SQL Server</span>
+                                            <form method="post" asp-page-handler="BackupSQL" class="d-inline">
+                                                <button type="submit" class="btn btn-sm btn-outline-success">
+                                                    <i class="bi bi-arrow-right"></i>
+                                                </button>
+                                            </form>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span><strong>7.</strong> Datos Generales</span>
+                                            <form method="post" asp-page-handler="BackupDatosGenerales" class="d-inline">
+                                                <button type="submit" class="btn btn-sm btn-outline-success">
+                                                    <i class="bi bi-arrow-right"></i>
+                                                </button>
+                                            </form>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span><strong>8.</strong> Sincronizar GitHub</span>
+                                            <form method="post" asp-page-handler="SincronizarGitHub" class="d-inline">
+                                                <button type="submit" class="btn btn-sm btn-outline-success">
+                                                    <i class="bi bi-arrow-right"></i>
+                                                </button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Grupo 3: Auditoría y Logs -->
+                        <div class="col-md-6 mb-3">
+                            <div class="card h-100 border-info">
+                                <div class="card-header bg-info text-white">
+                                    <h5 class="mb-0">
+                                        <i class="bi bi-file-earmark-text"></i> Auditoría y Logs
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span><strong>9.</strong> Ver Logs de Auditoría</span>
+                                            <button type="button" class="btn btn-sm btn-outline-info" onclick="ejecutarOpcion(9)">
+                                                <i class="bi bi-arrow-right"></i>
+                                            </button>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span><strong>10.</strong> Ver Validaciones</span>
+                                            <button type="button" class="btn btn-sm btn-outline-info" onclick="ejecutarOpcion(10)">
+                                                <i class="bi bi-arrow-right"></i>
+                                            </button>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span><strong>11.</strong> Ver Errores</span>
+                                            <button type="button" class="btn btn-sm btn-outline-info" onclick="ejecutarOpcion(11)">
+                                                <i class="bi bi-arrow-right"></i>
+                                            </button>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span><strong>12.</strong> Exportar Logs</span>
+                                            <button type="button" class="btn btn-sm btn-outline-info" onclick="ejecutarOpcion(12)">
+                                                <i class="bi bi-arrow-right"></i>
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Grupo 4: Configuración -->
+                        <div class="col-md-6 mb-3">
+                            <div class="card h-100 border-warning">
+                                <div class="card-header bg-warning text-dark">
+                                    <h5 class="mb-0">
+                                        <i class="bi bi-gear-fill"></i> Configuración
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span><strong>13.</strong> Configuración del Sistema</span>
+                                            <button type="button" class="btn btn-sm btn-outline-warning" onclick="ejecutarOpcion(13)">
+                                                <i class="bi bi-arrow-right"></i>
+                                            </button>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span><strong>14.</strong> Usuarios y Permisos</span>
+                                            <button type="button" class="btn btn-sm btn-outline-warning" onclick="ejecutarOpcion(14)">
+                                                <i class="bi bi-arrow-right"></i>
+                                            </button>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span><strong>15.</strong> Base de Datos</span>
+                                            <button type="button" class="btn btn-sm btn-outline-warning" onclick="ejecutarOpcion(15)">
+                                                <i class="bi bi-arrow-right"></i>
+                                            </button>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span><strong>16.</strong> Guardado Automático</span>
+                                            <form method="post" asp-page-handler="GuardadoAutomatico" class="d-inline">
+                                                <button type="submit" class="btn btn-sm btn-outline-warning">
+                                                    <i class="bi bi-arrow-right"></i>
+                                                </button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Panel de Información -->
+                    <div class="card mt-4 border-secondary">
+                        <div class="card-header bg-secondary text-white">
+                            <h5 class="mb-0">
+                                <i class="bi bi-info-circle"></i> Información del Sistema
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row text-center">
+                                <div class="col-md-3">
+                                    <div class="p-3 rounded" style="background: #E0AAFF;">
+                                        <h4 class="mb-0" style="color: #5A189A;">@Model.TotalAfiliados</h4>
+                                        <small style="color: #5A189A;">Afiliados</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="p-3 rounded" style="background: #C77DFF;">
+                                        <h4 class="mb-0" style="color: white;">@Model.TotalBackups</h4>
+                                        <small style="color: white;">Backups</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="p-3 rounded" style="background: #9D4EDD;">
+                                        <h4 class="mb-0" style="color: white;">@Model.TotalLogs</h4>
+                                        <small style="color: white;">Logs Hoy</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="p-3 rounded" style="background: #7B2CBF;">
+                                        <h4 class="mb-0" style="color: white;">@Model.UltimaActualizacion</h4>
+                                        <small style="color: white;">Última Actualización</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Función para ejecutar opción desde botones
+    function ejecutarOpcion(numero) {
+        document.getElementById('opcion').value = numero;
+        document.querySelector('form[method="post"]').submit();
+    }
+
+    // Atajos de teclado
+    document.addEventListener('keydown', function(e) {
+        // Enter en el campo de opción ejecuta
+        if (e.target.id === 'opcion' && e.key === 'Enter') {
+            e.preventDefault();
+            document.querySelector('form[method="post"]').submit();
+        }
+        
+        // Números 1-9 ejecutan directamente
+        if (e.key >= '1' && e.key <= '9' && e.target.id !== 'opcion') {
+            ejecutarOpcion(parseInt(e.key));
+        }
+    });
+
+    // Auto-focus en el campo de opción
+    document.getElementById('opcion').focus();
+</script>
+
+<style>
+    .list-group-item {
+        transition: all 0.3s ease;
+    }
+    .list-group-item:hover {
+        background-color: rgba(123, 44, 191, 0.1);
+        transform: translateX(5px);
+    }
+    .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 12px rgba(123, 44, 191, 0.2);
+    }
+</style>
+
