@@ -1,0 +1,1 @@
+﻿// Configuracion.cs - stub

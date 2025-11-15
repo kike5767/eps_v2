@@ -1,0 +1,143 @@
+@page
+@model asp_presentacion.Pages.AfiliadosModel
+@using lib_dominio.Nucleo
+@{
+    ViewData["Title"] = "Gestión de Afiliados";
+}
+
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="mb-0">
+                        <i class="bi bi-people-fill"></i> Gestión de Afiliados - EPS
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <!-- Mensajes de éxito o error -->
+                    @if (TempData["Success"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            @TempData["Success"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    }
+                    @if (TempData["Error"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            @TempData["Error"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    }
+
+                    <!-- Botón para nuevo afiliado -->
+                    <div class="mb-3">
+                        <a asp-page-handler="Nuevo" class="btn btn-primary">
+                            <i class="bi bi-plus-circle"></i> Nuevo Afiliado
+                        </a>
+                    </div>
+
+                    <!-- Formulario de edición/creación -->
+                    @if (Model.Accion != Enumerables.Ventanas.Listar && Model.Actual != null)
+                    {
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5>@(Model.Actual.Id == 0 ? "Nuevo Afiliado" : "Editar Afiliado")</h5>
+                            </div>
+                            <div class="card-body">
+                                <form method="post" asp-page-handler="BtGuardar" enctype="multipart/form-data">
+                                    <input type="hidden" asp-for="Actual.Id" />
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label asp-for="Actual.Nombre" class="form-label">Nombre</label>
+                                            <input asp-for="Actual.Nombre" class="form-control" required />
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label asp-for="Actual.Documento" class="form-label">Documento</label>
+                                            <input asp-for="Actual.Documento" class="form-control" required />
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label asp-for="Actual.Email" class="form-label">Email</label>
+                                            <input asp-for="Actual.Email" type="email" class="form-control" required />
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label asp-for="Actual.FechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+                                            <input asp-for="Actual.FechaNacimiento" type="date" class="form-control" required />
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label asp-for="Actual.Telefono" class="form-label">Teléfono</label>
+                                            <input asp-for="Actual.Telefono" class="form-control" />
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label asp-for="Actual.MunicipioId" class="form-label">Municipio ID</label>
+                                            <input asp-for="Actual.MunicipioId" type="number" class="form-control" required />
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label asp-for="Actual.Direccion" class="form-label">Dirección</label>
+                                        <textarea asp-for="Actual.Direccion" class="form-control" rows="2"></textarea>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="bi bi-save"></i> Guardar
+                                        </button>
+                                        <a asp-page="Afiliados" class="btn btn-secondary">Cancelar</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    }
+
+                    <!-- Tabla de afiliados -->
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Documento</th>
+                                    <th>Email</th>
+                                    <th>Teléfono</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var afiliado in Model.Afiliados)
+                                {
+                                    <tr>
+                                        <td>@afiliado.Id</td>
+                                        <td>@afiliado.Nombre</td>
+                                        <td>@afiliado.Documento</td>
+                                        <td>@afiliado.Email</td>
+                                        <td>@(afiliado.Telefono ?? "-")</td>
+                                        <td>
+                                            <a asp-page-handler="Editar" asp-route-id="@afiliado.Id" class="btn btn-sm btn-primary">
+                                                <i class="bi bi-pencil"></i> Editar
+                                            </a>
+                                            <form method="post" asp-page-handler="BtBorrar" asp-route-id="@afiliado.Id" class="d-inline">
+                                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Está seguro de borrar este afiliado?')">
+                                                    <i class="bi bi-trash"></i> Borrar
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

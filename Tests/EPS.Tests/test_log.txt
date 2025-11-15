@@ -1,0 +1,41 @@
+  Determinando los proyectos que se van a restaurar...
+  Todos los proyectos están actualizados para la restauración.
+  EPS -> C:\EPS_v2\bin\Debug\net8.0\EPS.dll
+  EPS.Tests -> C:\EPS_v2\Tests\EPS.Tests\bin\Debug\net8.0\EPS.Tests.dll
+Serie de pruebas para C:\EPS_v2\Tests\EPS.Tests\bin\Debug\net8.0\EPS.Tests.dll (.NETCoreApp,Version=v8.0)
+Versión 17.11.1 (x64) de VSTest
+
+Iniciando la ejecución de pruebas, espere...
+1 archivos de prueba en total coincidieron con el patrón especificado.
+[xUnit.net 00:00:00.01] xUnit.net VSTest Adapter v2.5.3.1+6b60a9e56a (64-bit .NET 8.0.15)
+[xUnit.net 00:00:00.50]   Discovering: EPS.Tests
+[xUnit.net 00:00:00.76]   Discovered:  EPS.Tests
+[xUnit.net 00:00:00.77]   Starting:    EPS.Tests
+  Correctas EPS.Tests.UnitTest1.Test1 [7 ms]
+  Correctas EPS.Tests.CitaTests.AfiliadoId_MustBeAtLeast1 [77 ms]
+  Correctas EPS.Tests.CitaTests.Hora_IsRequired [1 ms]
+  Correctas EPS.Tests.CitaTests.Fecha_IsRequired [< 1 ms]
+  Correctas EPS.Tests.UsuarioTests.Nombre_IsRequired [87 ms]
+  Correctas EPS.Tests.UsuarioTests.Clave_IsRequired [2 ms]
+  Correctas EPS.Tests.UsuarioTests.Email_Format [1 ms]
+  Correctas EPS.Tests.CategoriaTests.Categoria_Valid_NoErrors [123 ms]
+  Correctas EPS.Tests.CategoriaTests.Nombre_IsRequired [< 1 ms]
+  Correctas EPS.Tests.CategoriaTests.Nombre_MaxLength50 [< 1 ms]
+  Correctas EPS.Tests.AfiliadoTests.Documento_MaxLength20 [153 ms]
+  Correctas EPS.Tests.AfiliadoTests.Email_MustBeValid [3 ms]
+  Correctas EPS.Tests.AfiliadoTests.Nombre_IsRequired [< 1 ms]
+  Correctas EPS.Tests.IndicadorTests.Nombre_MaxLength50 [79 ms]
+[xUnit.net 00:00:01.43]   Finished:    EPS.Tests
+  Correctas EPS.Tests.PagoTests.Fecha_IsRequired [69 ms]
+  Correctas EPS.Tests.PagoTests.ContratoId_MustBeAtLeast1 [1 ms]
+  Correctas EPS.Tests.IndicadorTests.Valor_CannotBeNegative [7 ms]
+  Correctas EPS.Tests.PagoTests.Valor_CannotBeNegative [3 ms]
+  Correctas EPS.Tests.IndicadorTests.Nombre_IsRequired [< 1 ms]
+
+La serie de pruebas se ejecutó correctamente.
+Pruebas totales: 19
+     Correcto: 19
+ Tiempo total: 3,9491 Segundos
+Archivo de resultados: C:\EPS_v2\Tests\EPS.Tests\TestResults\TestResults.trx
+
+Hay actualizaciones de carga de trabajo disponibles. Ejecute "dotnet workload list" para obtener más información.

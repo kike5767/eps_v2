@@ -1,0 +1,12 @@
+  Determinando los proyectos que se van a restaurar...
+  Todos los proyectos están actualizados para la restauración.
+  EPS -> C:\EPS_v2\bin\Debug\net8.0\EPS.dll
+  EPS.Tests -> C:\EPS_v2\Tests\EPS.Tests\bin\Debug\net8.0\EPS.Tests.dll
+
+Compilación correcta.
+    0 Advertencia(s)
+    0 Errores
+
+Tiempo transcurrido 00:00:14.73
+
+Hay actualizaciones de carga de trabajo disponibles. Ejecute "dotnet workload list" para obtener más información.

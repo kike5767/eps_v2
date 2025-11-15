@@ -1,0 +1,42 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Sistema EPS - Inicio";
+}
+
+<div class="container-fluid mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h2 class="mb-0">Sistema de Gestión EPS</h2>
+                </div>
+                <div class="card-body text-center">
+                    <h4 class="mb-4">Bienvenido al Sistema de Gestión de EPS</h4>
+                    <p class="lead">Sistema desarrollado siguiendo la arquitectura del profesor</p>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-6 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Afiliados</h5>
+                                    <p class="card-text">Gestión completa de afiliados</p>
+                                    <a asp-page="Afiliados" class="btn btn-primary">Ir a Afiliados</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Módulos</h5>
+                                    <p class="card-text">Otros módulos del sistema</p>
+                                    <button class="btn btn-secondary" disabled>Próximamente</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

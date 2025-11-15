@@ -1,0 +1,336 @@
+USE [master];
+GO
+
+IF DB_ID('EPSDB') IS NULL
+BEGIN
+    CREATE DATABASE EPSDB;
+END;
+GO
+
+USE [EPSDB];
+GO
+
+SET ANSI_NULLS ON;
+GO
+SET QUOTED_IDENTIFIER ON;
+GO
+
+/* ============================================================================
+   Eliminación defensiva: garantiza que el script sea idempotente y se pueda 
+   ejecutar múltiples veces sin errores por objetos existentes.
+   ============================================================================ */
+DECLARE @drop NVARCHAR(MAX) = N'';
+
+SELECT @drop = @drop + 'IF OBJECT_ID(''' + QUOTENAME(SCHEMA_NAME(t.schema_id)) 
+        + '.' + QUOTENAME(t.name) + ''',''U'') IS NOT NULL DROP TABLE ' 
+        + QUOTENAME(SCHEMA_NAME(t.schema_id)) + '.' + QUOTENAME(t.name) + ';' + CHAR(13)
+FROM sys.tables t
+WHERE t.name IN ('Factura','Pago','Contrato','AfiliadoDetalle','Cita','HistoriaMedica',
+                 'Indicador','Reporte','Usuario','Rol','Afiliado','Municipio',
+                 'Departamento','PlanEPS','Categoria')
+ORDER BY CASE t.name
+            WHEN 'Factura' THEN 1
+            WHEN 'Pago' THEN 2
+            WHEN 'AfiliadoDetalle' THEN 3
+            WHEN 'Cita' THEN 4
+            WHEN 'HistoriaMedica' THEN 5
+            WHEN 'Contrato' THEN 6
+            WHEN 'Usuario' THEN 7
+            WHEN 'Indicador' THEN 8
+            WHEN 'Reporte' THEN 9
+            WHEN 'Afiliado' THEN 10
+            WHEN 'Municipio' THEN 11
+            WHEN 'Departamento' THEN 12
+            WHEN 'PlanEPS' THEN 13
+            WHEN 'Categoria' THEN 14
+            WHEN 'Rol' THEN 15
+            ELSE 100
+        END;
+
+EXEC sys.sp_executesql @drop;
+GO
+
+/* ============================================================================
+   1. Catálogos base
+   ============================================================================ */
+CREATE TABLE dbo.Departamento
+(
+    Id              INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre          VARCHAR(50)  NOT NULL,
+    Codigo          VARCHAR(10)  NULL,
+    Activo          BIT          NOT NULL DEFAULT (1),
+    FechaCreacion   DATETIME2(7) NOT NULL DEFAULT (SYSUTCDATETIME())
+);
+GO
+
+CREATE TABLE dbo.Municipio
+(
+    Id              INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre          VARCHAR(100) NOT NULL,
+    DepartamentoId  INT NOT NULL,
+    Codigo          VARCHAR(10)  NOT NULL,
+    Activo          BIT NOT NULL DEFAULT (1),
+    FechaCreacion   DATETIME2(7) NOT NULL DEFAULT (SYSUTCDATETIME()),
+    CONSTRAINT FK_Municipio_Departamento FOREIGN KEY (DepartamentoId)
+        REFERENCES dbo.Departamento(Id) ON DELETE NO ACTION
+);
+GO
+
+CREATE TABLE dbo.Categoria
+(
+    Id            INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre        VARCHAR(50)  NOT NULL,
+    Descripcion   VARCHAR(200) NULL,
+    Codigo        VARCHAR(10)  NULL,
+    Activo        BIT NOT NULL DEFAULT (1),
+    FechaCreacion DATETIME2(7) NOT NULL DEFAULT (SYSUTCDATETIME())
+);
+GO
+
+CREATE TABLE dbo.PlanEPS
+(
+    Id            INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre        VARCHAR(50)  NOT NULL,
+    Cobertura     VARCHAR(50)  NOT NULL,
+    Descripcion   VARCHAR(500) NULL,
+    Precio        DECIMAL(18,2) NOT NULL CONSTRAINT DF_PlanEPS_Precio DEFAULT (0),
+    Activo        BIT NOT NULL DEFAULT (1),
+    FechaCreacion DATETIME2(7) NOT NULL DEFAULT (SYSUTCDATETIME())
+);
+GO
+
+CREATE TABLE dbo.Rol
+(
+    Id          INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre      VARCHAR(50)  NOT NULL,
+    Descripcion VARCHAR(200) NOT NULL,
+    Activo      BIT NOT NULL DEFAULT (1)
+);
+GO
+
+/* ============================================================================
+   2. Entidades principales
+   ============================================================================ */
+CREATE TABLE dbo.Afiliado
+(
+    Id              INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre          VARCHAR(50)  NOT NULL,
+    Documento       VARCHAR(20)  NOT NULL,
+    Email           VARCHAR(50)  NOT NULL,
+    FechaNacimiento DATETIME2(7) NOT NULL,
+    Telefono        VARCHAR(15)  NULL,
+    Direccion       VARCHAR(200) NULL,
+    MunicipioId     INT NOT NULL,
+    CategoriaId     INT NULL,
+    Activo          BIT NOT NULL DEFAULT (1),
+    FechaCreacion   DATETIME2(7) NOT NULL DEFAULT (SYSUTCDATETIME()),
+    CONSTRAINT FK_Afiliado_Municipio FOREIGN KEY (MunicipioId)
+        REFERENCES dbo.Municipio(Id) ON DELETE NO ACTION,
+    CONSTRAINT FK_Afiliado_Categoria FOREIGN KEY (CategoriaId)
+        REFERENCES dbo.Categoria(Id) ON DELETE NO ACTION
+);
+GO
+
+CREATE UNIQUE INDEX UX_Afiliado_Documento ON dbo.Afiliado(Documento);
+CREATE UNIQUE INDEX UX_Afiliado_Email ON dbo.Afiliado(Email);
+GO
+
+CREATE TABLE dbo.Usuario
+(
+    Id            INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre        VARCHAR(50)  NOT NULL,
+    Email         VARCHAR(50)  NOT NULL,
+    Clave         VARCHAR(100) NOT NULL,
+    RolId         INT NOT NULL,
+    Activo        BIT NOT NULL DEFAULT (1),
+    FechaCreacion DATETIME2(7) NOT NULL DEFAULT (SYSUTCDATETIME()),
+    CONSTRAINT FK_Usuario_Rol FOREIGN KEY (RolId)
+        REFERENCES dbo.Rol(Id) ON DELETE NO ACTION
+);
+GO
+
+CREATE UNIQUE INDEX UX_Usuario_Email ON dbo.Usuario(Email);
+GO
+
+CREATE TABLE dbo.Contrato
+(
+    Id            INT IDENTITY(1,1) PRIMARY KEY,
+    AfiliadoId    INT NOT NULL,
+    PlanEPSId     INT NOT NULL,
+    FechaInicio   DATETIME2(7) NOT NULL,
+    FechaFin      DATETIME2(7) NULL,
+    Activo        BIT NOT NULL DEFAULT (1),
+    FechaCreacion DATETIME2(7) NOT NULL DEFAULT (SYSUTCDATETIME()),
+    CONSTRAINT FK_Contrato_Afiliado FOREIGN KEY (AfiliadoId)
+        REFERENCES dbo.Afiliado(Id) ON DELETE NO ACTION,
+    CONSTRAINT FK_Contrato_PlanEPS FOREIGN KEY (PlanEPSId)
+        REFERENCES dbo.PlanEPS(Id) ON DELETE NO ACTION
+);
+GO
+
+/* ============================================================================
+   3. Entidades dependientes
+   ============================================================================ */
+CREATE TABLE dbo.AfiliadoDetalle
+(
+    Id            INT IDENTITY(1,1) PRIMARY KEY,
+    AfiliadoId    INT NOT NULL,
+    TipoDetalle   VARCHAR(50)  NOT NULL,
+    Valor         VARCHAR(100) NOT NULL,
+    FechaRegistro DATETIME2(7) NOT NULL,
+    Observaciones VARCHAR(500) NULL,
+    Activo        BIT NOT NULL DEFAULT (1),
+    CONSTRAINT FK_AfiliadoDetalle_Afiliado FOREIGN KEY (AfiliadoId)
+        REFERENCES dbo.Afiliado(Id) ON DELETE NO ACTION
+);
+GO
+
+CREATE TABLE dbo.Cita
+(
+    Id            INT IDENTITY(1,1) PRIMARY KEY,
+    AfiliadoId    INT NOT NULL,
+    Fecha         DATETIME2(7) NOT NULL,
+    Hora          TIME(7)      NOT NULL,
+    Motivo        VARCHAR(100) NULL,
+    Medico        VARCHAR(50)  NULL,
+    Estado        VARCHAR(50)  NOT NULL DEFAULT ('Programada'),
+    Observaciones VARCHAR(500) NULL,
+    FechaCreacion DATETIME2(7) NOT NULL DEFAULT (SYSUTCDATETIME()),
+    CONSTRAINT FK_Cita_Afiliado FOREIGN KEY (AfiliadoId)
+        REFERENCES dbo.Afiliado(Id) ON DELETE NO ACTION
+);
+GO
+
+CREATE TABLE dbo.HistoriaMedica
+(
+    Id            INT IDENTITY(1,1) PRIMARY KEY,
+    AfiliadoId    INT NOT NULL,
+    Diagnostico   VARCHAR(100) NOT NULL,
+    Fecha         DATETIME2(7) NOT NULL,
+    Tratamiento   VARCHAR(500) NULL,
+    Medico        VARCHAR(50)  NULL,
+    Observaciones VARCHAR(1000) NULL,
+    FechaCreacion DATETIME2(7) NOT NULL DEFAULT (SYSUTCDATETIME()),
+    CONSTRAINT FK_HistoriaMedica_Afiliado FOREIGN KEY (AfiliadoId)
+        REFERENCES dbo.Afiliado(Id) ON DELETE NO ACTION
+);
+GO
+
+CREATE TABLE dbo.Pago
+(
+    Id            INT IDENTITY(1,1) PRIMARY KEY,
+    ContratoId    INT NOT NULL,
+    Valor         DECIMAL(18,2) NOT NULL CHECK (Valor >= 0),
+    Fecha         DATETIME2(7) NOT NULL,
+    MetodoPago    VARCHAR(50)  NULL,
+    Referencia    VARCHAR(100) NULL,
+    Estado        VARCHAR(50)  NOT NULL DEFAULT ('Pendiente'),
+    FechaCreacion DATETIME2(7) NOT NULL DEFAULT (SYSUTCDATETIME()),
+    CONSTRAINT FK_Pago_Contrato FOREIGN KEY (ContratoId)
+        REFERENCES dbo.Contrato(Id) ON DELETE NO ACTION
+);
+GO
+
+CREATE TABLE dbo.Factura
+(
+    Id            INT IDENTITY(1,1) PRIMARY KEY,
+    PagoId        INT NOT NULL,
+    Numero        VARCHAR(50)  NOT NULL,
+    Fecha         DATETIME2(7) NOT NULL,
+    Descripcion   VARCHAR(500) NULL,
+    Subtotal      DECIMAL(18,2) NOT NULL DEFAULT (0),
+    Impuesto      DECIMAL(18,2) NOT NULL DEFAULT (0),
+    Total         AS (Subtotal + Impuesto) PERSISTED,
+    Estado        VARCHAR(50) NOT NULL DEFAULT ('Generada'),
+    FechaCreacion DATETIME2(7) NOT NULL DEFAULT (SYSUTCDATETIME()),
+    CONSTRAINT FK_Factura_Pago FOREIGN KEY (PagoId)
+        REFERENCES dbo.Pago(Id) ON DELETE NO ACTION
+);
+GO
+
+CREATE UNIQUE INDEX UX_Factura_Numero ON dbo.Factura(Numero);
+GO
+
+CREATE TABLE dbo.Indicador
+(
+    Id                 INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre             VARCHAR(50)  NOT NULL,
+    Valor              DECIMAL(18,2) NOT NULL CHECK (Valor >= 0),
+    Descripcion        VARCHAR(200) NULL,
+    Unidad             VARCHAR(50)  NULL,
+    Categoria          VARCHAR(50)  NULL,
+    FechaActualizacion DATETIME2(7) NOT NULL DEFAULT (SYSUTCDATETIME()),
+    Activo             BIT NOT NULL DEFAULT (1)
+);
+GO
+
+CREATE TABLE dbo.Reporte
+(
+    Id            INT IDENTITY(1,1) PRIMARY KEY,
+    Descripcion   VARCHAR(100) NOT NULL,
+    Fecha         DATETIME2(7) NOT NULL,
+    Tipo          VARCHAR(50)  NULL,
+    Contenido     VARCHAR(1000) NULL,
+    GeneradoPor   VARCHAR(50)  NULL,
+    Estado        VARCHAR(50)  NOT NULL DEFAULT ('Generado'),
+    FechaCreacion DATETIME2(7) NOT NULL DEFAULT (SYSUTCDATETIME())
+);
+GO
+
+/* ============================================================================
+   4. Datos semilla mínimos
+   ============================================================================ */
+INSERT INTO dbo.Departamento (Nombre, Codigo)
+VALUES ('Antioquia','05'),('Cundinamarca','25');
+
+INSERT INTO dbo.Municipio (Nombre, DepartamentoId, Codigo)
+VALUES ('Medellin', 1, '05001'),
+       ('Envigado', 1, '05266'),
+       ('Bogota',   2, '11001');
+
+INSERT INTO dbo.Categoria (Nombre, Descripcion, Codigo)
+VALUES ('Oro','Afiliados estratégicos','CAT01'),
+       ('Plata','Afiliados regulares','CAT02');
+
+INSERT INTO dbo.PlanEPS (Nombre, Cobertura, Descripcion, Precio)
+VALUES ('Plan Básico','Regional','Cobertura regional básica',150000),
+       ('Plan Premium','Nacional','Cobertura total nacional',350000);
+
+INSERT INTO dbo.Rol (Nombre, Descripcion)
+VALUES ('Administrador','Acceso total al sistema'),
+       ('Medico','Acceso a consultas y reportes');
+
+INSERT INTO dbo.Afiliado (Nombre, Documento, Email, FechaNacimiento, Telefono, Direccion, MunicipioId, CategoriaId)
+VALUES ('Laura Perez','CC123','laura.perez@mail.com','1990-03-15','3001234567','Cra 45 #12-01',1,1),
+       ('Carlos Ruiz','CC456','carlos.ruiz@mail.com','1985-07-20','3019876543','Cll 10 #45-89',2,2);
+
+INSERT INTO dbo.Usuario (Nombre, Email, Clave, RolId)
+VALUES ('Administrador EPS','admin@eps.com','Admin*2025',1),
+       ('Medico General','medico@eps.com','Medico*2025',2);
+
+INSERT INTO dbo.Contrato (AfiliadoId, PlanEPSId, FechaInicio)
+VALUES (1,1,'2024-01-01'),(2,2,'2024-06-01');
+
+INSERT INTO dbo.Pago (ContratoId, Valor, Fecha, MetodoPago, Referencia, Estado)
+VALUES (1,150000,'2024-02-01','Transferencia','TRX001','Pagado'),
+       (2,350000,'2024-07-01','PSE','TRX002','Pagado');
+
+INSERT INTO dbo.Factura (PagoId, Numero, Fecha, Descripcion, Subtotal, Impuesto)
+VALUES (1,'FAC-0001','2024-02-01','Pago plan básico',126050,23950),
+       (2,'FAC-0002','2024-07-01','Pago plan premium',294118,55882);
+
+INSERT INTO dbo.Cita (AfiliadoId, Fecha, Hora, Motivo, Medico, Estado)
+VALUES (1,'2024-11-20','08:30','Control general','Dr. Gomez','Programada'),
+       (2,'2024-11-22','10:00','Examen anual','Dra. Ruiz','Confirmada');
+
+INSERT INTO dbo.HistoriaMedica (AfiliadoId, Diagnostico, Fecha, Tratamiento, Medico)
+VALUES (1,'Hipertensión','2024-10-05','Control trimestral','Dr. Gomez'),
+       (2,'Diabetes Tipo II','2024-09-10','Medicamentos + dieta','Dra. Ruiz');
+
+INSERT INTO dbo.Indicador (Nombre, Valor, Descripcion, Unidad, Categoria)
+VALUES ('Satisfaccion',95,'Índice de satisfacción mensual','Porcentaje','Experiencia'),
+       ('Reclamos',12,'Número de reclamos','Unidades','Calidad');
+
+INSERT INTO dbo.Reporte (Descripcion, Fecha, Tipo, Contenido, GeneradoPor)
+VALUES ('Reporte mensual de servicio','2024-10-31','Operativo','Resumen de indicadores','Administrador EPS');
+GO
