@@ -1,0 +1,217 @@
+================================================================================
+              RESUMEN DE ARCHIVOS DE ESTUDIO - EPS V2 FINAL
+================================================================================
+
+Fecha: $(Get-Date -Format "dd/MM/yyyy HH:mm:ss")
+
+================================================================================
+📚 ARCHIVOS PARA ESTUDIO Y SUSTENTACIÓN
+================================================================================
+
+Ubicación: C:\EPS_V2_FINAL\
+
+1. GUIA_COMPLETA_ESTUDIO.html
+   Descripción: Documento completo con todas las explicaciones
+   Contenido:
+   - Estructura del proyecto explicada
+   - Arquitectura en capas detallada
+   - Proceso de compilación paso a paso
+   - Pruebas unitarias explicadas
+   - API REST completamente documentado
+   - Interfaz de usuario con tema morado
+   - Operaciones CRUD detalladas
+   - Base de datos SQL Server
+   - Comentarios línea por línea
+   - Preguntas para sustentación con respuestas
+   
+   Uso: 
+   - Abrir en navegador para leer
+   - Convertir a Word usando CREAR_DOCUMENTO_WORD_ESTUDIO.bat
+   - O abrir directamente en Microsoft Word
+
+2. MODO_ESTUDIO_INTERACTIVO.bat
+   Descripción: Script que explica cada paso detalladamente
+   Características:
+   - 10 explicaciones completas paso a paso
+   - Explicaciones en pantalla completa
+   - Pausas entre cada explicación
+   - Graba todo en logs
+   - Respuestas para sustentación
+   - Consejos para presentar al profesor
+   
+   Uso:
+   - Doble clic para ejecutar
+   - Solo observa, el script explica todo
+   - Presiona cualquier tecla para continuar
+
+3. CREAR_DOCUMENTO_WORD_ESTUDIO.bat
+   Descripción: Script para convertir HTML a Word
+   Uso:
+   - Doble clic para ejecutar
+   - Sigue las instrucciones en pantalla
+
+================================================================================
+📋 CONTENIDO DE LA GUÍA DE ESTUDIO
+================================================================================
+
+1. ESTRUCTURA DEL PROYECTO
+   - ¿Por qué esta estructura?
+   - Explicación de cada carpeta
+   - Proyectos en la solución
+   - Dependencias entre proyectos
+
+2. ARQUITECTURA EN CAPAS
+   - Flujo de datos explicado
+   - ¿Por qué esta separación?
+   - Ventajas de la arquitectura
+
+3. PROCESO DE COMPILACIÓN
+   - ¿Qué es la compilación?
+   - Orden de compilación
+   - Comando de compilación explicado
+
+4. PRUEBAS UNITARIAS
+   - ¿Qué son las pruebas unitarias?
+   - Tipos de pruebas en el proyecto
+   - Cómo ejecutar pruebas
+
+5. API REST (asp_servicios)
+   - ¿Qué es el API?
+   - Componentes principales
+   - Flujo de una petición
+   - Rutas del API
+
+6. INTERFAZ DE USUARIO
+   - ¿Qué es Razor Pages?
+   - Tema morado explicado
+   - Archivos principales
+
+7. OPERACIONES CRUD
+   - ¿Qué es CRUD?
+   - CREATE paso a paso
+   - READ paso a paso
+   - UPDATE paso a paso
+   - DELETE paso a paso
+
+8. BASE DE DATOS SQL SERVER
+   - Estructura de la base de datos
+   - Entity Framework Core
+   - Conexión a la base de datos
+
+9. COMENTARIOS LÍNEA POR LÍNEA
+   - ¿Por qué comentarios línea por línea?
+   - Ejemplo de comentarios
+   - Archivos con comentarios
+
+10. PREGUNTAS PARA SUSTENTACIÓN
+    - Preguntas sobre arquitectura
+    - Preguntas sobre el API
+    - Preguntas sobre la UI
+    - Preguntas sobre CRUD
+    - Preguntas sobre base de datos
+    - Preguntas sobre comentarios
+    - Respuestas preparadas
+
+================================================================================
+🎯 CÓMO USAR PARA ESTUDIAR
+================================================================================
+
+OPCIÓN 1: Leer la guía completa
+1. Abrir GUIA_COMPLETA_ESTUDIO.html en navegador
+2. Leer todas las secciones
+3. Convertir a Word si lo necesitas
+
+OPCIÓN 2: Modo interactivo (RECOMENDADO)
+1. Ejecutar MODO_ESTUDIO_INTERACTIVO.bat
+2. Observar cada explicación paso a paso
+3. Presionar cualquier tecla para continuar
+4. Revisar los logs después
+
+OPCIÓN 3: Combinar ambos
+1. Primero ejecutar modo interactivo para entender
+2. Luego leer la guía completa para repasar
+3. Usar las preguntas para preparar respuestas
+
+================================================================================
+📝 PREGUNTAS FRECUENTES PARA SUSTENTACIÓN
+================================================================================
+
+P: ¿Por qué esta estructura?
+R: Sigue la arquitectura en capas igual a panaderia_ref, separando
+   responsabilidades para facilitar mantenimiento.
+
+P: ¿Cómo funciona la autenticación?
+R: Usa tokens. Primero se obtiene una llave desde Token/Llave,
+   luego cada petición incluye esa llave que se valida.
+
+P: ¿Por qué comentarios línea por línea?
+R: Es un requisito explícito del profesor para documentar
+   y facilitar la comprensión del código.
+
+P: ¿Por qué tema morado?
+R: El profesor solicitó un tema morado mejorado. Usa el color
+   #7B2CBF como principal, aplicado a navbar, botones, cards y tablas.
+
+P: ¿Cómo se comunica la UI con el API?
+R: A través de la clase Comunicaciones en lib_presentaciones,
+   que usa HttpClient para enviar peticiones HTTP POST al API.
+
+================================================================================
+✅ CHECKLIST PARA SUSTENTACIÓN
+================================================================================
+
+Antes de sustentar, asegúrate de poder explicar:
+
+✅ Estructura del proyecto y por qué está organizada así
+✅ Arquitectura en capas y flujo de datos
+✅ Proceso de compilación y orden de dependencias
+✅ Cómo funciona el API REST
+✅ Operaciones CRUD paso a paso
+✅ Conexión a SQL Server y Entity Framework Core
+✅ Por qué comentarios línea por línea
+✅ Tema morado en la UI
+✅ Pruebas unitarias implementadas
+✅ Validaciones en cada operación
+
+================================================================================
+🎓 CONSEJOS PARA LA SUSTENTACIÓN
+================================================================================
+
+1. Muestra la estructura del proyecto en Visual Studio
+2. Explica el flujo de datos entre capas
+3. Demuestra el CRUD funcionando
+4. Muestra los comentarios en el código
+5. Explica el tema morado en la UI
+6. Muestra las pruebas unitarias pasando
+7. Explica la conexión a SQL Server
+8. Menciona que todo compila sin errores
+9. Destaca que sigue la estructura de panaderia_ref
+10. Muestra que todos los archivos tienen comentarios
+
+================================================================================
+📁 LOGS DE ESTUDIO
+================================================================================
+
+El modo interactivo guarda logs en:
+C:\EPS_V2_FINAL\Logs_Estudio\
+
+Archivo: Estudio_[fecha]_[hora].log
+
+Contiene todas las explicaciones mostradas en pantalla.
+
+================================================================================
+🔗 ENLACES IMPORTANTES
+================================================================================
+
+GitHub: https://github.com/kike5767/eps_v2.git
+YouTube: https://youtu.be/GVyz4-I0t_0
+
+================================================================================
+🎉 ¡ÉXITO EN TU SUSTENTACIÓN!
+================================================================================
+
+Fecha: $(Get-Date -Format "dd/MM/yyyy HH:mm:ss")
+Estado: ✅ Todo listo para estudiar y sustentar
+
+================================================================================
+
