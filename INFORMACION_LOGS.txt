@@ -1,0 +1,92 @@
+================================================================================
+              INFORMACIÓN SOBRE LOS LOGS DE DEMOSTRACIÓN
+================================================================================
+
+El script DEMOSTRACION_COMPLETA.bat ahora graba TODO en archivos de log
+en la ruta del proyecto.
+
+================================================================================
+📁 UBICACIÓN DE LOS LOGS
+================================================================================
+
+Directorio: C:\EPS_V2_FINAL\Logs_Demostracion\
+
+Este directorio se crea automáticamente cuando ejecutas el script.
+
+================================================================================
+📄 ARCHIVOS QUE SE GENERAN
+================================================================================
+
+1. Demostracion_[fecha]_[hora].log
+   - Log principal completo de toda la ejecución
+   - Contiene todos los pasos y resultados
+   - Formato: Demostracion_20251115_034500.log
+
+2. Compilacion.log
+   - Resultado completo de la compilación
+   - Muestra todos los proyectos compilados
+   - Errores y advertencias si los hay
+
+3. Pruebas.log
+   - Resultado completo de las pruebas unitarias
+   - Muestra qué pruebas pasaron/fallaron
+   - Detalles de cada prueba ejecutada
+
+4. Resumen_Ejecucion.txt
+   - Resumen ejecutivo de la demostración
+   - Lista de archivos generados
+   - Estado final de cada paso
+
+================================================================================
+🔍 CÓMO USAR LOS LOGS
+================================================================================
+
+1. EJECUTAR EL SCRIPT:
+   - Doble clic en: DEMOSTRACION_COMPLETA.bat
+   - O ejecutar desde terminal
+
+2. VER LOS RESULTADOS:
+   - El script muestra todo en pantalla
+   - Además guarda todo en los archivos de log
+
+3. REVISAR LOS LOGS DESPUÉS:
+   - Ir a: C:\EPS_V2_FINAL\Logs_Demostracion\
+   - Abrir cualquier archivo .log o .txt
+   - Ver el historial completo de la ejecución
+
+================================================================================
+✅ VENTAJAS
+================================================================================
+
+✅ Puedes ver la ejecución completa después
+✅ Guarda todos los detalles técnicos
+✅ Útil para documentación
+✅ Puedes compartir los logs
+✅ Historial de todas las ejecuciones
+
+================================================================================
+📝 EJEMPLO DE CONTENIDO
+================================================================================
+
+El log principal contiene:
+
+- Fecha y hora de inicio
+- Estructura del proyecto verificada
+- Resultado completo de compilación
+- Resultado completo de pruebas
+- Configuración verificada
+- Archivos principales listados
+- Resumen final
+
+Todo guardado en formato texto legible.
+
+================================================================================
+🎯 PRÓXIMOS PASOS
+================================================================================
+
+1. Ejecutar: DEMOSTRACION_COMPLETA.bat
+2. Revisar los logs en: Logs_Demostracion\
+3. Usar los logs para documentación o presentación
+
+================================================================================
+

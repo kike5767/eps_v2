@@ -54,7 +54,8 @@ echo.
 echo [PASO 1] Verificando estructura del proyecto >> "%LOG_FILE%"
 echo [INFO] Verificando proyectos en la solucion...
 echo [INFO] Verificando proyectos en la solucion... >> "%LOG_FILE%"
-dotnet sln EPS.sln list | tee -a "%LOG_FILE%"
+dotnet sln EPS.sln list >> "%LOG_FILE%"
+dotnet sln EPS.sln list
 echo.
 echo [OK] Estructura verificada
 echo [OK] Estructura verificada >> "%LOG_FILE%"
