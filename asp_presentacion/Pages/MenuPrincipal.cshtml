@@ -71,21 +71,54 @@
 
                     <!-- Opciones de Entrada/Salida -->
                     <div class="row mb-4">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <form method="post" asp-page-handler="EntrarSistema" id="formEntrar" style="display: none;">
                             </form>
                             <button type="button" class="btn btn-success btn-lg w-100" onclick="confirmarEntrada()" style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%); border: none;">
                                 <i class="bi bi-box-arrow-in-right"></i> ENTRAR AL SISTEMA
                             </button>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
+                            <button type="button" class="btn btn-primary btn-lg w-100" onclick="mostrarOpcionesSalida()" style="background: linear-gradient(135deg, #7B2CBF 0%, #5A189A 100%); border: none;">
+                                <i class="bi bi-gear"></i> SALIR CON OPCIONES
+                            </button>
+                        </div>
+                        <div class="col-md-4">
                             <form method="post" asp-page-handler="SalirSistema" id="formSalir" style="display: none;">
                             </form>
                             <form method="post" asp-page-handler="GuardadoAutomatico" id="formGuardado" style="display: none;">
                             </form>
                             <button type="button" class="btn btn-danger btn-lg w-100" onclick="confirmarSalida()" style="background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); border: none;">
-                                <i class="bi bi-box-arrow-right"></i> SALIR DEL SISTEMA
+                                <i class="bi bi-box-arrow-right"></i> SALIR SIMPLE
                             </button>
+                        </div>
+                    </div>
+
+                    <!-- Panel de Enlaces de Acceso -->
+                    <div class="card mb-4 border-info">
+                        <div class="card-header bg-info text-white">
+                            <h5 class="mb-0">
+                                <i class="bi bi-link-45deg"></i> Enlaces de Acceso al Sistema
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4 mb-2">
+                                    <a href="https://github.com/kike5767/eps_v2" target="_blank" class="btn btn-dark w-100">
+                                        <i class="bi bi-github"></i> GitHub - Código Fuente
+                                    </a>
+                                </div>
+                                <div class="col-md-4 mb-2">
+                                    <a href="https://youtu.be/GVyz4-I0t_0" target="_blank" class="btn btn-danger w-100">
+                                        <i class="bi bi-youtube"></i> YouTube - Video Tutorial
+                                    </a>
+                                </div>
+                                <div class="col-md-4 mb-2">
+                                    <a href="/MenuPrincipal" class="btn btn-primary w-100">
+                                        <i class="bi bi-house-door"></i> Menú Principal Local
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -163,6 +196,18 @@
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                             <span><strong>8.</strong> Sincronizar GitHub</span>
                                             <button type="button" class="btn btn-sm btn-outline-success" onclick="confirmarBackup(8)">
+                                                <i class="bi bi-arrow-right"></i>
+                                            </button>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span><strong>17.</strong> Subir a Servidor de Alojamiento</span>
+                                            <button type="button" class="btn btn-sm btn-outline-success" onclick="confirmarBackup(17)">
+                                                <i class="bi bi-arrow-right"></i>
+                                            </button>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span><strong>18.</strong> Actualizar Local y Nube</span>
+                                            <button type="button" class="btn btn-sm btn-outline-success" onclick="confirmarBackup(18)">
                                                 <i class="bi bi-arrow-right"></i>
                                             </button>
                                         </li>
@@ -338,10 +383,15 @@
     let opcionPendiente = null;
     let accionPendiente = null;
 
+    // Función para mostrar opciones de salida
+    function mostrarOpcionesSalida() {
+        window.location.href = '/OpcionesSalida';
+    }
+
     // Función para ejecutar opción desde botones
     function ejecutarOpcion(numero) {
         // Verifica si requiere confirmación
-        if (numero >= 5 && numero <= 8 || numero === 16) {
+        if (numero >= 5 && numero <= 8 || numero === 16 || numero === 17 || numero === 18) {
             confirmarBackup(numero);
         } else {
             document.getElementById('opcion').value = numero;
@@ -358,7 +408,9 @@
             5: '¿Está seguro de generar un Backup Completo?',
             6: '¿Está seguro de generar un Backup de SQL Server?',
             7: '¿Está seguro de generar un Backup de Datos Generales?',
-            8: '¿Está seguro de sincronizar con GitHub?'
+            8: '¿Está seguro de sincronizar con GitHub?',
+            17: '¿Está seguro de subir a Servidor de Alojamiento Gratuito?',
+            18: '¿Está seguro de actualizar Local y Nube simultáneamente?'
         };
         
         document.getElementById('mensajeConfirmacion').textContent = mensajes[numero] || '¿Está seguro de realizar esta operación?';
@@ -426,8 +478,13 @@
             // Usuario confirmó
             if (accionPendiente === 'backup' && opcionPendiente) {
                 // Ejecuta la opción de backup
-                document.getElementById('opcion').value = opcionPendiente;
-                document.getElementById('formOpcion').submit();
+                if (opcionPendiente === 17) {
+                    // Redirige a opciones de salida
+                    window.location.href = '/OpcionesSalida';
+                } else {
+                    document.getElementById('opcion').value = opcionPendiente;
+                    document.getElementById('formOpcion').submit();
+                }
             } else if (accionPendiente === 'guardado') {
                 // Ejecuta guardado automático
                 document.getElementById('formGuardado').submit();
@@ -457,7 +514,7 @@
         if (e.target.id === 'opcion' && e.key === 'Enter') {
             e.preventDefault();
             const numero = parseInt(document.getElementById('opcion').value);
-            if (numero >= 5 && numero <= 8 || numero === 16) {
+            if (numero >= 5 && numero <= 8 || numero === 16 || numero === 17 || numero === 18) {
                 confirmarBackup(numero);
             } else {
                 document.getElementById('formOpcion').submit();

@@ -64,6 +64,14 @@ namespace asp_presentacion.Pages
                         // Sincronizar GitHub
                         return OnPostSincronizarGitHub();
                     
+                    case 17:
+                        // Subir a Servidor de Alojamiento
+                        return RedirectToPage("/OpcionesSalida");
+                    
+                    case 18:
+                        // Actualizar Local y Nube
+                        return OnPostActualizarLocalYNube();
+                    
                     case 9:
                         // Ver Logs de Auditoría
                         return RedirectToPage("/Logs", new { tipo = "auditoria" });
@@ -261,6 +269,49 @@ namespace asp_presentacion.Pages
                 CargarInformacionSistema();
                 return Page();
             }
+        }
+
+        // Método POST: actualizar local y nube
+        public IActionResult OnPostActualizarLocalYNube()
+        {
+            try
+            {
+                // Graba local
+                string rutaBackup = SistemaBackup.GenerarBackupCompleto();
+                
+                // Actualiza GitHub
+                var proceso = new System.Diagnostics.Process
+                {
+                    StartInfo = new System.Diagnostics.ProcessStartInfo
+                    {
+                        FileName = "git",
+                        Arguments = "add .",
+                        WorkingDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", ".."),
+                        UseShellExecute = false,
+                        RedirectStandardOutput = true,
+                        CreateNoWindow = true
+                    }
+                };
+                proceso.Start();
+                proceso.WaitForExit();
+
+                proceso.StartInfo.Arguments = $"commit -m \"Actualización automática local y nube: {DateTime.Now:yyyy-MM-dd HH:mm:ss}\"";
+                proceso.Start();
+                proceso.WaitForExit();
+
+                proceso.StartInfo.Arguments = "push origin main";
+                proceso.Start();
+                proceso.WaitForExit();
+
+                TempData["Success"] = $"✅ Actualización local y nube completada exitosamente. Backup: {Path.GetFileName(rutaBackup)}";
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = $"❌ Error en actualización: {ex.Message}";
+            }
+            
+            CargarInformacionSistema();
+            return Page();
         }
 
         // Método POST: salida del sistema con backup diario
