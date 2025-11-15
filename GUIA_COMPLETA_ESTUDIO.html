@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Guía Completa de Estudio - EPS V2 Final</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 40px; line-height: 1.8; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 40px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+        h1 { color: #7B2CBF; border-bottom: 4px solid #7B2CBF; padding-bottom: 15px; }
+        h2 { color: #5A189A; margin-top: 40px; border-left: 5px solid #7B2CBF; padding-left: 15px; }
+        h3 { color: #9D4EDD; margin-top: 30px; }
+        .step { background: #f8f9fa; border-left: 4px solid #7B2CBF; padding: 20px; margin: 20px 0; }
+        .code { background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 5px; font-family: 'Consolas', monospace; overflow-x: auto; }
+        .important { background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin: 20px 0; }
+        .success { background: #d4edda; border-left: 4px solid #28a745; padding: 15px; margin: 20px 0; }
+        .warning { background: #f8d7da; border-left: 4px solid #dc3545; padding: 15px; margin: 20px 0; }
+        ul { margin: 15px 0; }
+        li { margin: 10px 0; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #7B2CBF; color: white; }
+        tr:nth-child(even) { background-color: #f2f2f2; }
+        .highlight { background: yellow; padding: 2px 5px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 GUÍA COMPLETA DE ESTUDIO - EPS V2 FINAL</h1>
+        <p><strong>Para Sustentación con el Profesor</strong></p>
+        <p><strong>Fecha:</strong> <span id="fecha"></span></p>
+
+        <div class="important">
+            <h3>🎯 Objetivo de esta Guía</h3>
+            <p>Esta guía te ayudará a entender completamente el proyecto EPS V2 Final para poder sustentarlo exitosamente con tu profesor. Cada paso está explicado en detalle con comentarios y explicaciones técnicas.</p>
+        </div>
+
+        <h2>📋 ÍNDICE</h2>
+        <ol>
+            <li><a href="#estructura">Estructura del Proyecto</a></li>
+            <li><a href="#arquitectura">Arquitectura en Capas</a></li>
+            <li><a href="#compilacion">Proceso de Compilación</a></li>
+            <li><a href="#pruebas">Pruebas Unitarias</a></li>
+            <li><a href="#api">API REST (asp_servicios)</a></li>
+            <li><a href="#ui">Interfaz de Usuario (asp_presentacion)</a></li>
+            <li><a href="#crud">Operaciones CRUD</a></li>
+            <li><a href="#sql">Base de Datos SQL Server</a></li>
+            <li><a href="#comentarios">Comentarios Línea por Línea</a></li>
+            <li><a href="#sustentacion">Preguntas para Sustentación</a></li>
+        </ol>
+
+        <h2 id="estructura">1. ESTRUCTURA DEL PROYECTO</h2>
+        
+        <div class="step">
+            <h3>1.1 ¿Por qué esta estructura?</h3>
+            <p>El proyecto sigue la <strong>arquitectura en capas</strong> que el profesor requiere, igual a la referencia <code>panaderia_ref</code>. Esta estructura separa las responsabilidades y facilita el mantenimiento.</p>
+            
+            <h4>Explicación de cada carpeta:</h4>
+            <ul>
+                <li><strong>1. presentaciones:</strong> Contiene la interfaz de usuario (UI) y las comunicaciones con el API</li>
+                <li><strong>2. servicios:</strong> Contiene el API REST y los repositorios que acceden a la base de datos</li>
+                <li><strong>3. nucleo:</strong> Contiene las entidades y clases base que se usan en todo el proyecto</li>
+                <li><strong>4. pruebas unitarias:</strong> Contiene las pruebas automatizadas del proyecto</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>1.2 Proyectos en la Solución</h3>
+            <table>
+                <tr>
+                    <th>Proyecto</th>
+                    <th>Propósito</th>
+                    <th>Dependencias</th>
+                </tr>
+                <tr>
+                    <td><strong>lib_dominio</strong></td>
+                    <td>Entidades y clases base (JsonConversor, EncodingHelper, etc.)</td>
+                    <td>Ninguna (proyecto base)</td>
+                </tr>
+                <tr>
+                    <td><strong>lib_repositorios</strong></td>
+                    <td>Acceso a datos (Conexion, Aplicaciones, TokenAplicacion)</td>
+                    <td>lib_dominio</td>
+                </tr>
+                <tr>
+                    <td><strong>lib_presentaciones</strong></td>
+                    <td>Comunicaciones HTTP con el API (Comunicaciones, Interfaces)</td>
+                    <td>lib_dominio</td>
+                </tr>
+                <tr>
+                    <td><strong>asp_servicios</strong></td>
+                    <td>API REST (Controllers, Configuracion, Startup)</td>
+                    <td>lib_dominio, lib_repositorios</td>
+                </tr>
+                <tr>
+                    <td><strong>asp_presentacion</strong></td>
+                    <td>Interfaz Razor Pages (UI con tema morado)</td>
+                    <td>lib_presentaciones</td>
+                </tr>
+                <tr>
+                    <td><strong>EPS.Tests</strong></td>
+                    <td>Pruebas unitarias del proyecto</td>
+                    <td>lib_dominio</td>
+                </tr>
+            </table>
+        </div>
+
+        <h2 id="arquitectura">2. ARQUITECTURA EN CAPAS</h2>
+
+        <div class="step">
+            <h3>2.1 Flujo de Datos</h3>
+            <p>El flujo de datos sigue este orden:</p>
+            <ol>
+                <li><strong>UI (asp_presentacion):</strong> El usuario interactúa con la interfaz</li>
+                <li><strong>lib_presentaciones:</strong> Envía peticiones HTTP al API</li>
+                <li><strong>API (asp_servicios):</strong> Recibe las peticiones y valida tokens</li>
+                <li><strong>lib_repositorios:</strong> Ejecuta operaciones en la base de datos</li>
+                <li><strong>lib_dominio:</strong> Define las entidades y reglas de negocio</li>
+                <li><strong>SQL Server:</strong> Almacena los datos</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h3>2.2 ¿Por qué esta separación?</h3>
+            <ul>
+                <li><strong>Separación de responsabilidades:</strong> Cada capa tiene una función específica</li>
+                <li><strong>Mantenibilidad:</strong> Es más fácil modificar una capa sin afectar las otras</li>
+                <li><strong>Reutilización:</strong> Las clases base se pueden usar en múltiples proyectos</li>
+                <li><strong>Pruebas:</strong> Cada capa se puede probar independientemente</li>
+            </ul>
+        </div>
+
+        <h2 id="compilacion">3. PROCESO DE COMPILACIÓN</h2>
+
+        <div class="step">
+            <h3>3.1 ¿Qué es la compilación?</h3>
+            <p>La compilación es el proceso de convertir el código fuente (archivos .cs) en archivos ejecutables (.dll).</p>
+            
+            <h4>Orden de compilación:</h4>
+            <ol>
+                <li><strong>lib_dominio:</strong> Se compila primero porque otros proyectos lo necesitan</li>
+                <li><strong>lib_repositorios:</strong> Depende de lib_dominio</li>
+                <li><strong>lib_presentaciones:</strong> Depende de lib_dominio</li>
+                <li><strong>asp_servicios:</strong> Depende de lib_dominio y lib_repositorios</li>
+                <li><strong>asp_presentacion:</strong> Depende de lib_presentaciones</li>
+                <li><strong>EPS.Tests:</strong> Depende de lib_dominio</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h3>3.2 Comando de Compilación</h3>
+            <div class="code">
+dotnet build EPS.sln --no-incremental
+            </div>
+            <p><strong>Explicación:</strong></p>
+            <ul>
+                <li><code>dotnet build</code>: Compila el proyecto</li>
+                <li><code>EPS.sln</code>: Archivo de solución que contiene todos los proyectos</li>
+                <li><code>--no-incremental</code>: Fuerza una compilación completa (no usa caché)</li>
+            </ul>
+        </div>
+
+        <h2 id="pruebas">4. PRUEBAS UNITARIAS</h2>
+
+        <div class="step">
+            <h3>4.1 ¿Qué son las pruebas unitarias?</h3>
+            <p>Las pruebas unitarias verifican que cada parte del código funciona correctamente de forma independiente.</p>
+            
+            <h4>Tipos de pruebas en el proyecto:</h4>
+            <ul>
+                <li><strong>Validación de entidades:</strong> Verifica que las entidades tengan los datos correctos</li>
+                <li><strong>Pruebas de servicios:</strong> Verifica la lógica de negocio</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>4.2 Ejecutar Pruebas</h3>
+            <div class="code">
+dotnet test Tests/EPS.Tests/EPS.Tests.csproj --verbosity normal
+            </div>
+            <p><strong>Resultado esperado:</strong></p>
+            <div class="success">
+                ✅ Passed: X<br>
+                ❌ Failed: 0<br>
+                ⏭️ Skipped: 0
+            </div>
+        </div>
+
+        <h2 id="api">5. API REST (asp_servicios)</h2>
+
+        <div class="step">
+            <h3>5.1 ¿Qué es el API?</h3>
+            <p>El API (Application Programming Interface) es el servicio que recibe peticiones HTTP y devuelve respuestas en formato JSON.</p>
+            
+            <h4>Componentes principales:</h4>
+            <ul>
+                <li><strong>Controllers:</strong> Reciben las peticiones HTTP (TokenController, AfiliadosController)</li>
+                <li><strong>Startup.cs:</strong> Configura los servicios y el pipeline HTTP</li>
+                <li><strong>Configuracion.cs:</strong> Lee la cadena de conexión desde secrets.json</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>5.2 Flujo de una Petición al API</h3>
+            <ol>
+                <li><strong>Cliente envía petición:</strong> POST /Afiliados/Listar</li>
+                <li><strong>TokenController valida:</strong> Verifica que la llave sea correcta</li>
+                <li><strong>AfiliadosController procesa:</strong> Obtiene los datos del repositorio</li>
+                <li><strong>AfiliadosAplicacion ejecuta:</strong> Consulta la base de datos</li>
+                <li><strong>Respuesta JSON:</strong> Devuelve los datos al cliente</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h3>5.3 Rutas del API</h3>
+            <p>Todas las rutas siguen el patrón: <code>[controller]/[action]</code></p>
+            <ul>
+                <li><code>Token/Llave</code>: Obtiene la llave de autenticación</li>
+                <li><code>Afiliados/Listar</code>: Lista todos los afiliados</li>
+                <li><code>Afiliados/Guardar</code>: Guarda un nuevo afiliado</li>
+                <li><code>Afiliados/Modificar</code>: Modifica un afiliado existente</li>
+                <li><code>Afiliados/Borrar</code>: Borra un afiliado</li>
+            </ul>
+        </div>
+
+        <h2 id="ui">6. INTERFAZ DE USUARIO (asp_presentacion)</h2>
+
+        <div class="step">
+            <h3>6.1 ¿Qué es Razor Pages?</h3>
+            <p>Razor Pages es una tecnología de Microsoft que permite crear páginas web dinámicas usando C# y HTML.</p>
+            
+            <h4>Archivos principales:</h4>
+            <ul>
+                <li><strong>Afiliados.cshtml:</strong> Vista HTML con el formulario y tabla</li>
+                <li><strong>Afiliados.cshtml.cs:</strong> Código C# que maneja la lógica de la página</li>
+                <li><strong>site.css:</strong> Estilos CSS con el tema morado</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>6.2 Tema Morado</h3>
+            <p>El tema morado usa estos colores:</p>
+            <ul>
+                <li><strong>Color principal:</strong> #7B2CBF (morado oscuro)</li>
+                <li><strong>Color secundario:</strong> #C77DFF (morado claro)</li>
+                <li><strong>Color de acento:</strong> #E0AAFF (morado muy claro)</li>
+            </ul>
+            <p>Estos colores se aplican a: navbar, botones, cards, tablas y footer.</p>
+        </div>
+
+        <h2 id="crud">7. OPERACIONES CRUD</h2>
+
+        <div class="step">
+            <h3>7.1 ¿Qué es CRUD?</h3>
+            <p>CRUD significa: <strong>C</strong>reate (Crear), <strong>R</strong>ead (Leer), <strong>U</strong>pdate (Actualizar), <strong>D</strong>elete (Borrar).</p>
+        </div>
+
+        <div class="step">
+            <h3>7.2 CREATE (Crear)</h3>
+            <ol>
+                <li>Usuario llena el formulario en la UI</li>
+                <li>UI envía petición POST a /Afiliados/Guardar</li>
+                <li>API valida el token</li>
+                <li>API valida que el Id sea 0 (nuevo registro)</li>
+                <li>Repositorio inserta en la base de datos</li>
+                <li>Se devuelve el afiliado con su nuevo ID</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h3>7.3 READ (Leer/Listar)</h3>
+            <ol>
+                <li>Usuario carga la página de Afiliados</li>
+                <li>UI envía petición POST a /Afiliados/Listar</li>
+                <li>API valida el token</li>
+                <li>Repositorio consulta la base de datos (máximo 50 registros)</li>
+                <li>Se devuelve la lista de afiliados</li>
+                <li>UI muestra los datos en una tabla</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h3>7.4 UPDATE (Actualizar)</h3>
+            <ol>
+                <li>Usuario hace clic en "Editar"</li>
+                <li>UI carga los datos del afiliado</li>
+                <li>Usuario modifica los datos</li>
+                <li>UI envía petición POST a /Afiliados/Modificar</li>
+                <li>API valida que el Id sea mayor a 0 (registro existente)</li>
+                <li>Repositorio actualiza en la base de datos</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h3>7.5 DELETE (Borrar)</h3>
+            <ol>
+                <li>Usuario hace clic en "Borrar"</li>
+                <li>UI muestra confirmación</li>
+                <li>UI envía petición POST a /Afiliados/Borrar</li>
+                <li>API valida que el Id sea mayor a 0</li>
+                <li>Repositorio elimina de la base de datos</li>
+            </ol>
+        </div>
+
+        <h2 id="sql">8. BASE DE DATOS SQL SERVER</h2>
+
+        <div class="step">
+            <h3>8.1 Estructura de la Base de Datos</h3>
+            <p>La base de datos <strong>EPSDB</strong> contiene las siguientes tablas principales:</p>
+            <ul>
+                <li><strong>Afiliado:</strong> Información de los afiliados</li>
+                <li><strong>Usuario:</strong> Usuarios del sistema</li>
+                <li><strong>Contrato:</strong> Contratos de los afiliados</li>
+                <li><strong>Cita:</strong> Citas médicas</li>
+                <li><strong>Factura:</strong> Facturas de pagos</li>
+                <li>Y más tablas relacionadas...</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>8.2 Entity Framework Core</h3>
+            <p>El proyecto usa <strong>Entity Framework Core</strong> para acceder a la base de datos.</p>
+            
+            <h4>Ventajas:</h4>
+            <ul>
+                <li>No necesitas escribir SQL manualmente</li>
+                <li>Las entidades C# se mapean automáticamente a tablas</li>
+                <li>Cambios en el código se reflejan en la base de datos</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>8.3 Conexión a la Base de Datos</h3>
+            <p>La cadena de conexión se lee desde <code>secrets.json</code>:</p>
+            <div class="code">
+{
+  "StringConexion": "Server=localhost\\SQLEXPRESS;Database=EPSDB;Trusted_Connection=True;TrustServerCertificate=True;"
+}
+            </div>
+            <p><strong>Explicación:</strong></p>
+            <ul>
+                <li><code>Server=localhost\SQLEXPRESS</code>: Servidor de SQL Server</li>
+                <li><code>Database=EPSDB</code>: Nombre de la base de datos</li>
+                <li><code>Trusted_Connection=True</code>: Usa autenticación de Windows</li>
+            </ul>
+        </div>
+
+        <h2 id="comentarios">9. COMENTARIOS LÍNEA POR LÍNEA</h2>
+
+        <div class="step">
+            <h3>9.1 ¿Por qué comentarios línea por línea?</h3>
+            <p>El profesor requiere comentarios en cada línea para:</p>
+            <ul>
+                <li><strong>Documentación:</strong> Explicar qué hace cada parte del código</li>
+                <li><strong>Mantenimiento:</strong> Facilitar futuras modificaciones</li>
+                <li><strong>Enseñanza:</strong> Ayudar a entender el código</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>9.2 Ejemplo de Comentarios</h3>
+            <div class="code">
+// Controlador para operaciones CRUD de Afiliados
+// Proporciona endpoints para listar, guardar, modificar y borrar afiliados
+using asp_servicios.Nucleo;
+using lib_dominio.Entidades;
+
+namespace asp_servicios.Controllers
+{
+    // Marca esta clase como un controlador de API
+    [ApiController]
+    // Define la ruta base: /Afiliados/[action]
+    [Route("[controller]/[action]")]
+    public class AfiliadosController : ControllerBase
+    {
+        // Instancia de la aplicación de afiliados
+        private IAfiliadosAplicacion? iAplicacion = null;
+        
+        // Constructor que recibe las aplicaciones por inyección de dependencias
+        public AfiliadosController(IAfiliadosAplicacion? iAplicacion, TokenAplicacion iAplicacionToken)
+        {
+            this.iAplicacion = iAplicacion;
+        }
+    }
+}
+            </div>
+        </div>
+
+        <h2 id="sustentacion">10. PREGUNTAS PARA SUSTENTACIÓN</h2>
+
+        <div class="step">
+            <h3>10.1 Preguntas sobre Arquitectura</h3>
+            <p><strong>P: ¿Por qué separaste el proyecto en capas?</strong></p>
+            <p><strong>R:</strong> Para seguir la arquitectura en capas que el profesor requiere, igual a la referencia panaderia_ref. Esto permite separar responsabilidades, facilitar el mantenimiento y hacer el código más reutilizable.</p>
+            
+            <p><strong>P: ¿Qué hace cada capa?</strong></p>
+            <p><strong>R:</strong></p>
+            <ul>
+                <li><strong>Presentación:</strong> Interfaz de usuario y comunicaciones</li>
+                <li><strong>Servicios:</strong> API REST y lógica de negocio</li>
+                <li><strong>Repositorios:</strong> Acceso a datos</li>
+                <li><strong>Dominio:</strong> Entidades y clases base</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>10.2 Preguntas sobre el API</h3>
+            <p><strong>P: ¿Cómo funciona la autenticación?</strong></p>
+            <p><strong>R:</strong> El API usa tokens. Primero se obtiene una llave desde Token/Llave, luego cada petición debe incluir esa llave en el cuerpo. El TokenAplicacion valida que la llave sea correcta.</p>
+            
+            <p><strong>P: ¿Por qué usas rutas [controller]/[action]?</strong></p>
+            <p><strong>R:</strong> Es el patrón que el profesor requiere, igual a la referencia. Permite que las rutas sean automáticas basadas en el nombre del controlador y el método.</p>
+        </div>
+
+        <div class="step">
+            <h3>10.3 Preguntas sobre la UI</h3>
+            <p><strong>P: ¿Por qué tema morado?</strong></p>
+            <p><strong>R:</strong> El profesor solicitó un tema morado mejorado. Usa el color #7B2CBF como principal, aplicado a navbar, botones, cards y tablas.</p>
+            
+            <p><strong>P: ¿Cómo se comunica la UI con el API?</strong></p>
+            <p><strong>R:</strong> A través de la clase Comunicaciones en lib_presentaciones, que usa HttpClient para enviar peticiones HTTP POST al API.</p>
+        </div>
+
+        <div class="step">
+            <h3>10.4 Preguntas sobre CRUD</h3>
+            <p><strong>P: ¿Cómo validas que un registro sea nuevo o existente?</strong></p>
+            <p><strong>R:</strong> Si el Id es 0, es nuevo (Guardar). Si el Id es mayor a 0, es existente (Modificar o Borrar).</p>
+            
+            <p><strong>P: ¿Qué validaciones haces antes de guardar?</strong></p>
+            <p><strong>R:</strong> Valido que la entidad no sea nula, que el Id sea correcto (0 para nuevo, >0 para existente), y luego ejecuto la operación en la base de datos.</p>
+        </div>
+
+        <div class="step">
+            <h3>10.5 Preguntas sobre Base de Datos</h3>
+            <p><strong>P: ¿Por qué usas Entity Framework Core?</strong></p>
+            <p><strong>R:</strong> Es el ORM (Object-Relational Mapping) estándar de .NET. Permite trabajar con objetos C# en lugar de SQL directo, facilitando el desarrollo y mantenimiento.</p>
+            
+            <p><strong>P: ¿Dónde está la cadena de conexión?</strong></p>
+            <p><strong>R:</strong> En secrets.json en la raíz del proyecto. Se lee mediante Configuracion.cs que usa DatosGenerales.ruta_json para encontrar el archivo.</p>
+        </div>
+
+        <div class="step">
+            <h3>10.6 Preguntas sobre Comentarios</h3>
+            <p><strong>P: ¿Por qué comentarios línea por línea?</strong></p>
+            <p><strong>R:</strong> Es un requisito explícito del profesor. Cada archivo .cs tiene comentarios que explican qué hace cada línea, facilitando la comprensión y mantenimiento del código.</p>
+        </div>
+
+        <div class="success">
+            <h3>✅ RESUMEN PARA SUSTENTACIÓN</h3>
+            <p>Recuerda mencionar:</p>
+            <ul>
+                <li>✅ Estructura igual a panaderia_ref (requisito del profesor)</li>
+                <li>✅ Comentarios línea por línea en todos los archivos .cs</li>
+                <li>✅ Tema morado mejorado en la UI</li>
+                <li>✅ Arquitectura en capas bien definida</li>
+                <li>✅ CRUD completo funcionando</li>
+                <li>✅ Pruebas unitarias implementadas</li>
+                <li>✅ Compilación exitosa sin errores</li>
+            </ul>
+        </div>
+
+        <hr style="margin: 40px 0; border: 2px solid #7B2CBF;">
+        <p style="text-align: center; color: #7B2CBF; font-size: 18px;">
+            <strong>¡Éxito en tu sustentación! 🎓</strong><br>
+            Fecha: <span id="fecha2"></span>
+        </p>
+    </div>
+
+    <script>
+        const fecha = new Date().toLocaleString('es-ES', { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric', 
+            hour: '2-digit', 
+            minute: '2-digit' 
+        });
+        document.getElementById('fecha').textContent = fecha;
+        document.getElementById('fecha2').textContent = fecha;
+    </script>
+</body>
+</html>
+
