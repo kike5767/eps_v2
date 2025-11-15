@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Lógica de Negocio y Auditoría CRUD Completa - EPS V2</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 40px; line-height: 1.8; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 40px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+        h1 { color: #7B2CBF; border-bottom: 4px solid #7B2CBF; padding-bottom: 15px; }
+        h2 { color: #5A189A; margin-top: 40px; border-left: 5px solid #7B2CBF; padding-left: 15px; }
+        h3 { color: #9D4EDD; margin-top: 30px; }
+        .step { background: #f8f9fa; border-left: 4px solid #7B2CBF; padding: 20px; margin: 20px 0; }
+        .code { background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 5px; font-family: 'Consolas', monospace; overflow-x: auto; }
+        .important { background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin: 20px 0; }
+        .success { background: #d4edda; border-left: 4px solid #28a745; padding: 15px; margin: 20px 0; }
+        .warning { background: #f8d7da; border-left: 4px solid #dc3545; padding: 15px; margin: 20px 0; }
+        .info { background: #d1ecf1; border-left: 4px solid #17a2b8; padding: 15px; margin: 20px 0; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #7B2CBF; color: white; }
+        tr:nth-child(even) { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✅ LÓGICA DE NEGOCIO Y AUDITORÍA CRUD COMPLETA</h1>
+        <p><strong>EPS V2 Final - Sistema Completo de Validación y Registro</strong></p>
+        <p><strong>Fecha:</strong> <span id="fecha"></span></p>
+
+        <div class="success">
+            <h3>🎯 RESPUESTA DIRECTA</h3>
+            <p><strong>SÍ, el proyecto TIENE lógica de negocio completa</strong> y <strong>SÍ graba todos los cambios del CRUD en archivos</strong>.</p>
+        </div>
+
+        <h2>📋 SISTEMA DE AUDITORÍA IMPLEMENTADO</h2>
+
+        <div class="step">
+            <h3>Ubicación de los Logs</h3>
+            <p><strong>Directorio:</strong> <code>C:\EPS_V2_FINAL\Logs_Auditoria_CRUD\</code></p>
+            <p>Este directorio se crea automáticamente cuando se ejecuta cualquier operación CRUD.</p>
+        </div>
+
+        <div class="step">
+            <h3>Archivos de Log Generados Automáticamente</h3>
+            <table>
+                <tr>
+                    <th>Archivo</th>
+                    <th>Contenido</th>
+                    <th>Formato</th>
+                </tr>
+                <tr>
+                    <td><strong>Auditoria_CRUD_[fecha].log</strong></td>
+                    <td>Todas las operaciones CRUD (CREATE, READ, UPDATE, DELETE)</td>
+                    <td>Auditoria_CRUD_20251115.log</td>
+                </tr>
+                <tr>
+                    <td><strong>Validaciones_[fecha].log</strong></td>
+                    <td>Todas las validaciones de negocio (pasadas y fallidas)</td>
+                    <td>Validaciones_20251115.log</td>
+                </tr>
+                <tr>
+                    <td><strong>Errores_[fecha].log</strong></td>
+                    <td>Todos los errores de lógica de negocio</td>
+                    <td>Errores_20251115.log</td>
+                </tr>
+            </table>
+        </div>
+
+        <h2>🔍 VALIDACIONES DE LÓGICA DE NEGOCIO</h2>
+
+        <div class="step">
+            <h3>Validaciones Implementadas en Afiliados</h3>
+            <ol>
+                <li><strong>Validación de Entidad Nula</strong>
+                    <ul>
+                        <li>Verifica que la entidad no sea null</li>
+                        <li>Graba error en log si es nula</li>
+                    </ul>
+                </li>
+                <li><strong>Validación de Nombre</strong>
+                    <ul>
+                        <li>Verifica que el nombre no esté vacío</li>
+                        <li>Graba validación fallida si está vacío</li>
+                    </ul>
+                </li>
+                <li><strong>Validación de Documento</strong>
+                    <ul>
+                        <li>Verifica que el documento no esté vacío</li>
+                        <li>Graba validación fallida si está vacío</li>
+                    </ul>
+                </li>
+                <li><strong>Validación de Email</strong>
+                    <ul>
+                        <li>Verifica formato básico de email (debe contener @ y .)</li>
+                        <li>Graba validación fallida si el formato es inválido</li>
+                    </ul>
+                </li>
+                <li><strong>Validación de Fecha de Nacimiento</strong>
+                    <ul>
+                        <li>Verifica que la fecha no sea futura</li>
+                        <li>Graba validación fallida si es futura</li>
+                    </ul>
+                </li>
+                <li><strong>Validación de Municipio</strong>
+                    <ul>
+                        <li>Verifica que el municipio exista en la base de datos</li>
+                        <li>Graba validación fallida si no existe</li>
+                    </ul>
+                </li>
+                <li><strong>Validación de ID</strong>
+                    <ul>
+                        <li>Para Guardar: ID debe ser 0</li>
+                        <li>Para Modificar/Borrar: ID debe ser > 0</li>
+                        <li>Graba error si el ID es inválido</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <h2>📊 OPERACIONES CRUD CON AUDITORÍA COMPLETA</h2>
+
+        <div class="step">
+            <h3>CREATE (Guardar) - Flujo Completo</h3>
+            <ol>
+                <li>Valida que entidad no sea nula → <strong>Graba error si falla</strong></li>
+                <li>Valida que ID sea 0 → <strong>Graba error si falla</strong></li>
+                <li>Valida lógica de negocio completa → <strong>Graba cada validación</strong></li>
+                <li><strong>Graba operación "INICIANDO" con datos</strong></li>
+                <li>Ejecuta INSERT en base de datos</li>
+                <li><strong>Graba operación "OK" con datos finales y nuevo ID</strong></li>
+            </ol>
+            <div class="info">
+                <strong>Archivos generados:</strong>
+                <ul>
+                    <li>Auditoria_CRUD_[fecha].log - Operación completa</li>
+                    <li>Validaciones_[fecha].log - Todas las validaciones</li>
+                    <li>Errores_[fecha].log - Si hay errores</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>READ (Listar) - Flujo Completo</h3>
+            <ol>
+                <li><strong>Graba operación "INICIANDO"</strong></li>
+                <li>Ejecuta SELECT en base de datos</li>
+                <li><strong>Graba operación "OK" con cantidad de registros</strong></li>
+            </ol>
+            <div class="info">
+                <strong>Archivos generados:</strong>
+                <ul>
+                    <li>Auditoria_CRUD_[fecha].log - Operación de lectura</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>UPDATE (Modificar) - Flujo Completo</h3>
+            <ol>
+                <li>Valida que entidad no sea nula → <strong>Graba error si falla</strong></li>
+                <li>Valida que ID sea > 0 → <strong>Graba error si falla</strong></li>
+                <li>Obtiene datos originales de la BD</li>
+                <li>Valida lógica de negocio completa → <strong>Graba cada validación</strong></li>
+                <li><strong>Graba operación "INICIANDO" con datos ANTES/DESPUÉS</strong></li>
+                <li>Ejecuta UPDATE en base de datos</li>
+                <li><strong>Graba operación "OK" con datos finales</strong></li>
+            </ol>
+            <div class="info">
+                <strong>Archivos generados:</strong>
+                <ul>
+                    <li>Auditoria_CRUD_[fecha].log - Operación con datos antes/después</li>
+                    <li>Validaciones_[fecha].log - Todas las validaciones</li>
+                    <li>Errores_[fecha].log - Si hay errores</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>DELETE (Borrar) - Flujo Completo</h3>
+            <ol>
+                <li>Valida que entidad no sea nula → <strong>Graba error si falla</strong></li>
+                <li>Valida que ID sea > 0 → <strong>Graba error si falla</strong></li>
+                <li>Obtiene datos originales de la BD (para auditoría)</li>
+                <li><strong>Graba operación "INICIANDO" con datos ANTES de borrar</strong></li>
+                <li>Ejecuta DELETE en base de datos</li>
+                <li><strong>Graba operación "OK" confirmando borrado</strong></li>
+            </ol>
+            <div class="info">
+                <strong>Archivos generados:</strong>
+                <ul>
+                    <li>Auditoria_CRUD_[fecha].log - Operación con datos antes de borrar</li>
+                    <li>Errores_[fecha].log - Si hay errores</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>📄 FORMATO DE LOS LOGS</h2>
+
+        <div class="step">
+            <h3>Ejemplo de Auditoria_CRUD.log</h3>
+            <div class="code">
+[2025-11-15 03:45:12.345] [CREATE] [Afiliado] [INICIANDO] Antes: N/A | Después: {"Id":0,"Nombre":"Juan",...} | Mensaje: Iniciando operación de guardado
+[2025-11-15 03:45:12.456] [CREATE] [Afiliado] [OK] Antes: N/A | Después: {"Id":1,"Nombre":"Juan",...} | Mensaje: Afiliado guardado con ID: 1
+[2025-11-15 03:45:15.123] [UPDATE] [Afiliado] [INICIANDO] Antes: {"Id":1,"Nombre":"Juan",...} | Después: {"Id":1,"Nombre":"Juan Modificado",...} | Mensaje: Iniciando modificación
+[2025-11-15 03:45:15.234] [UPDATE] [Afiliado] [OK] Antes: {"Id":1,"Nombre":"Juan",...} | Después: {"Id":1,"Nombre":"Juan Modificado",...} | Mensaje: Afiliado ID 1 modificado exitosamente
+[2025-11-15 03:45:18.567] [DELETE] [Afiliado] [INICIANDO] Antes: {"Id":1,"Nombre":"Juan Modificado",...} | Después: N/A | Mensaje: Iniciando borrado
+[2025-11-15 03:45:18.678] [DELETE] [Afiliado] [OK] Antes: {"Id":1,"Nombre":"Juan Modificado",...} | Después: N/A | Mensaje: Afiliado ID 1 borrado exitosamente
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>Ejemplo de Validaciones.log</h3>
+            <div class="code">
+[2025-11-15 03:45:12.100] [Afiliado] [NombreRequerido] [PASO] Detalle: Nombre válido
+[2025-11-15 03:45:12.110] [Afiliado] [DocumentoRequerido] [PASO] Detalle: Documento válido
+[2025-11-15 03:45:12.120] [Afiliado] [EmailInvalido] [FALLO] Detalle: Email inválido: email-sin-arroba
+[2025-11-15 03:45:12.130] [Afiliado] [ValidacionCompleta] [PASO] Detalle: Todas las validaciones pasaron
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>Ejemplo de Errores.log</h3>
+            <div class="code">
+[2025-11-15 03:45:12.200] [ERROR] [Afiliado] [Guardar] Error: Email inválido | Datos: {"Id":0,"Email":"email-sin-arroba",...}
+[2025-11-15 03:45:15.300] [ERROR] [Afiliado] [Modificar] Error: Afiliado con ID 999 no existe | Datos: {"Id":999,...}
+            </div>
+        </div>
+
+        <h2>🔧 CLASE DE AUDITORÍA</h2>
+
+        <div class="step">
+            <h3>AuditoriaLogicaNegocio.cs</h3>
+            <p><strong>Ubicación:</strong> <code>lib_dominio/Nucleo/AuditoriaLogicaNegocio.cs</code></p>
+            
+            <h4>Métodos principales:</h4>
+            <ul>
+                <li><strong>GrabarOperacion()</strong> - Graba operaciones CRUD completas con datos antes/después</li>
+                <li><strong>GrabarValidacion()</strong> - Graba cada validación de negocio (pasó/falló)</li>
+                <li><strong>GrabarError()</strong> - Graba errores de lógica de negocio</li>
+                <li><strong>ObtenerLogsDelDia()</strong> - Permite consultar logs de un día específico</li>
+            </ul>
+        </div>
+
+        <h2>✅ CARACTERÍSTICAS DEL SISTEMA</h2>
+
+        <div class="success">
+            <h3>Validaciones Completas</h3>
+            <ul>
+                <li>✅ Validación de entidad nula</li>
+                <li>✅ Validación de campos requeridos (nombre, documento)</li>
+                <li>✅ Validación de formato de email</li>
+                <li>✅ Validación de fecha de nacimiento</li>
+                <li>✅ Validación de existencia de municipio</li>
+                <li>✅ Validación de ID según operación</li>
+            </ul>
+        </div>
+
+        <div class="success">
+            <h3>Auditoría Completa</h3>
+            <ul>
+                <li>✅ Graba todas las operaciones CRUD</li>
+                <li>✅ Graba datos antes y después de modificaciones</li>
+                <li>✅ Graba todas las validaciones</li>
+                <li>✅ Graba todos los errores</li>
+                <li>✅ Organizado por fecha en archivos separados</li>
+            </ul>
+        </div>
+
+        <div class="success">
+            <h3>Logs Persistentes</h3>
+            <ul>
+                <li>✅ Se guardan en archivos de texto</li>
+                <li>✅ Un archivo por día</li>
+                <li>✅ Formato legible y estructurado</li>
+                <li>✅ Fácil de consultar y analizar</li>
+            </ul>
+        </div>
+
+        <h2>🎯 PARA SUSTENTACIÓN CON EL PROFESOR</h2>
+
+        <div class="important">
+            <h3>Pregunta: ¿Tiene lógica de negocio?</h3>
+            <p><strong>Respuesta:</strong></p>
+            <p>"Sí, el proyecto tiene lógica de negocio completa. Implementé validaciones en la clase AfiliadosAplicacion que verifican:</p>
+            <ul>
+                <li>Campos requeridos (nombre, documento)</li>
+                <li>Formato de email</li>
+                <li>Fecha de nacimiento válida</li>
+                <li>Existencia de municipio en la BD</li>
+                <li>Validación de ID según la operación</li>
+            </ul>
+            <p>Además, implementé un sistema de auditoría completo que graba TODOS los cambios del CRUD en archivos de log, incluyendo:</p>
+            <ul>
+                <li>Datos antes y después de cada modificación</li>
+                <li>Todas las validaciones realizadas</li>
+                <li>Todos los errores ocurridos</li>
+            </ul>
+            <p>Los logs se guardan en <code>Logs_Auditoria_CRUD</code> con un archivo por día, permitiendo rastrear todas las operaciones del sistema."</p>
+        </div>
+
+        <h2>📍 UBICACIÓN DE ARCHIVOS</h2>
+
+        <div class="step">
+            <h3>Directorio de Logs</h3>
+            <p><strong>Ruta:</strong> <code>C:\EPS_V2_FINAL\Logs_Auditoria_CRUD\</code></p>
+            
+            <h4>Archivos generados automáticamente:</h4>
+            <ul>
+                <li><code>Auditoria_CRUD_YYYYMMDD.log</code> - Operaciones CRUD</li>
+                <li><code>Validaciones_YYYYMMDD.log</code> - Validaciones</li>
+                <li><code>Errores_YYYYMMDD.log</code> - Errores</li>
+                <li><code>Error_Auditoria.log</code> - Errores del sistema de auditoría</li>
+            </ul>
+        </div>
+
+        <h2>📝 RESUMEN FINAL</h2>
+
+        <div class="success">
+            <h3>✅ TODO IMPLEMENTADO</h3>
+            <ul>
+                <li>✅ <strong>SÍ tiene lógica de negocio</strong> - Validaciones completas implementadas</li>
+                <li>✅ <strong>SÍ graba todo</strong> - Sistema de auditoría completo</li>
+                <li>✅ <strong>SÍ valida</strong> - Validaciones antes de cada operación</li>
+                <li>✅ <strong>SÍ registra cambios</strong> - Datos antes/después en logs</li>
+                <li>✅ <strong>SÍ organiza por fecha</strong> - Un archivo por día</li>
+                <li>✅ <strong>SÍ es consultable</strong> - Fácil de revisar y analizar</li>
+            </ul>
+        </div>
+
+        <hr style="margin: 40px 0; border: 2px solid #7B2CBF;">
+        <p style="text-align: center; color: #7B2CBF; font-size: 18px;">
+            <strong>Lógica de Negocio y Auditoría CRUD - Completamente Implementado</strong><br>
+            Fecha: <span id="fecha2"></span>
+        </p>
+    </div>
+
+    <script>
+        const fecha = new Date().toLocaleString('es-ES', { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric', 
+            hour: '2-digit', 
+            minute: '2-digit' 
+        });
+        document.getElementById('fecha').textContent = fecha;
+        document.getElementById('fecha2').textContent = fecha;
+    </script>
+</body>
+</html>
+
