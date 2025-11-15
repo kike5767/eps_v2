@@ -1,165 +1,256 @@
-/* Estilos personalizados para la aplicación EPS */
-/* Tema morado como solicitado por el profesor */
+/* Estilos personalizados para Sistema EPS */
+/* Tema morado/púrpura profesional */
+
+:root {
+    --eps-primary: #7B2CBF;
+    --eps-primary-dark: #5A189A;
+    --eps-primary-light: #9D4EDD;
+    --eps-secondary: #C77DFF;
+    --eps-accent: #E0AAFF;
+    --eps-dark: #240046;
+}
 
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
-/* Color morado principal */
-:root {
-  --primary-color: #7B2CBF;
-  --primary-dark: #5A189A;
-  --primary-light: #9D4EDD;
-  --secondary-color: #C77DFF;
-  --accent-color: #E0AAFF;
-  --text-dark: #240046;
-}
-
-/* Estilos generales */
 body {
-  background-color: #f8f9fa;
-  color: #333;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Botones con tema morado */
-.btn-primary {
-  background-color: var(--primary-color);
-  border-color: var(--primary-color);
-  color: white;
-}
-
-.btn-primary:hover {
-  background-color: var(--primary-dark);
-  border-color: var(--primary-dark);
-}
-
-.btn-secondary {
-  background-color: var(--secondary-color);
-  border-color: var(--secondary-color);
-  color: white;
-}
-
-.btn-secondary:hover {
-  background-color: var(--primary-light);
-  border-color: var(--primary-light);
-}
-
-/* Navbar con tema morado */
+/* Navbar personalizado */
 .navbar {
-  background-color: var(--primary-color) !important;
+    box-shadow: 0 2px 10px rgba(90, 24, 154, 0.3);
 }
 
-.navbar-brand,
-.navbar-nav .nav-link {
-  color: white !important;
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.3rem;
 }
 
-.navbar-nav .nav-link:hover {
-  color: var(--accent-color) !important;
+.nav-link {
+    transition: all 0.3s ease;
 }
 
-/* Cards y contenedores */
+.nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}
+
+/* Dropdown personalizado */
+.dropdown-menu {
+    border: none;
+    box-shadow: 0 4px 12px rgba(90, 24, 154, 0.2);
+    border-radius: 8px;
+}
+
+.dropdown-item {
+    transition: all 0.3s ease;
+}
+
+.dropdown-item:hover {
+    background-color: var(--eps-primary);
+    color: white;
+}
+
+.dropdown-item i {
+    margin-right: 8px;
+    color: var(--eps-primary);
+}
+
+.dropdown-item:hover i {
+    color: white;
+}
+
+/* Cards personalizados */
 .card {
-  border: 1px solid var(--primary-light);
-  box-shadow: 0 2px 4px rgba(123, 44, 191, 0.1);
+    border-radius: 10px;
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(123, 44, 191, 0.3);
 }
 
 .card-header {
-  background-color: var(--primary-color);
-  color: white;
+    border-radius: 10px 10px 0 0 !important;
+    font-weight: 600;
 }
 
-/* Formularios */
-.form-control:focus {
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 0.2rem rgba(123, 44, 191, 0.25);
+/* Botones personalizados */
+.btn-primary {
+    background: linear-gradient(135deg, var(--eps-primary) 0%, var(--eps-primary-dark) 100%);
+    border: none;
+    transition: all 0.3s ease;
 }
 
-/* Tablas */
-.table thead {
-  background-color: var(--primary-color);
-  color: white;
+.btn-primary:hover {
+    background: linear-gradient(135deg, var(--eps-primary-dark) 0%, var(--eps-primary) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(123, 44, 191, 0.4);
 }
 
-.table-hover tbody tr:hover {
-  background-color: var(--accent-color);
+.btn-success {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    border: none;
 }
 
-/* Alertas */
-.alert-primary {
-  background-color: var(--primary-light);
-  border-color: var(--primary-color);
-  color: var(--text-dark);
+.btn-info {
+    background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+    border: none;
 }
 
-/* Badges */
-.badge-primary {
-  background-color: var(--primary-color);
+.btn-warning {
+    background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+    border: none;
+    color: #212529;
 }
 
-/* Enlaces */
-a {
-  color: var(--primary-color);
-}
-
-a:hover {
-  color: var(--primary-dark);
-}
-
-/* Footer */
-.footer {
-  background-color: var(--primary-color);
-  color: white;
-}
-
-/* Mejoras adicionales para el tema morado */
-.btn-danger {
-  background-color: #DC3545;
-  border-color: #DC3545;
-}
-
-.btn-danger:hover {
-  background-color: #C82333;
-  border-color: #BD2130;
-}
-
-/* Efectos de transición suaves */
-.btn, .card, .form-control {
-  transition: all 0.3s ease;
-}
-
-/* Mejora de contraste para accesibilidad */
+/* Tablas personalizadas */
 .table {
-  background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
 }
 
-.table-striped tbody tr:nth-of-type(odd) {
-  background-color: rgba(123, 44, 191, 0.05);
+.table thead {
+    background: linear-gradient(135deg, var(--eps-primary) 0%, var(--eps-primary-dark) 100%);
+    color: white;
 }
 
-/* Estilos para iconos */
-.bi {
-  margin-right: 5px;
+.table tbody tr {
+    transition: all 0.3s ease;
 }
 
-/* Mejora de espaciado */
-.container-fluid {
-  padding: 20px;
+.table tbody tr:hover {
+    background-color: rgba(123, 44, 191, 0.1);
+    transform: scale(1.01);
 }
 
-.card-body {
-  padding: 20px;
+/* Formularios personalizados */
+.form-control:focus {
+    border-color: var(--eps-primary);
+    box-shadow: 0 0 0 0.2rem rgba(123, 44, 191, 0.25);
 }
 
-/* Estilos para inputs deshabilitados */
-.form-control:disabled {
-  background-color: #e9ecef;
-  opacity: 0.6;
+.form-select:focus {
+    border-color: var(--eps-primary);
+    box-shadow: 0 0 0 0.2rem rgba(123, 44, 191, 0.25);
+}
+
+/* Alertas personalizadas */
+.alert {
+    border-radius: 8px;
+    border: none;
+}
+
+.alert-success {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    color: #155724;
+}
+
+.alert-danger {
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+    color: #721c24;
+}
+
+.alert-info {
+    background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
+    color: #0c5460;
+}
+
+/* Footer personalizado */
+.footer {
+    margin-top: auto;
+    box-shadow: 0 -2px 10px rgba(90, 24, 154, 0.3);
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+/* Hover cards */
+.hover-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(123, 44, 191, 0.3) !important;
+}
+
+/* List group personalizado */
+.list-group-item {
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.list-group-item:hover {
+    background-color: rgba(123, 44, 191, 0.1);
+    color: var(--eps-primary);
+    transform: translateX(5px);
+}
+
+.list-group-item i {
+    margin-right: 8px;
+    color: var(--eps-primary);
+}
+
+/* Badges personalizados */
+.badge {
+    padding: 0.5em 0.75em;
+    border-radius: 6px;
+}
+
+.badge-primary {
+    background: linear-gradient(135deg, var(--eps-primary) 0%, var(--eps-primary-dark) 100%);
+}
+
+/* Scrollbar personalizado */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, var(--eps-primary) 0%, var(--eps-primary-dark) 100%);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, var(--eps-primary-dark) 0%, var(--eps-primary) 100%);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .navbar-nav {
+        margin-top: 1rem;
+    }
+    
+    .card {
+        margin-bottom: 1rem;
+    }
 }

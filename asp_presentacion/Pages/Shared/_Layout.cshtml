@@ -1,35 +1,111 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - asp_presentacion</title>
+    <title>@ViewData["Title"] - Sistema EPS</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/asp_presentacion.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">
-                    <i class="bi bi-hospital"></i> EPS - Sistema de Gestión
+        <nav class="navbar navbar-expand-sm navbar-dark shadow-lg" style="background: linear-gradient(135deg, #5A189A 0%, #7B2CBF 100%);">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-page="/Index">
+                    <i class="bi bi-hospital-fill"></i> Sistema EPS
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Index">
-                                <i class="bi bi-house"></i> Inicio
+                            <a class="nav-link" asp-page="/Index">
+                                <i class="bi bi-house-door"></i> Inicio
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Afiliados">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAfiliados" role="button" data-bs-toggle="dropdown">
                                 <i class="bi bi-people"></i> Afiliados
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-page="/Afiliados">
+                                    <i class="bi bi-list-ul"></i> Listar Afiliados
+                                </a></li>
+                                <li><a class="dropdown-item" asp-page="/Afiliados" asp-page-handler="Nuevo">
+                                    <i class="bi bi-person-plus"></i> Nuevo Afiliado
+                                </a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">
+                                    <i class="bi bi-search"></i> Buscar
+                                </a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownContratos" role="button" data-bs-toggle="dropdown">
+                                <i class="bi bi-file-earmark-contract"></i> Contratos
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">
+                                    <i class="bi bi-list-ul"></i> Listar Contratos
+                                </a></li>
+                                <li><a class="dropdown-item" href="#">
+                                    <i class="bi bi-plus-circle"></i> Nuevo Contrato
+                                </a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCitas" role="button" data-bs-toggle="dropdown">
+                                <i class="bi bi-calendar-event"></i> Citas
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">
+                                    <i class="bi bi-calendar3"></i> Calendario
+                                </a></li>
+                                <li><a class="dropdown-item" href="#">
+                                    <i class="bi bi-plus-circle"></i> Agendar Cita
+                                </a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownFacturacion" role="button" data-bs-toggle="dropdown">
+                                <i class="bi bi-receipt"></i> Facturación
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">
+                                    <i class="bi bi-list-ul"></i> Listar Facturas
+                                </a></li>
+                                <li><a class="dropdown-item" href="#">
+                                    <i class="bi bi-plus-circle"></i> Nueva Factura
+                                </a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAdmin" role="button" data-bs-toggle="dropdown">
+                                <i class="bi bi-gear"></i> Administración
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-page="/Backup">
+                                    <i class="bi bi-database-check"></i> Backup y Respaldo
+                                </a></li>
+                                <li><a class="dropdown-item" href="#">
+                                    <i class="bi bi-people"></i> Usuarios
+                                </a></li>
+                                <li><a class="dropdown-item" href="#">
+                                    <i class="bi bi-shield-lock"></i> Roles
+                                </a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">
+                                    <i class="bi bi-file-earmark-check"></i> Logs y Auditoría
+                                </a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-page="/Backup">
+                                <i class="bi bi-database-check"></i> Backup
                             </a>
                         </li>
                     </ul>
@@ -37,21 +113,45 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container-fluid">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-white">
+    <footer class="footer mt-auto py-3 text-center" style="background: linear-gradient(135deg, #5A189A 0%, #7B2CBF 100%); color: white;">
         <div class="container">
-            &copy; 2025 - EPS Sistema de Gestión - Todos los derechos reservados
+            <span>&copy; 2025 - Sistema de Gestión EPS - Todos los derechos reservados</span>
         </div>
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    
+    <!-- Script para guardado automático al salir -->
+    <script>
+        // Guarda automáticamente antes de salir
+        window.addEventListener('beforeunload', function(e) {
+            // Genera backup automático
+            fetch('/Backup?handler=BackupCompleto', {
+                method: 'POST',
+                headers: {
+                    'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]')?.value || ''
+                }
+            }).catch(() => {});
+        });
+
+        // Guarda automáticamente cada 5 minutos
+        setInterval(function() {
+            fetch('/Backup?handler=BackupCompleto', {
+                method: 'POST',
+                headers: {
+                    'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]')?.value || ''
+                }
+            }).catch(() => {});
+        }, 300000); // 5 minutos
+    </script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

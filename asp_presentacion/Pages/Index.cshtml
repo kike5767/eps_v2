@@ -1,37 +1,228 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Sistema EPS - Inicio";
+    ViewData["Title"] = "Sistema de Gestión EPS - Inicio";
 }
 
-<div class="container-fluid mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header text-center">
-                    <h2 class="mb-0">Sistema de Gestión EPS</h2>
+<div class="container-fluid mt-4">
+    <!-- Header Principal -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card border-0 shadow-lg">
+                <div class="card-header text-white text-center py-4" style="background: linear-gradient(135deg, #7B2CBF 0%, #5A189A 100%);">
+                    <h1 class="mb-0">
+                        <i class="bi bi-hospital-fill"></i> Sistema de Gestión EPS
+                    </h1>
+                    <p class="mb-0 mt-2">Sistema Integral de Administración de Entidad Promotora de Salud</p>
                 </div>
-                <div class="card-body text-center">
-                    <h4 class="mb-4">Bienvenido al Sistema de Gestión de EPS</h4>
-                    <p class="lead">Sistema desarrollado siguiendo la arquitectura del profesor</p>
-                    
-                    <div class="row mt-4">
-                        <div class="col-md-6 mb-3">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Afiliados</h5>
-                                    <p class="card-text">Gestión completa de afiliados</p>
-                                    <a asp-page="Afiliados" class="btn btn-primary">Ir a Afiliados</a>
-                                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Menú Principal con Submenús -->
+    <div class="row">
+        <!-- Módulo de Afiliados -->
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 shadow-sm hover-card">
+                <div class="card-header text-white" style="background: linear-gradient(135deg, #7B2CBF 0%, #9D4EDD 100%);">
+                    <h5 class="mb-0">
+                        <i class="bi bi-people-fill"></i> Gestión de Afiliados
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Administración completa de afiliados al sistema EPS</p>
+                    <div class="list-group list-group-flush">
+                        <a asp-page="/Afiliados" class="list-group-item list-group-item-action">
+                            <i class="bi bi-list-ul"></i> Listar Afiliados
+                        </a>
+                        <a asp-page="/Afiliados" asp-page-handler="Nuevo" class="list-group-item list-group-item-action">
+                            <i class="bi bi-person-plus"></i> Nuevo Afiliado
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <i class="bi bi-search"></i> Buscar Afiliado
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <i class="bi bi-file-earmark-text"></i> Reportes de Afiliados
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Módulo de Contratos -->
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 shadow-sm hover-card">
+                <div class="card-header text-white" style="background: linear-gradient(135deg, #5A189A 0%, #7B2CBF 100%);">
+                    <h5 class="mb-0">
+                        <i class="bi bi-file-earmark-contract"></i> Gestión de Contratos
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Administración de contratos de afiliados</p>
+                    <div class="list-group list-group-flush">
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <i class="bi bi-list-ul"></i> Listar Contratos
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <i class="bi bi-plus-circle"></i> Nuevo Contrato
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <i class="bi bi-calendar-check"></i> Contratos por Fecha
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <i class="bi bi-file-earmark-pdf"></i> Generar Contrato PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Módulo de Citas Médicas -->
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 shadow-sm hover-card">
+                <div class="card-header text-white" style="background: linear-gradient(135deg, #9D4EDD 0%, #C77DFF 100%);">
+                    <h5 class="mb-0">
+                        <i class="bi bi-calendar-event"></i> Citas Médicas
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Programación y gestión de citas médicas</p>
+                    <div class="list-group list-group-flush">
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <i class="bi bi-calendar3"></i> Calendario de Citas
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <i class="bi bi-plus-circle"></i> Agendar Cita
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <i class="bi bi-clock-history"></i> Historial de Citas
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <i class="bi bi-exclamation-triangle"></i> Citas Pendientes
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Módulo de Facturación -->
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 shadow-sm hover-card">
+                <div class="card-header text-white" style="background: linear-gradient(135deg, #C77DFF 0%, #E0AAFF 100%);">
+                    <h5 class="mb-0">
+                        <i class="bi bi-receipt"></i> Facturación
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Gestión de facturas y pagos</p>
+                    <div class="list-group list-group-flush">
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <i class="bi bi-list-ul"></i> Listar Facturas
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <i class="bi bi-plus-circle"></i> Nueva Factura
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <i class="bi bi-cash-coin"></i> Registrar Pago
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <i class="bi bi-file-earmark-pdf"></i> Generar Factura PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Módulo de Reportes -->
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 shadow-sm hover-card">
+                <div class="card-header text-white" style="background: linear-gradient(135deg, #240046 0%, #5A189A 100%);">
+                    <h5 class="mb-0">
+                        <i class="bi bi-graph-up"></i> Reportes e Indicadores
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Reportes y análisis del sistema</p>
+                    <div class="list-group list-group-flush">
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <i class="bi bi-bar-chart"></i> Reporte de Afiliados
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <i class="bi bi-pie-chart"></i> Indicadores de Gestión
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <i class="bi bi-file-earmark-excel"></i> Exportar a Excel
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <i class="bi bi-printer"></i> Imprimir Reportes
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Módulo de Administración -->
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 shadow-sm hover-card">
+                <div class="card-header text-white" style="background: linear-gradient(135deg, #5A189A 0%, #7B2CBF 100%);">
+                    <h5 class="mb-0">
+                        <i class="bi bi-gear-fill"></i> Administración
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Configuración y administración del sistema</p>
+                    <div class="list-group list-group-flush">
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <i class="bi bi-people"></i> Usuarios del Sistema
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <i class="bi bi-shield-lock"></i> Roles y Permisos
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <i class="bi bi-database"></i> Backup de Datos
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <i class="bi bi-file-earmark-check"></i> Logs y Auditoría
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Panel de Información Rápida -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header text-white" style="background: linear-gradient(135deg, #7B2CBF 0%, #9D4EDD 100%);">
+                    <h5 class="mb-0">
+                        <i class="bi bi-info-circle"></i> Información del Sistema
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 text-center mb-3">
+                            <div class="p-3 rounded" style="background: #E0AAFF;">
+                                <h3 class="mb-0" style="color: #5A189A;">0</h3>
+                                <small style="color: #5A189A;">Afiliados Activos</small>
                             </div>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Módulos</h5>
-                                    <p class="card-text">Otros módulos del sistema</p>
-                                    <button class="btn btn-secondary" disabled>Próximamente</button>
-                                </div>
+                        <div class="col-md-3 text-center mb-3">
+                            <div class="p-3 rounded" style="background: #C77DFF;">
+                                <h3 class="mb-0" style="color: white;">0</h3>
+                                <small style="color: white;">Contratos Vigentes</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3 text-center mb-3">
+                            <div class="p-3 rounded" style="background: #9D4EDD;">
+                                <h3 class="mb-0" style="color: white;">0</h3>
+                                <small style="color: white;">Citas del Día</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3 text-center mb-3">
+                            <div class="p-3 rounded" style="background: #7B2CBF;">
+                                <h3 class="mb-0" style="color: white;">0</h3>
+                                <small style="color: white;">Pendientes</small>
                             </div>
                         </div>
                     </div>
@@ -40,3 +231,25 @@
         </div>
     </div>
 </div>
+
+<style>
+    .hover-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .hover-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(123, 44, 191, 0.3) !important;
+    }
+    .list-group-item {
+        border: none;
+        padding: 10px 15px;
+    }
+    .list-group-item:hover {
+        background-color: #f8f9fa;
+        color: #7B2CBF;
+    }
+    .list-group-item i {
+        margin-right: 8px;
+        color: #7B2CBF;
+    }
+</style>

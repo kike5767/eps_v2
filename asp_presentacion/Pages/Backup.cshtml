@@ -1,0 +1,152 @@
+@page
+@model asp_presentacion.Pages.BackupModel
+@{
+    ViewData["Title"] = "Backup y Respaldo de Datos";
+}
+
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-lg">
+                <div class="card-header text-white text-center py-3" style="background: linear-gradient(135deg, #7B2CBF 0%, #5A189A 100%);">
+                    <h3 class="mb-0">
+                        <i class="bi bi-database-check"></i> Sistema de Backup y Respaldo
+                    </h3>
+                </div>
+                <div class="card-body">
+                    @if (TempData["Success"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <i class="bi bi-check-circle"></i> @TempData["Success"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    }
+                    @if (TempData["Error"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="bi bi-exclamation-triangle"></i> @TempData["Error"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    }
+
+                    <div class="row">
+                        <!-- Backup Completo -->
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100 border-primary">
+                                <div class="card-header bg-primary text-white">
+                                    <h5 class="mb-0">
+                                        <i class="bi bi-archive"></i> Backup Completo
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <p>Genera un backup completo de todas las operaciones CRUD, validaciones y errores del día.</p>
+                                    <form method="post" asp-page-handler="BackupCompleto">
+                                        <button type="submit" class="btn btn-primary w-100">
+                                            <i class="bi bi-download"></i> Generar Backup Completo
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Backup SQL Server -->
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100 border-success">
+                                <div class="card-header bg-success text-white">
+                                    <h5 class="mb-0">
+                                        <i class="bi bi-database"></i> Backup SQL Server
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <p>Genera script SQL para backup de la base de datos EPSDB.</p>
+                                    <form method="post" asp-page-handler="BackupSQL">
+                                        <button type="submit" class="btn btn-success w-100">
+                                            <i class="bi bi-file-earmark-code"></i> Generar Script SQL
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Backup de Datos Generales -->
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100 border-info">
+                                <div class="card-header bg-info text-white">
+                                    <h5 class="mb-0">
+                                        <i class="bi bi-file-earmark-data"></i> Datos Generales
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <p>Genera archivo JSON con todos los datos generales del sistema.</p>
+                                    <form method="post" asp-page-handler="BackupDatosGenerales">
+                                        <button type="submit" class="btn btn-info w-100">
+                                            <i class="bi bi-file-earmark-json"></i> Generar Datos Generales
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sincronizar con GitHub -->
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100 border-warning">
+                                <div class="card-header bg-warning text-dark">
+                                    <h5 class="mb-0">
+                                        <i class="bi bi-github"></i> Sincronizar GitHub
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <p>Actualiza automáticamente el repositorio en GitHub con todos los cambios.</p>
+                                    <form method="post" asp-page-handler="SincronizarGitHub">
+                                        <button type="submit" class="btn btn-warning w-100">
+                                            <i class="bi bi-cloud-upload"></i> Sincronizar con GitHub
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lista de Backups -->
+                    <div class="card mt-4">
+                        <div class="card-header" style="background: #7B2CBF; color: white;">
+                            <h5 class="mb-0">
+                                <i class="bi bi-list-ul"></i> Backups Generados
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead style="background: #7B2CBF; color: white;">
+                                        <tr>
+                                            <th>Archivo</th>
+                                            <th>Fecha</th>
+                                            <th>Tamaño</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var backup in Model.Backups)
+                                        {
+                                            <tr>
+                                                <td>@backup.Nombre</td>
+                                                <td>@backup.Fecha</td>
+                                                <td>@backup.Tamaño</td>
+                                                <td>
+                                                    <a href="@backup.Ruta" class="btn btn-sm btn-primary" download>
+                                                        <i class="bi bi-download"></i> Descargar
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
