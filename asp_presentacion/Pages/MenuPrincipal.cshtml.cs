@@ -244,6 +244,69 @@ namespace asp_presentacion.Pages
             return Page();
         }
 
+        // Método POST: entrada al sistema
+        public IActionResult OnPostEntrarSistema()
+        {
+            try
+            {
+                // Registra la entrada al sistema
+                AuditoriaLogicaNegocio.GrabarOperacion("ENTRADA", "Sistema", null, null, "OK", "Usuario entró al sistema");
+                
+                TempData["Success"] = "✅ Bienvenido al Sistema EPS. Sesión iniciada correctamente.";
+                return RedirectToPage("/Index");
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = $"❌ Error al entrar al sistema: {ex.Message}";
+                CargarInformacionSistema();
+                return Page();
+            }
+        }
+
+        // Método POST: salida del sistema con backup diario
+        public IActionResult OnPostSalirSistema()
+        {
+            try
+            {
+                // Verifica si ya se hizo backup hoy
+                string rutaBackups = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", "Backups_Automaticos");
+                string nombreBackupHoy = $"Backup_Completo_{DateTime.Now:yyyyMMdd}_*.json";
+                
+                bool backupExiste = false;
+                if (Directory.Exists(rutaBackups))
+                {
+                    var backupsHoy = Directory.GetFiles(rutaBackups, nombreBackupHoy.Replace("*", "*"));
+                    if (backupsHoy.Any(f => System.IO.File.GetCreationTime(f).Date == DateTime.Now.Date))
+                    {
+                        backupExiste = true;
+                    }
+                }
+
+                // Si no existe backup hoy, genera uno
+                if (!backupExiste)
+                {
+                    string rutaBackup = SistemaBackup.GenerarBackupCompleto();
+                    TempData["Success"] = $"✅ Backup diario generado exitosamente. Sistema cerrado correctamente.";
+                }
+                else
+                {
+                    TempData["Info"] = "ℹ️ Backup diario ya fue generado hoy. Sistema cerrado correctamente.";
+                }
+
+                // Registra la salida
+                AuditoriaLogicaNegocio.GrabarOperacion("SALIDA", "Sistema", null, null, "OK", "Usuario salió del sistema");
+                
+                // Cierra la aplicación (en producción esto cerraría la sesión)
+                return RedirectToPage("/Index");
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = $"❌ Error al salir del sistema: {ex.Message}";
+                CargarInformacionSistema();
+                return Page();
+            }
+        }
+
         // Carga información del sistema para mostrar en el panel
         private void CargarInformacionSistema()
         {

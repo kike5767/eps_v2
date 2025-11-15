@@ -43,9 +43,16 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                         </div>
                     }
+                    @if (TempData["Info"] != null)
+                    {
+                        <div class="alert alert-info alert-dismissible fade show" role="alert">
+                            <i class="bi bi-info-circle"></i> @TempData["Info"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    }
 
                     <!-- Formulario de Selección -->
-                    <form method="post" asp-page-handler="EjecutarOpcion" class="mb-4">
+                    <form method="post" asp-page-handler="EjecutarOpcion" class="mb-4" id="formOpcion">
                         <div class="row mb-3">
                             <div class="col-md-8">
                                 <label for="opcion" class="form-label fw-bold">
@@ -55,12 +62,32 @@
                                        min="1" max="99" required autofocus placeholder="Ejemplo: 1, 2, 3...">
                             </div>
                             <div class="col-md-4 d-flex align-items-end">
-                                <button type="submit" class="btn btn-primary btn-lg w-100">
+                                <button type="submit" class="btn btn-primary btn-lg w-100" id="btnEjecutar">
                                     <i class="bi bi-play-circle"></i> Ejecutar
                                 </button>
                             </div>
                         </div>
                     </form>
+
+                    <!-- Opciones de Entrada/Salida -->
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <form method="post" asp-page-handler="EntrarSistema" id="formEntrar" style="display: none;">
+                            </form>
+                            <button type="button" class="btn btn-success btn-lg w-100" onclick="confirmarEntrada()" style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%); border: none;">
+                                <i class="bi bi-box-arrow-in-right"></i> ENTRAR AL SISTEMA
+                            </button>
+                        </div>
+                        <div class="col-md-6">
+                            <form method="post" asp-page-handler="SalirSistema" id="formSalir" style="display: none;">
+                            </form>
+                            <form method="post" asp-page-handler="GuardadoAutomatico" id="formGuardado" style="display: none;">
+                            </form>
+                            <button type="button" class="btn btn-danger btn-lg w-100" onclick="confirmarSalida()" style="background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); border: none;">
+                                <i class="bi bi-box-arrow-right"></i> SALIR DEL SISTEMA
+                            </button>
+                        </div>
+                    </div>
 
                     <hr class="my-4">
 
@@ -117,35 +144,27 @@
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                             <span><strong>5.</strong> Backup Completo</span>
-                                            <form method="post" asp-page-handler="BackupCompleto" class="d-inline">
-                                                <button type="submit" class="btn btn-sm btn-outline-success">
-                                                    <i class="bi bi-arrow-right"></i>
-                                                </button>
-                                            </form>
+                                            <button type="button" class="btn btn-sm btn-outline-success" onclick="confirmarBackup(5)">
+                                                <i class="bi bi-arrow-right"></i>
+                                            </button>
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                             <span><strong>6.</strong> Backup SQL Server</span>
-                                            <form method="post" asp-page-handler="BackupSQL" class="d-inline">
-                                                <button type="submit" class="btn btn-sm btn-outline-success">
-                                                    <i class="bi bi-arrow-right"></i>
-                                                </button>
-                                            </form>
+                                            <button type="button" class="btn btn-sm btn-outline-success" onclick="confirmarBackup(6)">
+                                                <i class="bi bi-arrow-right"></i>
+                                            </button>
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                             <span><strong>7.</strong> Datos Generales</span>
-                                            <form method="post" asp-page-handler="BackupDatosGenerales" class="d-inline">
-                                                <button type="submit" class="btn btn-sm btn-outline-success">
-                                                    <i class="bi bi-arrow-right"></i>
-                                                </button>
-                                            </form>
+                                            <button type="button" class="btn btn-sm btn-outline-success" onclick="confirmarBackup(7)">
+                                                <i class="bi bi-arrow-right"></i>
+                                            </button>
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                             <span><strong>8.</strong> Sincronizar GitHub</span>
-                                            <form method="post" asp-page-handler="SincronizarGitHub" class="d-inline">
-                                                <button type="submit" class="btn btn-sm btn-outline-success">
-                                                    <i class="bi bi-arrow-right"></i>
-                                                </button>
-                                            </form>
+                                            <button type="button" class="btn btn-sm btn-outline-success" onclick="confirmarBackup(8)">
+                                                <i class="bi bi-arrow-right"></i>
+                                            </button>
                                         </li>
                                     </ul>
                                 </div>
@@ -221,11 +240,9 @@
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                             <span><strong>16.</strong> Guardado Automático</span>
-                                            <form method="post" asp-page-handler="GuardadoAutomatico" class="d-inline">
-                                                <button type="submit" class="btn btn-sm btn-outline-warning">
-                                                    <i class="bi bi-arrow-right"></i>
-                                                </button>
-                                            </form>
+                                            <button type="button" class="btn btn-sm btn-outline-warning" onclick="confirmarGuardado()">
+                                                <i class="bi bi-arrow-right"></i>
+                                            </button>
                                         </li>
                                     </ul>
                                 </div>
@@ -275,11 +292,163 @@
     </div>
 </div>
 
+<!-- Modal de Confirmación -->
+<div class="modal fade" id="modalConfirmacion" tabindex="-1" aria-labelledby="modalConfirmacionLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border: 3px solid #7B2CBF; border-radius: 15px;">
+            <div class="modal-header text-white" style="background: linear-gradient(135deg, #7B2CBF 0%, #5A189A 100%); border-radius: 12px 12px 0 0;">
+                <h5 class="modal-title" id="modalConfirmacionLabel">
+                    <i class="bi bi-exclamation-triangle-fill"></i> Confirmación Requerida
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center p-4">
+                <div class="mb-3">
+                    <i class="bi bi-shield-check" style="font-size: 4rem; color: #7B2CBF;"></i>
+                </div>
+                <h4 class="mb-3" id="mensajeConfirmacion">¿Está seguro de realizar esta operación?</h4>
+                <p class="text-muted" id="detalleConfirmacion">Esta acción no se puede deshacer.</p>
+                <div class="mt-4">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-text" style="background: #7B2CBF; color: white;">
+                            <i class="bi bi-keyboard"></i>
+                        </span>
+                        <input type="text" class="form-control text-center fw-bold" id="confirmacionInput" 
+                               placeholder="Ingrese S (Sí) o N (No)" maxlength="1" 
+                               style="font-size: 1.5rem; text-transform: uppercase;">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="background: #f8f9fa; border-radius: 0 0 12px 12px;">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="bi bi-x-circle"></i> Cancelar
+                </button>
+                <button type="button" class="btn btn-success" id="btnConfirmarSi" onclick="procesarConfirmacion('S')">
+                    <i class="bi bi-check-circle"></i> Sí (S)
+                </button>
+                <button type="button" class="btn btn-danger" id="btnConfirmarNo" onclick="procesarConfirmacion('N')">
+                    <i class="bi bi-x-circle"></i> No (N)
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
+    let opcionPendiente = null;
+    let accionPendiente = null;
+
     // Función para ejecutar opción desde botones
     function ejecutarOpcion(numero) {
-        document.getElementById('opcion').value = numero;
-        document.querySelector('form[method="post"]').submit();
+        // Verifica si requiere confirmación
+        if (numero >= 5 && numero <= 8 || numero === 16) {
+            confirmarBackup(numero);
+        } else {
+            document.getElementById('opcion').value = numero;
+            document.getElementById('formOpcion').submit();
+        }
+    }
+
+    // Función para confirmar operaciones de backup
+    function confirmarBackup(numero) {
+        opcionPendiente = numero;
+        accionPendiente = 'backup';
+        
+        let mensajes = {
+            5: '¿Está seguro de generar un Backup Completo?',
+            6: '¿Está seguro de generar un Backup de SQL Server?',
+            7: '¿Está seguro de generar un Backup de Datos Generales?',
+            8: '¿Está seguro de sincronizar con GitHub?'
+        };
+        
+        document.getElementById('mensajeConfirmacion').textContent = mensajes[numero] || '¿Está seguro de realizar esta operación?';
+        document.getElementById('detalleConfirmacion').textContent = 'Esta acción puede tomar varios minutos.';
+        
+        const modal = new bootstrap.Modal(document.getElementById('modalConfirmacion'));
+        modal.show();
+        
+        // Focus en el input de confirmación
+        setTimeout(() => {
+            document.getElementById('confirmacionInput').focus();
+        }, 500);
+    }
+
+    // Función para confirmar guardado automático
+    function confirmarGuardado() {
+        opcionPendiente = 16;
+        accionPendiente = 'guardado';
+        
+        document.getElementById('mensajeConfirmacion').textContent = '¿Está seguro de ejecutar el Guardado Automático?';
+        document.getElementById('detalleConfirmacion').textContent = 'Se generará backup y se actualizará GitHub.';
+        
+        const modal = new bootstrap.Modal(document.getElementById('modalConfirmacion'));
+        modal.show();
+        
+        setTimeout(() => {
+            document.getElementById('confirmacionInput').focus();
+        }, 500);
+    }
+
+    // Función para confirmar entrada al sistema
+    function confirmarEntrada() {
+        accionPendiente = 'entrar';
+        document.getElementById('mensajeConfirmacion').textContent = '¿Está seguro de ENTRAR al sistema?';
+        document.getElementById('detalleConfirmacion').textContent = 'Se iniciará la sesión del sistema.';
+        
+        const modal = new bootstrap.Modal(document.getElementById('modalConfirmacion'));
+        modal.show();
+        
+        setTimeout(() => {
+            document.getElementById('confirmacionInput').focus();
+        }, 500);
+    }
+
+    // Función para confirmar salida del sistema
+    function confirmarSalida() {
+        accionPendiente = 'salir';
+        document.getElementById('mensajeConfirmacion').textContent = '¿Está seguro de SALIR del sistema?';
+        document.getElementById('detalleConfirmacion').textContent = 'Se generará backup automático (1 por día) y se cerrará el sistema.';
+        
+        const modal = new bootstrap.Modal(document.getElementById('modalConfirmacion'));
+        modal.show();
+        
+        setTimeout(() => {
+            document.getElementById('confirmacionInput').focus();
+        }, 500);
+    }
+
+    // Procesa la confirmación S/N
+    function procesarConfirmacion(respuesta) {
+        const input = document.getElementById('confirmacionInput');
+        const valor = input.value.toUpperCase().trim();
+        
+        if (valor === 'S' || respuesta === 'S') {
+            // Usuario confirmó
+            if (accionPendiente === 'backup' && opcionPendiente) {
+                // Ejecuta la opción de backup
+                document.getElementById('opcion').value = opcionPendiente;
+                document.getElementById('formOpcion').submit();
+            } else if (accionPendiente === 'guardado') {
+                // Ejecuta guardado automático
+                document.getElementById('formGuardado').submit();
+            } else if (accionPendiente === 'entrar') {
+                // Ejecuta entrada
+                document.getElementById('formEntrar').submit();
+            } else if (accionPendiente === 'salir') {
+                // Ejecuta salida con backup
+                document.getElementById('formSalir').submit();
+            }
+            
+            // Cierra el modal
+            bootstrap.Modal.getInstance(document.getElementById('modalConfirmacion')).hide();
+        } else if (valor === 'N' || respuesta === 'N') {
+            // Usuario canceló
+            bootstrap.Modal.getInstance(document.getElementById('modalConfirmacion')).hide();
+            alert('Operación cancelada.');
+        } else {
+            alert('Por favor ingrese S (Sí) o N (No)');
+            input.focus();
+        }
     }
 
     // Atajos de teclado
@@ -287,13 +456,43 @@
         // Enter en el campo de opción ejecuta
         if (e.target.id === 'opcion' && e.key === 'Enter') {
             e.preventDefault();
-            document.querySelector('form[method="post"]').submit();
+            const numero = parseInt(document.getElementById('opcion').value);
+            if (numero >= 5 && numero <= 8 || numero === 16) {
+                confirmarBackup(numero);
+            } else {
+                document.getElementById('formOpcion').submit();
+            }
         }
         
-        // Números 1-9 ejecutan directamente
-        if (e.key >= '1' && e.key <= '9' && e.target.id !== 'opcion') {
-            ejecutarOpcion(parseInt(e.key));
+        // En el modal, Enter procesa confirmación
+        if (e.target.id === 'confirmacionInput' && e.key === 'Enter') {
+            e.preventDefault();
+            procesarConfirmacion(e.target.value.toUpperCase());
         }
+        
+        // S o N en el modal
+        if (e.target.id === 'confirmacionInput' && (e.key.toUpperCase() === 'S' || e.key.toUpperCase() === 'N')) {
+            setTimeout(() => procesarConfirmacion(e.key.toUpperCase()), 100);
+        }
+        
+        // Números 1-9 ejecutan directamente (si no requiere confirmación)
+        if (e.key >= '1' && e.key <= '9' && e.target.id !== 'opcion' && e.target.id !== 'confirmacionInput') {
+            const numero = parseInt(e.key);
+            if (numero < 5 || numero > 8) {
+                ejecutarOpcion(numero);
+            }
+        }
+    });
+
+    // Intercepta formularios de entrada/salida
+    document.getElementById('formEntrar').addEventListener('submit', function(e) {
+        e.preventDefault();
+        confirmarEntrada();
+    });
+
+    document.getElementById('formSalir').addEventListener('submit', function(e) {
+        e.preventDefault();
+        confirmarSalida();
     });
 
     // Auto-focus en el campo de opción
