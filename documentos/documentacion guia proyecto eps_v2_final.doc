@@ -1,0 +1,151 @@
+﻿DOCUMENTACIÓN GUIA PROYECTO EPS_V2_FINAL
+=========================================
+
+1. ORDEN GENERAL DE EJECUCIÓN (RESUMEN CORTO)
+---------------------------------------------
+PASO 1: Verificar que la base de datos EPSDB exista y tenga las tablas (como se ve en SQL Server Management Studio).
+PASO 2: Configurar la conexión en secrets.json con la cadena correcta hacia EPSDB.
+PASO 3: Compilar la solución completa con dotnet build EPS.sln (debe terminar en "Compilación correcta").
+PASO 4: Ejecutar las pruebas unitarias con dotnet test Tests/EPS.Tests/EPS.Tests.csproj (todas en verde).
+PASO 5: Levantar primero la API (sp_servicios).
+PASO 6: Levantar la UI de presentación (sp_presentacion).
+PASO 7: Probar manualmente todos los menús y submenús desde el navegador.
+
+2. RESUMEN GENERAL DEL PROYECTO
+-------------------------------
+El sistema EPS_V2_FINAL implementa la arquitectura en capas exigida por el profesor: presentaciones (UI Razor Pages), servicios (API REST), repositorios y dominio. Toda la solución compila con dotnet build EPS.sln, utiliza Entity Framework Core, y expone operaciones CRUD completamente validadas. Incluye scripts y configuraciones para recrear la base de datos EPSDB, aplicativos de presentación y servicios sincronizados, pruebas unitarias y utilidades de respaldo.
+
+3. EXPLICACIÓN PARA SUSTENTACIÓN (QUÉ DECIR AL PROFESOR)
+--------------------------------------------------------
+3.1 Arquitectura en capas
+- Capa de Presentación: proyectos sp_presentacion y lib_presentaciones (Razor Pages, tema morado, comunicación con API).
+- Capa de Servicios: proyecto sp_servicios (API REST, controladores y servicios).
+- Capa de Repositorios/Aplicación: proyecto lib_repositorios (repositorios, lógica de aplicación).
+- Capa de Dominio: proyecto lib_dominio (entidades y helpers).
+- Pruebas: proyecto Tests/EPS.Tests (pruebas unitarias de la lógica).
+
+3.2 Flujo de negocio típico
+Ejemplo: registro y auditoría de un afiliado.
+1) El usuario entra a la UI Razor Pages (menú Afiliados).
+2) Envía el formulario, que llama a la API en sp_servicios.
+3) La API usa la capa de repositorios (lib_repositorios) para guardar en EPSDB.
+4) Se registra la auditoría según lo documentado en DOCUMENTACION_AUDITORIA_CRUD.md.
+5) La respuesta vuelve a la UI y se actualiza la lista de afiliados.
+
+3.3 Evidencias para el profesor
+- Código comentado capa por capa.
+- Documentos EPS_V2_FINAL_Documentacion_Completa.docx y RESUMEN_CAMBIOS_EPS_V2.md.
+- Scripts .bat para demostraciones (EJECUTAR_TODO_AUTOMATICO.bat, DEMOSTRACION_COMPLETA.bat, etc.).
+
+4. GUÍA DE EJECUCIÓN PASO A PASO DETALLADA (LO QUE USTED VE EN PANTALLA)
+------------------------------------------------------------------------
+IMPORTANTE: Antes de todo, abrir **SQL Server Management Studio** y confirmar que la base de datos EPSDB está como en la captura (tablas Afiliado, AfiliadoDetalle, Cita, etc.). Si no existe, ejecutar el script SCRIPCORREGIDOULTIMO19092025.sql.
+
+PASO 1 – Preparar base de datos
+1) Abrir SQL Server Management Studio.
+2) Conectarse a LUISTMORALES\SQLEXPRESS (o el servidor que corresponda).
+3) Verificar que exista la base EPSDB con sus tablas.
+4) Si no está, abrir el archivo SCRIPCORREGIDOULTIMO19092025.sql y ejecutarlo para crearla.
+
+PASO 2 – Configurar conexión (secrets.json)
+1) En la carpeta raíz del proyecto (C:\EPS_V2_FINAL) abrir el archivo secrets.json.
+2) Revisar que tenga algo como:
+   { "StringConexion": "Server=LUISTMORALES\\SQLEXPRESS;Database=EPSDB;Trusted_Connection=True;TrustServerCertificate=True;" }
+3) Guardar los cambios.
+
+PASO 3 – Compilar solución (evidencia EN VERDE)
+1) Abrir **PowerShell** en C:\EPS_V2_FINAL.
+2) Ejecutar: dotnet build EPS.sln.
+3) Esperar a que aparezca el mensaje **"Compilación correcta" y 0 errores**.
+4) Esta salida sirve como evidencia de que toda la solución compila.
+
+PASO 4 – Ejecutar pruebas unitarias (evidencia EN VERDE)
+1) En la misma PowerShell, ejecutar: dotnet test Tests\EPS.Tests\EPS.Tests.csproj.
+2) Confirmar que aparezca algo como: **"Superado: 20, Total: 20"** y **0 errores**.
+3) Esta captura sirve de evidencia de pruebas en verde.
+
+PASO 5 – Levantar API (sp_servicios)
+1) En PowerShell, desde C:\EPS_V2_FINAL, ejecutar:
+   dotnet run --project asp_servicios\asp_servicios.csproj
+2) Dejar esa ventana abierta. 
+3) En la consola aparecerá la URL de la API (por ejemplo https://localhost:7040).
+
+PASO 6 – Levantar UI (sp_presentacion)
+1) Abrir otra ventana de PowerShell en C:\EPS_V2_FINAL.
+2) Ejecutar:
+   dotnet run --project asp_presentacion\asp_presentacion.csproj
+3) Esperar a que aparezca la URL de la UI (por ejemplo https://localhost:7167).
+4) Abrir un navegador (Chrome, Edge) y pegar esa URL.
+
+PASO 7 – Probar menús y submenús (evidencia manual)
+1) En el navegador, ir recorriendo el menú principal (Afiliados, Citas, Pagos, etc.).
+2) Para cada opción:
+   - Entrar a la pantalla.
+   - Probar al menos una operación (listar, crear, editar o eliminar).
+   - Confirmar que no aparecen errores en pantalla ni en la consola de la API/UI.
+3) Si todo funciona sin errores, puede anotar en este documento: "Menú y submenús probados sin errores en fecha ___".
+
+5. RECOMENDACIONES FINALES PARA LA SUSTENTACIÓN
+-----------------------------------------------
+- Iniciar mostrando la estructura de carpetas (sp_presentacion, sp_servicios, lib_dominio, lib_repositorios, Tests).
+- Ejecutar en vivo los PASOS 3 a 7: compilar, pruebas, levantar API, levantar UI y navegar por los menús.
+- Tener abiertos los documentos de apoyo (EPS_V2_FINAL_Documentacion_Completa.docx, RESUMEN_CAMBIOS_EPS_V2.md, DOCUMENTACION_AUDITORIA_CRUD.md) por si el profesor quiere más detalle.
+- Explicar que los scripts .bat existen para automatizar, pero que el proyecto también se puede ejecutar manualmente como se mostró.
+
+Con este orden de ejecución y las evidencias (compilación correcta, pruebas unitarias en verde y recorrido de menús sin errores), se puede sustentar el proyecto EPS_V2_FINAL de forma clara y completa.
+
+6. GUION BREVE PARA LA SUSTENTACIÓN (LO QUE PUEDE LEER)
+------------------------------------------------------
+1) Presentación general:
+   "Profesor, este es el sistema EPS_V2_FINAL. Está construido con arquitectura en capas: presentación, servicios, repositorios y dominio, siguiendo exactamente la estructura de referencia del curso."
+
+2) Mostrar arquitectura:
+   "En la solución se ven los proyectos: asp_presentacion (UI Razor Pages), asp_servicios (API REST), lib_repositorios (repositorios y lógica de aplicación), lib_dominio (entidades) y Tests (pruebas unitarias). Cada capa tiene responsabilidades separadas."
+
+3) Flujo de un caso de uso:
+   "Voy a mostrar el flujo de registro de un afiliado: desde el formulario en la UI, se llama a la API, que utiliza los repositorios para guardar en la base de datos EPSDB, y se registra la auditoría de la operación."
+
+4) Evidencias técnicas:
+   "Antes de esta demostración ejecuté dotnet build EPS.sln (compilación correcta sin errores) y dotnet test Tests\\EPS.Tests\\EPS.Tests.csproj (todas las pruebas en verde). Esto demuestra que la lógica de negocio está validada."
+
+5) Demostración en vivo:
+   "Ahora ejecuto la API con dotnet run --project asp_servicios\\asp_servicios.csproj y la UI con dotnet run --project asp_presentacion\\asp_presentacion.csproj. Ingreso a la URL de la UI y recorro los menús y submenús (Afiliados, Citas, Pagos, etc.), mostrando que todas las operaciones CRUD funcionan sin errores."
+
+6) Cierre:
+   "Finalmente, dejo como evidencia la documentación completa, los resúmenes de cambios y las capturas de compilación, pruebas unitarias y recorrido de menús sin errores. Con esto se demuestra que el sistema está terminado y funcionando." 
+7. ENLACES ACTUALIZADOS Y SERVIDOR EN LA NUBE
+---------------------------------------------
+- Repositorio principal GitHub (código vigente): https://github.com/kike5767/eps_v2.git
+- Repositorio secundario de respaldo: https://github.com/kike5767/eps.git
+- Video explicativo en YouTube: https://youtu.be/GVyz4-I0t_0
+- Servidor gratuito recomendado para publicar la API: Render Free Web Service (https://render.com). Pasos básicos:
+  1) Crear cuenta gratuita.
+  2) Conectar el repositorio eps_v2.
+  3) Seleccionar plan "Free" y usar dotnet publish como comando de despliegue.
+  4) Configurar variables de entorno (StringConexion) en el panel de Render.
+
+8. REQUISITOS PARA INSTALAR Y EJECUTAR EN OTRO COMPUTADOR
+--------------------------------------------------------
+Programas esenciales:
+- Windows 10/11 (64 bits) o servidor equivalente.
+- .NET 8 SDK (https://dotnet.microsoft.com/download/dotnet/8.0).
+- Visual Studio 2022 (workloads: ".NET desktop development" y "ASP.NET and web development").
+- SQL Server Express 2019+ y SQL Server Management Studio (SSMS) para administrar EPSDB.
+- Git (https://git-scm.com/) y PowerShell 7+ para clonado y ejecución de scripts.
+
+Dependencias por carpeta/proyecto:
+- sp_presentacion/: UI Razor Pages; requiere .NET 8 y el proyecto lib_presentaciones (referencia incluida).
+- sp_servicios/: API REST; requiere .NET 8 y conecta con lib_repositorios para lógica/EF Core.
+- lib_repositorios/: bibliotecas de aplicación y repositorios; solo necesita EF Core (NuGet).
+- lib_dominio/: entidades y helpers, sin dependencias externas.
+- lib_presentaciones/: adaptadores para la UI; depende de .NET 8.
+- Tests/: proyecto MSTest (dotnet test).
+- documentos/: contiene documentación, scripts .bat, diagramas e instaladores. No afecta la compilación pero es necesario para estudio y respaldo.
+
+Recomendación al desplegar en otra PC:
+1) Descomprimir el ZIP EPS_V2_FINAL.zip en una carpeta (sin espacios en blanco si es posible).
+2) Ejecutar dotnet restore EPS.sln para instalar dependencias.
+3) Configurar secrets.json con la cadena de conexión nueva.
+4) Seguir los PASOS 3 a 7 descritos al inicio para compilar, probar y ejecutar.
+
+Con estos requisitos cubiertos, el proyecto se compila y ejecuta sin errores en cualquier computadora compatible.
