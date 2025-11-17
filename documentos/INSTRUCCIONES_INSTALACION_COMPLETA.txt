@@ -1,0 +1,308 @@
+================================================================================
+        INSTRUCCIONES COMPLETAS DE INSTALACIÓN Y CONFIGURACIÓN
+                    EPS V2 FINAL - DESDE ZIP
+================================================================================
+
+Fecha: $(Get-Date -Format "dd/MM/yyyy HH:mm:ss")
+
+================================================================================
+📋 REQUISITOS PREVIOS - PROGRAMAS A INSTALAR
+================================================================================
+
+1. .NET 8.0 SDK (OBLIGATORIO)
+   - Descarga: https://dotnet.microsoft.com/download/dotnet/8.0
+   - Versión mínima: .NET SDK 8.0
+   - Verificación: Abrir PowerShell/CMD y ejecutar: dotnet --version
+   - Debe mostrar: 8.0.x o superior
+   - Uso: Compila y ejecuta el proyecto
+
+2. SQL Server (OBLIGATORIO)
+   - Opción 1: SQL Server Express (GRATIS)
+     * Descarga: https://www.microsoft.com/sql-server/sql-server-downloads
+     * Instancia por defecto: localhost\SQLEXPRESS
+   - Opción 2: SQL Server Developer Edition (GRATIS para desarrollo)
+     * Descarga: https://www.microsoft.com/sql-server/sql-server-downloads
+     * Instancia por defecto: localhost
+   - Uso: Almacena la base de datos EPSDB
+
+3. SQL Server Management Studio - SSMS (RECOMENDADO)
+   - Descarga: https://aka.ms/ssmsfullsetup
+   - Uso: Para ejecutar el script SQL y administrar la base de datos
+   - Permite crear la base de datos y ejecutar consultas
+
+4. Visual Studio 2022 o VS Code (OPCIONAL)
+   - Visual Studio 2022: https://visualstudio.microsoft.com/
+   - VS Code: https://code.visualstudio.com/
+   - Uso: Editor de código (el proyecto puede compilarse desde terminal)
+
+================================================================================
+🔧 CONFIGURACIÓN AUTOMÁTICA (RECOMENDADO)
+================================================================================
+
+PASO 1: Descomprimir el ZIP
+   - Descomprime el archivo EPS_V2_FINAL.zip en cualquier ubicación
+   - Ejemplo: C:\EPS_V2_FINAL\
+
+PASO 2: Ejecutar Script de Configuración
+   - Navega a la carpeta del proyecto
+   - Ejecuta: CONFIGURAR_PROYECTO_AUTOMATICO.bat (doble clic)
+   - El script hará automáticamente:
+     ✅ Verificar .NET SDK 8.0
+     ✅ Detectar SQL Server
+     ✅ Crear secrets.json con cadena de conexión
+     ✅ Verificar estructura de proyectos
+     ✅ Restaurar paquetes NuGet
+     ✅ Compilar el proyecto
+
+PASO 3: Ejecutar Script SQL
+   - Abre SQL Server Management Studio (SSMS)
+   - Conéctate a tu servidor SQL (localhost\SQLEXPRESS o localhost)
+   - Abre el archivo: lib_repositorios\Script.sql
+     O: SCRIPCORREGIDOULTIMO19092025.sql (en la raíz)
+   - Ejecuta el script (F5)
+   - Verifica que se creó la base de datos EPSDB
+
+PASO 4: Ejecutar el Proyecto
+   - Abre una terminal en la carpeta del proyecto
+   - Para ejecutar el API:
+     dotnet run --project asp_servicios\asp_servicios.csproj
+   - Para ejecutar la UI (en otra terminal):
+     dotnet run --project asp_presentacion\asp_presentacion.csproj
+
+================================================================================
+📝 CONFIGURACIÓN MANUAL (SI EL SCRIPT NO FUNCIONA)
+================================================================================
+
+1. CREAR ARCHIVO secrets.json
+   Ubicación: Raíz del proyecto (donde está EPS.sln)
+   Nombre: secrets.json
+   
+   Contenido:
+   {
+     "StringConexion": "Server=localhost\\SQLEXPRESS;Database=EPSDB;Trusted_Connection=True;TrustServerCertificate=True;"
+   }
+   
+   IMPORTANTE: Cambiar según tu instalación de SQL Server:
+   - SQL Server Express: Server=localhost\SQLEXPRESS
+   - SQL Server Developer/Standard: Server=localhost
+   - Otra instancia: Server=NOMBRE_SERVIDOR\NOMBRE_INSTANCIA
+   - Con autenticación SQL: Server=...;User Id=usuario;Password=contraseña;
+
+2. DÓNDE SE LEE LA CADENA DE CONEXIÓN EN EL CÓDIGO
+   Archivo: lib_dominio\Nucleo\DatosGenerales.cs
+   Línea: 9
+   Código: public static string ruta_json = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", "secrets.json");
+   
+   Explicación: El código busca secrets.json subiendo 4 niveles desde donde se ejecuta
+   (desde bin/Debug hasta la raíz del proyecto)
+
+3. RESTAURAR PAQUETES NUGET
+   Abrir terminal en la carpeta del proyecto y ejecutar:
+   dotnet restore EPS.sln
+
+4. COMPILAR EL PROYECTO
+   dotnet build EPS.sln --no-incremental
+
+================================================================================
+📁 ESTRUCTURA DE REFERENCIAS ENTRE PROYECTOS
+================================================================================
+
+Orden de compilación (las dependencias determinan el orden):
+
+1. lib_dominio (BASE - sin dependencias de otros proyectos)
+   - Paquetes NuGet:
+     * System.ComponentModel.Annotations (5.0.0)
+     * Newtonsoft.Json (13.0.3)
+   - Ubicación: lib_dominio\lib_dominio.csproj
+
+2. lib_repositorios (depende de lib_dominio)
+   - Referencia de proyecto: lib_dominio
+   - Paquetes NuGet:
+     * Microsoft.EntityFrameworkCore (8.0.8)
+     * Microsoft.EntityFrameworkCore.SqlServer (8.0.8)
+     * Microsoft.EntityFrameworkCore.Tools (8.0.8)
+   - Ubicación: lib_repositorios\lib_repositorios.csproj
+
+3. lib_presentaciones (depende de lib_dominio)
+   - Referencia de proyecto: lib_dominio
+   - Ubicación: lib_presentaciones\lib_presentaciones.csproj
+
+4. asp_servicios (depende de lib_dominio y lib_repositorios)
+   - Referencias de proyecto: lib_dominio, lib_repositorios
+   - Paquetes NuGet:
+     * Microsoft.AspNetCore.OpenApi (8.0.15)
+     * Swashbuckle.AspNetCore (6.6.2)
+     * Microsoft.EntityFrameworkCore (8.0.8) - heredado
+     * Microsoft.EntityFrameworkCore.SqlServer (8.0.8) - heredado
+   - Ubicación: asp_servicios\asp_servicios.csproj
+
+5. asp_presentacion (depende de lib_presentaciones)
+   - Referencia de proyecto: lib_presentaciones
+   - Paquetes NuGet: ASP.NET Core (incluido en SDK)
+   - Ubicación: asp_presentacion\asp_presentacion.csproj
+
+6. EPS.Tests (depende de lib_dominio)
+   - Referencia de proyecto: lib_dominio
+   - Paquetes NuGet:
+     * coverlet.collector (6.0.0)
+     * Microsoft.NET.Test.Sdk (17.8.0)
+     * xunit (2.5.3)
+     * xunit.runner.visualstudio (2.5.3)
+   - Ubicación: Tests\EPS.Tests\EPS.Tests.csproj
+
+================================================================================
+📂 ARCHIVOS QUE CAMBIAN SUS RUTAS
+================================================================================
+
+1. secrets.json
+   - Ubicación esperada: Raíz del proyecto (donde está EPS.sln)
+   - Ruta en código: lib_dominio\Nucleo\DatosGenerales.cs (línea 9)
+   - Ruta relativa: Path.Combine(..., "..", "..", "..", "..", "secrets.json")
+   - Explicación: Sube 4 niveles desde bin/Debug hasta la raíz
+   - IMPORTANTE: Si mueves el proyecto, asegúrate de que secrets.json esté
+     en la misma carpeta que EPS.sln
+
+2. Script SQL
+   - Ubicaciones posibles:
+     * lib_repositorios\Script.sql
+     * SCRIPCORREGIDOULTIMO19092025.sql (raíz del proyecto)
+   - Uso: Debe ejecutarse manualmente en SSMS
+   - No cambia automáticamente, se ejecuta una vez para crear la BD
+
+3. Archivos de configuración (appsettings.json)
+   - Ubicación: Cada proyecto tiene su propio appsettings.json
+   - asp_servicios\appsettings.json
+   - asp_presentacion\appsettings.json
+   - Estos archivos NO se usan para la cadena de conexión principal
+   - La cadena de conexión principal está en secrets.json
+
+================================================================================
+🔗 PAQUETES NUGET - REFERENCIAS EXTERNAS
+================================================================================
+
+Los siguientes paquetes se descargan automáticamente al ejecutar:
+dotnet restore EPS.sln
+
+NO necesitas instalarlos manualmente, pero aquí está la lista completa:
+
+PROYECTO: lib_dominio
+  - System.ComponentModel.Annotations (5.0.0)
+  - Newtonsoft.Json (13.0.3)
+
+PROYECTO: lib_repositorios
+  - Microsoft.EntityFrameworkCore (8.0.8)
+  - Microsoft.EntityFrameworkCore.SqlServer (8.0.8)
+  - Microsoft.EntityFrameworkCore.Tools (8.0.8)
+
+PROYECTO: asp_servicios
+  - Microsoft.AspNetCore.OpenApi (8.0.15)
+  - Swashbuckle.AspNetCore (6.6.2)
+
+PROYECTO: EPS.Tests
+  - coverlet.collector (6.0.0)
+  - Microsoft.NET.Test.Sdk (17.8.0)
+  - xunit (2.5.3)
+  - xunit.runner.visualstudio (2.5.3)
+
+================================================================================
+✅ VERIFICACIÓN POST-INSTALACIÓN
+================================================================================
+
+Después de ejecutar el script de configuración, verifica:
+
+1. ✅ .NET SDK instalado:
+   dotnet --version
+   (Debe mostrar 8.0.x o superior)
+
+2. ✅ SQL Server funcionando:
+   sqlcmd -S localhost\SQLEXPRESS -Q "SELECT @@VERSION"
+   (O ajusta según tu instancia)
+
+3. ✅ secrets.json creado:
+   Verificar que existe en la raíz del proyecto
+   Contenido correcto con tu servidor SQL
+
+4. ✅ Proyecto compilado:
+   dotnet build EPS.sln
+   (Debe mostrar "Build succeeded" sin errores)
+
+5. ✅ Base de datos creada:
+   En SSMS, verificar que existe la base de datos EPSDB
+
+================================================================================
+🚀 EJECUTAR EL PROYECTO
+================================================================================
+
+TERMINAL 1 - API (asp_servicios):
+   cd C:\EPS_V2_FINAL
+   dotnet run --project asp_servicios\asp_servicios.csproj
+   
+   El API se ejecutará en: http://localhost:5000 o https://localhost:5001
+   Swagger UI disponible en: http://localhost:5000/swagger
+
+TERMINAL 2 - UI (asp_presentacion):
+   cd C:\EPS_V2_FINAL
+   dotnet run --project asp_presentacion\asp_presentacion.csproj
+   
+   La UI se ejecutará en: http://localhost:5002 o https://localhost:5003
+
+IMPORTANTE: El API debe estar ejecutándose antes de abrir la UI.
+
+================================================================================
+❓ SOLUCIÓN DE PROBLEMAS COMUNES
+================================================================================
+
+PROBLEMA: "dotnet no se reconoce como comando"
+SOLUCIÓN: Instalar .NET 8.0 SDK y reiniciar la terminal
+
+PROBLEMA: "No se puede conectar a SQL Server"
+SOLUCIÓN: 
+  - Verificar que SQL Server esté ejecutándose
+  - Verificar el nombre de la instancia en secrets.json
+  - Probar: sqlcmd -S localhost\SQLEXPRESS -Q "SELECT 1"
+
+PROBLEMA: "No se encuentra secrets.json"
+SOLUCIÓN:
+  - Crear el archivo manualmente en la raíz del proyecto
+  - Verificar que esté en la misma carpeta que EPS.sln
+
+PROBLEMA: "Error al restaurar paquetes NuGet"
+SOLUCIÓN:
+  - Verificar conexión a internet
+  - Ejecutar: dotnet nuget locals all --clear
+  - Ejecutar: dotnet restore EPS.sln
+
+PROBLEMA: "Error de compilación"
+SOLUCIÓN:
+  - Verificar que todos los proyectos estén en la solución
+  - Verificar que las referencias entre proyectos sean correctas
+  - Ejecutar: dotnet clean EPS.sln
+  - Ejecutar: dotnet build EPS.sln --no-incremental
+
+PROBLEMA: "Base de datos no existe"
+SOLUCIÓN:
+  - Ejecutar el script SQL en SSMS
+  - Verificar que el nombre de la base de datos en secrets.json sea EPSDB
+
+================================================================================
+📞 INFORMACIÓN ADICIONAL
+================================================================================
+
+- Repositorio GitHub: https://github.com/kike5767/eps_v2.git
+- Video YouTube: https://youtu.be/GVyz4-I0t_0
+- Documentación completa: documentos\GUIA_COMPLETA_ESTUDIO.html
+
+================================================================================
+🎉 ¡PROYECTO LISTO PARA USAR!
+================================================================================
+
+Si seguiste todos los pasos, el proyecto debería estar:
+✅ Compilado sin errores
+✅ Base de datos creada
+✅ API ejecutándose
+✅ UI ejecutándose
+
+¡Éxito con tu proyecto! 🚀
+
+================================================================================
+

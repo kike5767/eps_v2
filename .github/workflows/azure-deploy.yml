@@ -1,0 +1,71 @@
+# GitHub Actions para despliegue automático a Azure
+# Este workflow se ejecuta automáticamente cuando haces push a main
+name: Desplegar EPS V2 a Azure
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+env:
+  DOTNET_VERSION: '8.0.x'
+  API_PROJECT_PATH: 'asp_servicios/asp_servicios.csproj'
+  UI_PROJECT_PATH: 'asp_presentacion/asp_presentacion.csproj'
+
+jobs:
+  build-and-deploy-api:
+    name: Compilar y Desplegar API
+    runs-on: windows-latest
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+      
+      - name: Configurar .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      
+      - name: Restaurar dependencias
+        run: dotnet restore EPS.sln
+      
+      - name: Compilar proyecto
+        run: dotnet build EPS.sln --configuration Release --no-incremental
+      
+      - name: Publicar API
+        run: dotnet publish ${{ env.API_PROJECT_PATH }} --configuration Release --output ./publish/api
+      
+      - name: Desplegar a Azure App Service (API)
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'eps-v2-api'
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_API }}
+          package: ./publish/api
+
+  build-and-deploy-ui:
+    name: Compilar y Desplegar UI
+    runs-on: windows-latest
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+      
+      - name: Configurar .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      
+      - name: Restaurar dependencias
+        run: dotnet restore EPS.sln
+      
+      - name: Compilar proyecto
+        run: dotnet build EPS.sln --configuration Release --no-incremental
+      
+      - name: Publicar UI
+        run: dotnet publish ${{ env.UI_PROJECT_PATH }} --configuration Release --output ./publish/ui
+      
+      - name: Desplegar a Azure App Service (UI)
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'eps-v2-ui'
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_UI }}
+          package: ./publish/ui
+

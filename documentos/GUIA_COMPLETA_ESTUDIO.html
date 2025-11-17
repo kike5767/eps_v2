@@ -46,6 +46,7 @@
             <li><a href="#sql">Base de Datos SQL Server</a></li>
             <li><a href="#comentarios">Comentarios Línea por Línea</a></li>
             <li><a href="#sustentacion">Preguntas para Sustentación</a></li>
+            <li><a href="#instalacion">Instalación y Configuración Inicial</a></li>
         </ol>
 
         <h2 id="estructura">1. ESTRUCTURA DEL PROYECTO</h2>
@@ -456,6 +457,236 @@ namespace asp_servicios.Controllers
                 <li>✅ Pruebas unitarias implementadas</li>
                 <li>✅ Compilación exitosa sin errores</li>
             </ul>
+        </div>
+
+        <h2 id="instalacion">11. INSTALACIÓN Y CONFIGURACIÓN INICIAL</h2>
+
+        <div class="step">
+            <h3>11.1 Programas Requeridos</h3>
+            <p>Para que el proyecto compile y ejecute correctamente después de descomprimir el ZIP, se necesitan los siguientes programas:</p>
+            
+            <h4>1. .NET 8.0 SDK (OBLIGATORIO)</h4>
+            <ul>
+                <li><strong>Descarga:</strong> https://dotnet.microsoft.com/download/dotnet/8.0</li>
+                <li><strong>Versión mínima:</strong> .NET SDK 8.0</li>
+                <li><strong>Verificación:</strong> Ejecutar <code>dotnet --version</code> en la terminal</li>
+                <li><strong>Uso:</strong> Compila y ejecuta el proyecto</li>
+            </ul>
+
+            <h4>2. SQL Server (OBLIGATORIO)</h4>
+            <ul>
+                <li><strong>Opciones:</strong>
+                    <ul>
+                        <li>SQL Server Express (gratis): https://www.microsoft.com/sql-server/sql-server-downloads</li>
+                        <li>SQL Server Developer Edition (gratis para desarrollo)</li>
+                    </ul>
+                </li>
+                <li><strong>Instancia por defecto:</strong> localhost\SQLEXPRESS o localhost</li>
+                <li><strong>Uso:</strong> Almacena la base de datos EPSDB</li>
+            </ul>
+
+            <h4>3. SQL Server Management Studio - SSMS (RECOMENDADO)</h4>
+            <ul>
+                <li><strong>Descarga:</strong> https://aka.ms/ssmsfullsetup</li>
+                <li><strong>Uso:</strong> Para ejecutar el script SQL y administrar la base de datos</li>
+            </ul>
+
+            <h4>4. Visual Studio 2022 o VS Code (OPCIONAL)</h4>
+            <ul>
+                <li><strong>Visual Studio 2022:</strong> https://visualstudio.microsoft.com/</li>
+                <li><strong>VS Code:</strong> https://code.visualstudio.com/</li>
+                <li><strong>Uso:</strong> Editor de código (el proyecto puede compilarse desde la terminal)</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>11.2 Configuración de la Cadena de Conexión</h3>
+            <p>La cadena de conexión se configura en el archivo <strong>secrets.json</strong> en la raíz del proyecto.</p>
+            
+            <h4>Ubicación del archivo:</h4>
+            <div class="code">
+C:\EPS_V2_FINAL\secrets.json
+            </div>
+
+            <h4>Contenido del archivo:</h4>
+            <div class="code">
+{
+  "StringConexion": "Server=localhost\\SQLEXPRESS;Database=EPSDB;Trusted_Connection=True;TrustServerCertificate=True;"
+}
+            </div>
+
+            <h4>Dónde se lee en el código:</h4>
+            <ul>
+                <li><strong>Archivo:</strong> <code>lib_dominio\Nucleo\DatosGenerales.cs</code></li>
+                <li><strong>Línea:</strong> 9</li>
+                <li><strong>Código:</strong> <code>public static string ruta_json = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", "secrets.json");</code></li>
+            </ul>
+
+            <h4>Qué cambiar según tu instalación:</h4>
+            <ul>
+                <li><strong>Si usas SQL Server Express:</strong> <code>Server=localhost\SQLEXPRESS</code></li>
+                <li><strong>Si usas SQL Server Developer/Standard:</strong> <code>Server=localhost</code></li>
+                <li><strong>Si usas otra instancia:</strong> <code>Server=NOMBRE_SERVIDOR\NOMBRE_INSTANCIA</code></li>
+                <li><strong>Si usas autenticación SQL:</strong> <code>Server=...;User Id=usuario;Password=contraseña;</code></li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>11.3 Referencias entre Proyectos</h3>
+            <p>El proyecto tiene dependencias entre capas que deben compilarse en orden:</p>
+            
+            <h4>Orden de dependencias:</h4>
+            <ol>
+                <li><strong>lib_dominio</strong> (base, sin dependencias de otros proyectos)
+                    <ul>
+                        <li>Paquetes NuGet: System.ComponentModel.Annotations, Newtonsoft.Json</li>
+                    </ul>
+                </li>
+                <li><strong>lib_repositorios</strong> (depende de lib_dominio)
+                    <ul>
+                        <li>Referencia: lib_dominio</li>
+                        <li>Paquetes NuGet: Entity Framework Core, Entity Framework Core SQL Server</li>
+                    </ul>
+                </li>
+                <li><strong>lib_presentaciones</strong> (depende de lib_dominio)
+                    <ul>
+                        <li>Referencia: lib_dominio</li>
+                    </ul>
+                </li>
+                <li><strong>asp_servicios</strong> (depende de lib_dominio y lib_repositorios)
+                    <ul>
+                        <li>Referencias: lib_dominio, lib_repositorios</li>
+                        <li>Paquetes NuGet: ASP.NET Core, Swagger, Entity Framework Core</li>
+                    </ul>
+                </li>
+                <li><strong>asp_presentacion</strong> (depende de lib_presentaciones)
+                    <ul>
+                        <li>Referencia: lib_presentaciones</li>
+                        <li>Paquetes NuGet: ASP.NET Core Razor Pages</li>
+                    </ul>
+                </li>
+                <li><strong>EPS.Tests</strong> (depende de lib_dominio)
+                    <ul>
+                        <li>Referencia: lib_dominio</li>
+                        <li>Paquetes NuGet: xUnit, Microsoft.NET.Test.Sdk</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h3>11.4 Archivos que Cambian sus Rutas</h3>
+            <p>Algunos archivos tienen rutas relativas que pueden necesitar ajuste según dónde se descomprima el proyecto:</p>
+            
+            <h4>1. secrets.json</h4>
+            <ul>
+                <li><strong>Ubicación esperada:</strong> Raíz del proyecto (donde está EPS.sln)</li>
+                <li><strong>Ruta en código:</strong> <code>lib_dominio\Nucleo\DatosGenerales.cs</code> línea 9</li>
+                <li><strong>Ruta relativa:</strong> <code>Path.Combine(..., "..", "..", "..", "..", "secrets.json")</code></li>
+                <li><strong>Nota:</strong> Esta ruta asume que el proyecto se ejecuta desde bin/Debug, por lo que sube 4 niveles</li>
+            </ul>
+
+            <h4>2. Script SQL</h4>
+            <ul>
+                <li><strong>Ubicaciones posibles:</strong>
+                    <ul>
+                        <li><code>lib_repositorios\Script.sql</code></li>
+                        <li><code>SCRIPCORREGIDOULTIMO19092025.sql</code> (raíz)</li>
+                    </ul>
+                </li>
+                <li><strong>Uso:</strong> Debe ejecutarse manualmente en SSMS</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>11.5 Configuración Automática con Script .bat</h3>
+            <p>El proyecto incluye un script <strong>CONFIGURAR_PROYECTO_AUTOMATICO.bat</strong> que hace todo automáticamente:</p>
+            
+            <h4>¿Qué hace el script?</h4>
+            <ol>
+                <li>Verifica que .NET 8.0 SDK esté instalado</li>
+                <li>Verifica SQL Server y detecta la instancia</li>
+                <li>Crea el archivo secrets.json con la cadena de conexión correcta</li>
+                <li>Verifica la estructura de proyectos</li>
+                <li>Restaura todos los paquetes NuGet</li>
+                <li>Compila el proyecto completo</li>
+                <li>Muestra un resumen de configuración</li>
+            </ol>
+
+            <h4>Cómo usar:</h4>
+            <ol>
+                <li>Descomprime el ZIP del proyecto</li>
+                <li>Navega a la carpeta del proyecto</li>
+                <li>Ejecuta <code>CONFIGURAR_PROYECTO_AUTOMATICO.bat</code> (doble clic)</li>
+                <li>Sigue las instrucciones en pantalla</li>
+                <li>Ejecuta el script SQL en SSMS para crear la base de datos</li>
+            </ol>
+
+            <div class="important">
+                <h4>⚠️ IMPORTANTE:</h4>
+                <p>Después de ejecutar el script .bat, debes ejecutar manualmente el script SQL en SQL Server Management Studio para crear la base de datos EPSDB.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>11.6 Paquetes NuGet Requeridos</h3>
+            <p>El proyecto usa los siguientes paquetes NuGet que se restauran automáticamente:</p>
+            
+            <table>
+                <tr>
+                    <th>Proyecto</th>
+                    <th>Paquete</th>
+                    <th>Versión</th>
+                </tr>
+                <tr>
+                    <td rowspan="2">lib_dominio</td>
+                    <td>System.ComponentModel.Annotations</td>
+                    <td>5.0.0</td>
+                </tr>
+                <tr>
+                    <td>Newtonsoft.Json</td>
+                    <td>13.0.3</td>
+                </tr>
+                <tr>
+                    <td rowspan="3">lib_repositorios</td>
+                    <td>Microsoft.EntityFrameworkCore</td>
+                    <td>8.0.8</td>
+                </tr>
+                <tr>
+                    <td>Microsoft.EntityFrameworkCore.SqlServer</td>
+                    <td>8.0.8</td>
+                </tr>
+                <tr>
+                    <td>Microsoft.EntityFrameworkCore.Tools</td>
+                    <td>8.0.8</td>
+                </tr>
+                <tr>
+                    <td rowspan="2">asp_servicios</td>
+                    <td>Microsoft.AspNetCore.OpenApi</td>
+                    <td>8.0.15</td>
+                </tr>
+                <tr>
+                    <td>Swashbuckle.AspNetCore</td>
+                    <td>6.6.2</td>
+                </tr>
+                <tr>
+                    <td rowspan="4">EPS.Tests</td>
+                    <td>coverlet.collector</td>
+                    <td>6.0.0</td>
+                </tr>
+                <tr>
+                    <td>Microsoft.NET.Test.Sdk</td>
+                    <td>17.8.0</td>
+                </tr>
+                <tr>
+                    <td>xunit</td>
+                    <td>2.5.3</td>
+                </tr>
+                <tr>
+                    <td>xunit.runner.visualstudio</td>
+                    <td>2.5.3</td>
+                </tr>
+            </table>
         </div>
 
         <hr style="margin: 40px 0; border: 2px solid #7B2CBF;">
